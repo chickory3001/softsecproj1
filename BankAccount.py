@@ -10,8 +10,8 @@
 from transaction import Transaction
 
 class BankAccount:
-    _overdraft = 20.00
-    _interest = 0.075 # interest as a decimal 
+    OVERDRAFT_FEE = 20.00
+    INTEREST_RATE = 0.075     # interest as a decimal 
     _nextAccountNumber = 1000
 
     def __init__(self, first:str = "", last:str ="", balance:float = 0.0):
