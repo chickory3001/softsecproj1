@@ -14,14 +14,13 @@ class BankAccount:
     INTEREST_RATE = 0.075
     _nextAccountNumber = 1000
 
-    def __init__(self, first: str = "", last: str ="", balance: float = 0.0):
+    def __init__(self, first: str = "", last: str =""):
         assert 1 <= len(first) <= 25 and first.isalpha and isinstance(first, str), 'invalid first name'
         assert 1 <= len(last) <= 40 and last.isalpha and isinstance(last, str), 'invalid last name'
         assert isinstance(balance,float),'invalid balance'
 
         self._first = first
         self._last = last
-        self._balance = balance
         self._accountNumber = BankAccount._nextAccountNumber
         self._transactions = []
         self._timesOverdrawn = 0
@@ -44,7 +43,7 @@ class BankAccount:
     # getBalance returns the account's balance 
     # @return: the account's balance
     def getBalance(self):
-        return self._balance
+        return sum(self._transactions)
     
     # getAccountNumber returns the account's account number 
     # @return: the account's accunt number
@@ -75,7 +74,22 @@ class BankAccount:
         self._balance += interest
 
     def withdraw(self, amount: float):
-        pass
+        if amount > self.getBalance()+250:
+            print("Transaction denied")
+        elif amount >= 0:
+            withdrawalTransaction = Transaction(len(self._transactions)+1, "withdrawal", amount)
+            self._transactions.append(withdrawalTransaction)
+            # Subtract from balance by amount
+            if self.getBalance() < 0:
+                self._incrementOverdraft()
+                penaltyTransaction = Transaction(len(self._transactions)+1, "penalty", -OVERDRAFT_FEE)
+                print("Account has been overdrawn")
+                self._transactions.append(penaltyTransaction)
+        else:
+            print("Transaction denied")
+    
+    def _incrementOverdraft(self):
+        self._timesOverdrawn += 1
 
     def transfer(self, other, amount: float):
         pass
