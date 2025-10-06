@@ -1,6 +1,5 @@
 account num post condition > 1000 (or pre condition ig) 
-remove balance piv and make a getbalance method that sums transactions
 use _ before methods to signal private 
-use a set for transactions 
-setters for first name, last name, times overdrawn, "setter" to append transaction?
 post condition on times overdrawn, >= 0 
+equality 
+test for negative interest

@@ -15,7 +15,7 @@ class Transaction :
    #  @param tType: the type of this transaction (String: default is an empty string)
    #  @param amount: the amount of this transaction (Floating point: default is 0.0, must be a positive float)
    #  @ensure tType is in the set {"deposit", "withdrawl", "interest", "transfer", "penalty"}
-   #  @ensure date is a valid date
+   #  @ensure date is a valid date 
    
    def __init__(self, tNumber, tType = "", amount = 0.0) :
       
