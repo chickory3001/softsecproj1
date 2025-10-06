@@ -2,7 +2,7 @@
 # @date: 09-22-2025
 # import the datetime class used to get today's date
 import datetime
- 
+
 #  This module defines the Transaction class.
 #  A class to represent the data elements and methods required to implement a back account transaction.
 
