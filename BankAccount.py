@@ -77,7 +77,7 @@ class BankAccount:
         if amount > self.getBalance()+250:
             print("Transaction denied")
         elif amount >= 0:
-            withdrawalTransaction = Transaction(len(self._transactions)+1, "withdrawal", amount)
+            withdrawalTransaction = Transaction(len(self._transactions)+1, "withdrawal", -amount)
             self._transactions.append(withdrawalTransaction)
             # Subtract from balance by amount
             if self.getBalance() < 0:
