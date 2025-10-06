@@ -79,12 +79,14 @@ class BankAccount:
     # Returns a sring containing the account instance variables.
     # @return: The formatted, machine readable string of the account 
     def __repr__(self) -> str:
-        string = (f'BankAccount(first = {self._first}, last = {self._last}, '
-            f'accountNumber = {self._accountNumber}, timesOverdrawn = {self._timesOverdrawn}, transactions = [')
+        string = (f'BankAccount(first : {self._first}, last : {self._last}, '
+            f'accountNumber : {self._accountNumber}, timesOverdrawn : {self._timesOverdrawn}, transactions : [')
         #iterate over list of transactions, puts newline before to ensure there's no trailing newline char
         for x in self._transactions:
             string += '\n' + repr(x) 
         string += '])'
+        #use : instead of = because McManus said so 
+        string = string.replace('=',':')
         return string
     
     #prints all of the account's instance variables 
@@ -96,6 +98,12 @@ class BankAccount:
         #iterate over the list of transactions
         for x in self._transactions:
             print(str(x))
+
+    #checks to see if two accounts have the same account number
+    #@param other: the accout obj being compared to 
+    #@return true if the account numbers are the same, false if not 
+    def __eq__(self,other:'BankAccount') -> bool:
+        return self._accountNumber == other._accountNumber
 
     ### COMMANDS ###
     

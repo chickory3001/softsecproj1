@@ -3,3 +3,7 @@ use _ before methods to signal private
 post condition on times overdrawn, >= 0 
 equality 
 test for negative interest
+
+
+@require - preconditions
+@ensure - post conditions and invariants 
