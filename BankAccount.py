@@ -1,5 +1,12 @@
-"""
-header"""
+# bankaccount.py
+#
+# Created by: J. Bodde, C. Burrell, H. Hickory, R. Pelzel, C. Triplett
+# 
+# CSEC323 - Project 1
+# 
+# This module defines the BankAccount class.
+# A class to represent a secure bank account.
+
 from transaction import Transaction
 
 class BankAccount:
