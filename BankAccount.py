@@ -13,7 +13,7 @@ class BankAccount:
     OVERDRAFT_FEE = 20.00
     INTEREST_RATE = 0.075
     _nextAccountNumber = 1000
-
+    
     #constructs a bank account object
     #@param first: the first name as a string, default empty string 
     #@param last: the last name as a string, default empty string
@@ -23,17 +23,17 @@ class BankAccount:
     def __init__(self, first: str = "", last: str =""):
         assert 1 <= len(first) <= 25 and first.isalpha and isinstance(first, str), 'invalid first name'
         assert 1 <= len(last) <= 40 and last.isalpha and isinstance(last, str), 'invalid last name'
-
+    
         self._first = first
         self._last = last
         self._accountNumber = BankAccount._nextAccountNumber
         self._transactions = []
         self._timesOverdrawn = 0
-
+    
         # Increment the next account number. 
         BankAccount._nextAccountNumber += 1
         assert self._accountNumber >= 1000, 'account number must be >= 1000'
-
+    
     ### QUERIES ###
     
     # getFirst returns the account's first name 
@@ -92,43 +92,82 @@ class BankAccount:
     #prints all of the account's instance variables 
     def printAccount(self):
         print(str(self))
-
+    
     #prints the list of transactions for the account 
     def printTransactions(self):
         #iterate over the list of transactions
         for x in self._transactions:
             print(str(x))
-
+    
     #checks to see if two accounts have the same account number
-    #@param other: the accout obj being compared to 
+    #@param other: the account obj being compared to 
     #@return true if the account numbers are the same, false if not 
     def __eq__(self,other:'BankAccount') -> bool:
         return self._accountNumber == other._accountNumber
-
+    
+    #checks if this account's balance is less than the other
+    #@param other: the account obj being compared to
+    #@return true if this account's balance is less than other, false if otherwise
+    def __lt__(self,other:'BankAccount') -> bool:
+        return self.getBalance() < other.getBalance()
+    
+    #checks if this account's balance is greater than the other
+    #@param other: the account obj being compared to
+    #@return true if this account's balance is greater than other, false if otherwise
+    def __gt__(self,other:'BankAccount') -> bool:
+        return self.getBalance() > other.getBalance()
+    
+    #checks if this account's balance is less than or equal to the other
+    #@param other: the account obj being compared to
+    #@return true if this account's balance is less than or equal to other, false if otherwise
+    def __le__(self,other:'BankAccount') -> bool:
+        return self.getBalance() <= other.getBalance()
+    
+    #checks if this account's balance is greater than or equal to the other
+    #@param other: the account obj being compared to
+    #@return true if this account's balance is greater than or equal to other, false if otherwise
+    def __ge__(self,other:'BankAccount') -> bool:
+        return self.getBalance() >= other.getBalance()
+    
     ### COMMANDS ###
     
+    #updates the first name of the account
+    #@param first: new first name string 
+    #@ensure first is a str of length 1-25 with no special characters
     def _setFirstName(self,first:str):
         assert 1 <= len(first) <= 25 and first.isalpha and isinstance(first, str), 'invalid first name'
         self._first = first
     
+    #updates the last name of the account
+    #@param last: new last name string 
+    #@ensure last is a str of length 1-40 with no special characters
     def _setLastName(self,last:'str'):
         assert 1 <= len(last) <= 25 and last.isalpha and isinstance(last, str), 'invalid first name'
         self._last = last
     
+    #adds 1 to the timesOverdrawn counter variable 
     def _incrementOverdraft(self):
         self._timesOverdrawn += 1
     
+    #deposits money into the account via creating a deposit transaction
+    #@param amount: amount to deposit 
+    #@require amount > 0 
     def deposit(self,amount:float):
-        assert isinstance(amount,float) and amount >= 0.0, 'invalid deposit amount'
+        assert isinstance(amount,float) and amount > 0.0, 'invalid deposit amount'
         self._transactions.append(Transaction(len(self._transactions)+1, 'deposit', amount))
     
+    #calculates and adds interest into the account via creating an interest transaction
     def addInterest(self):
         # don't do interest on negative balance, since it would be negative interest
         if self.getBalance() > 0:
             interest = self.getBalance() * BankAccount.INTEREST_RATE
             self._transactions.append(Transaction(len(self._transactions)+1, 'interest', interest))
-
+    
+    #withdraws money from the account via creating a withdraw transaction
+    #@param amount: amount to withdraw 
+    #@require amount > 0 
     def withdraw(self, amount: float) -> bool:
+        assert amount > 0, 'invalid withdrawal amount'
         if amount > self.getBalance()+250:
             print("Transaction denied")
             return False
@@ -141,12 +180,17 @@ class BankAccount:
                 penaltyTransaction = Transaction(len(self._transactions)+1, "penalty", -BankAccount.OVERDRAFT_FEE)
                 print("Account has been overdrawn")
                 self._transactions.append(penaltyTransaction)
-            return True
+            return True 
         else:
             print("Transaction denied")
             return False
-
+    
+    #withdraws money from the other account and deposits it into self
+    #via withdrawing from other and depositing into self
+    #@param amount: amount to transfer to the account 
+    #@require amount > 0 
     def transfer(self, other: 'BankAccount', amount: float) -> bool:
+        assert amount > 0, 'invalid transfer amount'
         # if the withdrawal from the other account is successful, deposit the amount into self
         if other.withdraw(amount):
             self.deposit(amount)
