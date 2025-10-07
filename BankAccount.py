@@ -17,9 +17,9 @@ class BankAccount:
     #constructs a bank account object
     #@param first: the first name as a string, default empty string 
     #@param last: the last name as a string, default empty string
-    #@ensure first is a str of length 1-25 with no special characters
-    #@ensure last is a str of length 1-40 with no special characters
-    #@require account number >= 1000
+    #@require first is a str of length 1-25 with no special characters
+    #@require last is a str of length 1-40 with no special characters
+    #@ensure account number >= 1000
     def __init__(self, first: str = "", last: str =""):
         assert 1 <= len(first) <= 25 and first.isalpha and isinstance(first, str), 'invalid first name'
         assert 1 <= len(last) <= 40 and last.isalpha and isinstance(last, str), 'invalid last name'
@@ -105,29 +105,29 @@ class BankAccount:
     def __eq__(self,other:'BankAccount') -> bool:
         return self._accountNumber == other._accountNumber
     
-    #checks if this account's balance is less than the other
+    #checks if this account's account number is less than the other
     #@param other: the account obj being compared to
-    #@return true if this account's balance is less than other, false if otherwise
+    #@return true if this account's account number is less than other, false if otherwise
     def __lt__(self,other:'BankAccount') -> bool:
-        return self.getBalance() < other.getBalance()
+        return self._accountNumber < other._accountNumber
     
-    #checks if this account's balance is greater than the other
+    #checks if this account's account number is greater than the other
     #@param other: the account obj being compared to
-    #@return true if this account's balance is greater than other, false if otherwise
+    #@return true if this account's account number is greater than other, false if otherwise
     def __gt__(self,other:'BankAccount') -> bool:
-        return self.getBalance() > other.getBalance()
+        return self._accountNumber > other._accountNumber
     
-    #checks if this account's balance is less than or equal to the other
+    #checks if this account's account number is less than or equal to the other
     #@param other: the account obj being compared to
-    #@return true if this account's balance is less than or equal to other, false if otherwise
+    #@return true if this account's account number is less than or equal to other, false if otherwise
     def __le__(self,other:'BankAccount') -> bool:
-        return self.getBalance() <= other.getBalance()
+        return self._accountNumber <= other._accountNumber
     
-    #checks if this account's balance is greater than or equal to the other
+    #checks if this account's account number is greater than or equal to the other
     #@param other: the account obj being compared to
-    #@return true if this account's balance is greater than or equal to other, false if otherwise
+    #@return true if this account's account number is greater than or equal to other, false if otherwise
     def __ge__(self,other:'BankAccount') -> bool:
-        return self.getBalance() >= other.getBalance()
+        return self._accountNumber >= other._accountNumber
     
     ### COMMANDS ###
     
