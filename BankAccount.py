@@ -133,14 +133,14 @@ class BankAccount:
     
     #updates the first name of the account
     #@param first: new first name string 
-    #@ensure first is a str of length 1-25 with no special characters
+    #@require first is a str of length 1-25 with no special characters
     def _setFirstName(self,first:str):
         assert 1 <= len(first) <= 25 and first.isalpha and isinstance(first, str), 'invalid first name'
         self._first = first
     
     #updates the last name of the account
     #@param last: new last name string 
-    #@ensure last is a str of length 1-40 with no special characters
+    #@require last is a str of length 1-40 with no special characters
     def _setLastName(self,last:'str'):
         assert 1 <= len(last) <= 25 and last.isalpha and isinstance(last, str), 'invalid first name'
         self._last = last
