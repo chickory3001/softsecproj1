@@ -33,6 +33,7 @@ class BankAccount:
         # Increment the next account number. 
         BankAccount._nextAccountNumber += 1
         assert self._accountNumber >= 1000, 'account number must be >= 1000'
+
     
     ### QUERIES ###
     
@@ -65,30 +66,7 @@ class BankAccount:
     # @return: the account's amount of times overdrawn
     def getTimesOverdrawn(self) -> int:
         return self._timesOverdrawn
-    
-    # Returns a sring containing the account instance variables.
-    # @return: The formatted, human readable string of the account 
-    def __str__(self) -> str:
-        string = (f'First Name: {self._first}\nLast Name: {self._last}\n'
-            f'Account Number: {self._accountNumber}\nBalance: {self.getBalance()}')
-        #iterate over list of transactions, puts newline before to ensure there's no trailing newline char
-        for x in self._transactions:
-            string += '\n' + str(x) 
-        return string
-    
-    # Returns a sring containing the account instance variables.
-    # @return: The formatted, machine readable string of the account 
-    def __repr__(self) -> str:
-        string = (f'BankAccount(first : {self._first}, last : {self._last}, '
-            f'accountNumber : {self._accountNumber}, timesOverdrawn : {self._timesOverdrawn}, transactions : [')
-        #iterate over list of transactions, puts newline before to ensure there's no trailing newline char
-        for x in self._transactions:
-            string += '\n' + repr(x) 
-        string += '])'
-        #use : instead of = because McManus said so 
-        string = string.replace('=',':')
-        return string
-    
+
     #prints all of the account's instance variables 
     def printAccount(self):
         print(str(self))
@@ -98,37 +76,8 @@ class BankAccount:
         #iterate over the list of transactions
         for x in self._transactions:
             print(str(x))
-    
-    #checks to see if two accounts have the same account number
-    #@param other: the account obj being compared to 
-    #@return true if the account numbers are the same, false if not 
-    def __eq__(self,other:'BankAccount') -> bool:
-        return self._accountNumber == other._accountNumber
-    
-    #checks if this account's account number is less than the other
-    #@param other: the account obj being compared to
-    #@return true if this account's account number is less than other, false if otherwise
-    def __lt__(self,other:'BankAccount') -> bool:
-        return self._accountNumber < other._accountNumber
-    
-    #checks if this account's account number is greater than the other
-    #@param other: the account obj being compared to
-    #@return true if this account's account number is greater than other, false if otherwise
-    def __gt__(self,other:'BankAccount') -> bool:
-        return self._accountNumber > other._accountNumber
-    
-    #checks if this account's account number is less than or equal to the other
-    #@param other: the account obj being compared to
-    #@return true if this account's account number is less than or equal to other, false if otherwise
-    def __le__(self,other:'BankAccount') -> bool:
-        return self._accountNumber <= other._accountNumber
-    
-    #checks if this account's account number is greater than or equal to the other
-    #@param other: the account obj being compared to
-    #@return true if this account's account number is greater than or equal to other, false if otherwise
-    def __ge__(self,other:'BankAccount') -> bool:
-        return self._accountNumber >= other._accountNumber
-    
+
+
     ### COMMANDS ###
     
     #updates the first name of the account
@@ -198,6 +147,63 @@ class BankAccount:
         # if it's unsuccessful, don't deposit
         else:
             return False
+
+    
+    ### Special Methods ###
+    
+    # Returns a sring containing the account instance variables.
+    # @return: The formatted, human readable string of the account 
+    def __str__(self) -> str:
+        string = (f'First Name: {self._first}\nLast Name: {self._last}\n'
+            f'Account Number: {self._accountNumber}\nBalance: {self.getBalance()}')
+        #iterate over list of transactions, puts newline before to ensure there's no trailing newline char
+        for x in self._transactions:
+            string += '\n' + str(x) 
+        return string
+    
+    # Returns a sring containing the account instance variables.
+    # @return: The formatted, machine readable string of the account 
+    def __repr__(self) -> str:
+        string = (f'BankAccount(first : {self._first}, last : {self._last}, '
+            f'accountNumber : {self._accountNumber}, timesOverdrawn : {self._timesOverdrawn}, transactions : [')
+        #iterate over list of transactions, puts newline before to ensure there's no trailing newline char
+        for x in self._transactions:
+            string += '\n' + repr(x) 
+        string += '])'
+        #use : instead of = because McManus said so 
+        string = string.replace('=',':')
+        return string
+    
+    #checks to see if two accounts have the same account number
+    #@param other: the account obj being compared to 
+    #@return true if the account numbers are the same, false if not 
+    def __eq__(self,other:'BankAccount') -> bool:
+        return self._accountNumber == other._accountNumber
+    
+    #checks if this account's account number is less than the other
+    #@param other: the account obj being compared to
+    #@return true if this account's account number is less than other, false if otherwise
+    def __lt__(self,other:'BankAccount') -> bool:
+        return self._accountNumber < other._accountNumber
+    
+    #checks if this account's account number is greater than the other
+    #@param other: the account obj being compared to
+    #@return true if this account's account number is greater than other, false if otherwise
+    def __gt__(self,other:'BankAccount') -> bool:
+        return self._accountNumber > other._accountNumber
+    
+    #checks if this account's account number is less than or equal to the other
+    #@param other: the account obj being compared to
+    #@return true if this account's account number is less than or equal to other, false if otherwise
+    def __le__(self,other:'BankAccount') -> bool:
+        return self._accountNumber <= other._accountNumber
+    
+    #checks if this account's account number is greater than or equal to the other
+    #@param other: the account obj being compared to
+    #@return true if this account's account number is greater than or equal to other, false if otherwise
+    def __ge__(self,other:'BankAccount') -> bool:
+        return self._accountNumber >= other._accountNumber
+    
 
 if __name__ == "__main__":
     account = BankAccount('joe','shmoe')
