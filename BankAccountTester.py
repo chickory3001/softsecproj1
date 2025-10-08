@@ -15,7 +15,7 @@ class TestBankAccount(unittest.TestCase):
     BankAccount.getLast()
     BankAccount.getAccountNumber()
     BankAccount.getBalance()
-    BankAccount.getTransacations()
+    BankAccount.listTransacation[]
     #------------------------------------------------------------------------------------------------------------
     
     
