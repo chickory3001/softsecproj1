@@ -6,7 +6,7 @@ class TestBankAccount(unittest.TestCase):
     
     first = input("Enter First Name:")
     last = input("Enter Last Name:")
-    bankAccountNum = random(rndint(1000,1000000)
+    bankAccountNum = random(rndint(1000,1000000) #Chooses a random integer between 1,000 and 100,000
     BankAccount(first, last, bankAccountNum)
     
     #------------------------------------------------------------------------------------------------------------
