@@ -12,7 +12,7 @@ class TestBankAccount(unittest.TestCase):
     #------------------------------------------------------------------------------------------------------------
     #This is where the information returns to: First and Last Name, Bank Account Number, Balance
     BankAccount.getAccount()
-    BankAccount.printTransactions()
+    BankAccount.getBalance()
     #------------------------------------------------------------------------------------------------------------
     
     
