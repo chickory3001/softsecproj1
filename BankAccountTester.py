@@ -11,6 +11,8 @@ class TestBankAccount(unittest.TestCase):
     
     #------------------------------------------------------------------------------------------------------------
     #This is where the information returns to: First and Last Name, Bank Account Number, Balance
+    BankAccount.getFirst()
+    BankAccount.getLast()
     BankAccount.getAccount()
     BankAccount.getBalance()
     #------------------------------------------------------------------------------------------------------------
