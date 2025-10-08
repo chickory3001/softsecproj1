@@ -6,8 +6,7 @@ class TestBankAccount(unittest.TestCase):
     
     first = input("Enter First Name:")
     last = input("Enter Last Name:")
-    balance = float(input("Enter the amount of money being deposited:"))
-    BankAccount(first, last, balance)
+    BankAccount(first, last)
     
     #------------------------------------------------------------------------------------------------------------
     #This is where the information returns to user: First and Last Name, Bank Account Number, Balance
