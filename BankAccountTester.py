@@ -8,7 +8,7 @@ Test each method with at least one unit test.
 """
 
 import unittest
-from bankaccount import BankAccount
+from BankAccount import BankAccount
 
 """Define TestBankAccount class by extending the unittest.TestCase class"""
 
@@ -30,28 +30,57 @@ class TestBankAccount(unittest.TestCase):
     
     DEPOSIT1 =   2600000000
     DEPOSIT2 = 106000000000
-    WITHDRAWL =  2600000250
+    INVALIDWITHDRAWAL =  2600000250
+    VALIDWITHDRAWAL = 50
     FIRST = "Tim"
     LAST = "Apple"
-    DEBUG = True
+    DEBUG = False
     
-    # The setup method creates three bank accounts. 
+    # The setup method creates two bank accounts. 
     def setUp(self):
         self.bankAccount1 = BankAccount("Tim", "Apple")
         self.bankAccount2 = BankAccount("Billiam", "Gates")
         
-    
     # The test_constructor method tests the constructor.
     def test_constructor(self):
         if TestBankAccount.DEBUG:
             print("\nTesting the constructor")
             print("The first bank account: ", self.bankAccount1)
-            print(repr(self.bankAccount1))
+            print(self.bankAccount1)
             
         self.assertEqual(self.bankAccount1.getFirst(), TestBankAccount.FIRST)
         self.assertEqual(self.bankAccount1.getLast(), TestBankAccount.LAST)
-            
-            
+        
+    #test asserts on preconditions 
+    def test_constructor_asserts(self):
+        if TestBankAccount.DEBUG:
+            print('\n testing constructor assertions')
+
+        # catch the expected assertion errors
+        # if an assertion error isn't raised on any of these, the test will fail 
+        with self.assertRaises(AssertionError):
+            self.bankAccount1 = BankAccount('a'*30,'smith')
+        with self.assertRaises(AssertionError):
+            self.bankAccount2 = BankAccount('','smith')
+        with self.assertRaises(AssertionError):
+            self.bankAccount3 = BankAccount('!@#$%^&*','smith')
+        with self.assertRaises(AssertionError):
+            self.bankAccount4 = BankAccount(100,'smith')
+        with self.assertRaises(AssertionError):
+            self.bankAccount5 = BankAccount('henry','')
+        with self.assertRaises(AssertionError):
+            self.bankAccount6 = BankAccount('henry','a'*41)
+        with self.assertRaises(AssertionError):
+            self.bankAccount7 = BankAccount('henry','!@#$%')
+        with self.assertRaises(AssertionError):
+            self.bankAccount8 = BankAccount('henry',100)
+        
+    # test account number increment 
+    def test_accountNumber(self):
+        if TestBankAccount.DEBUG:
+            print('\n testing account number increment')
+        self.assertEqual(self.bankAccount1.getAccountNumber(),1000)
+        self.assertEqual(self.bankAccount2.getAccountNumber(),1001)
     # Test the __eq__ special method.
     def test_eq(self):
         if TestBankAccount.DEBUG:
@@ -59,7 +88,6 @@ class TestBankAccount(unittest.TestCase):
             
         # Assert
         self.assertTrue(self.bankAccount1 == self.bankAccount1)
-        
         
     # Second test of the __eq__ special method.
     def test_eq_2(self):
@@ -69,7 +97,6 @@ class TestBankAccount(unittest.TestCase):
         # Assert
         self.assertFalse(self.bankAccount1 == self.bankAccount2)
         
-        
     # Test the __ne__ special method.
     def test_ne(self):
         if TestBankAccount.DEBUG:
@@ -78,7 +105,6 @@ class TestBankAccount(unittest.TestCase):
         # Assert
         self.assertTrue(self.bankAccount1 != self.bankAccount2)
         
-        
     # Second test of the __ne__ special method.
     def test_ne_2(self):
         if TestBankAccount.DEBUG:
@@ -86,7 +112,6 @@ class TestBankAccount(unittest.TestCase):
             
         # Assert
         self.assertFalse(self.bankAccount1 != self.bankAccount1)
-        
     
     # The test_getFirst method tests the getFirst method.
     def test_getFirst(self):
@@ -96,7 +121,6 @@ class TestBankAccount(unittest.TestCase):
         # Assert
         self.assertEqual(self.bankAccount1.getFirst(), TestBankAccount.FIRST)
         
-    
     # The test_getLast method tests the getLast method.
     def test_getLast(self):
         if TestBankAccount.DEBUG:
@@ -105,16 +129,22 @@ class TestBankAccount(unittest.TestCase):
         # Assert
         self.assertEqual(self.bankAccount1.getLast(), TestBankAccount.LAST)
         
-        
     # The test_getBalance method tests the getBalance method.
     def test_getBalance(self):
         if TestBankAccount.DEBUG:
             print("\nTesting the getBalance method")
             
-        # Assert 
+        # test initial balance = 0 
         self.assertEqual(self.bankAccount1.getBalance(), 0)
+
+        #test that a deposit increases balance appropriately
+        self.bankAccount1.deposit(TestBankAccount.DEPOSIT1)
+        self.assertEqual(self.bankAccount1.getBalance(),TestBankAccount.DEPOSIT1)
+
+        #test that a withdrawal decreases balance appropriately
+        self.bankAccount1.withdraw(TestBankAccount.VALIDWITHDRAWAL)
+        self.assertEqual(self.bankAccount1.getBalance(),TestBankAccount.DEPOSIT1 - TestBankAccount.VALIDWITHDRAWAL)
         
-    
     # The test_deposit method tests the deposit method.
     def test_deposit(self):
         if TestBankAccount.DEBUG:
@@ -127,7 +157,6 @@ class TestBankAccount(unittest.TestCase):
         self.assertEqual(self.bankAccount1.getBalance(), TestBankAccount.DEPOSIT1)
         self.assertEqual(self.bankAccount2.getBalance(), TestBankAccount.DEPOSIT2)
     
-    
     # The test_withdraw method tests the withdraw method.
     def test_withdraw(self):
         if TestBankAccount.DEBUG:
@@ -138,11 +167,11 @@ class TestBankAccount(unittest.TestCase):
             self.bankAccount1.withdraw(-1)
         
         # Assert withdrawing too much returns False.
-        self.assertFalse(self.bankAccount1.withdraw(TestBankAccount.WITHDRAWL + 1))
+        self.assertFalse(self.bankAccount1.withdraw(TestBankAccount.INVALIDWITHDRAWAL))
         
         # Assert withdrawing normally returns True. 
-        self.assertTrue(self.bankAccount1.withdraw(TestBankAccount.WITHDRAWL))
-    
+        self.bankAccount1.deposit(TestBankAccount.DEPOSIT1)
+        self.assertTrue(self.bankAccount1.withdraw(TestBankAccount.VALIDWITHDRAWAL))
     
 if __name__ == "__main__":
     unittest.main()

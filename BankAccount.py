@@ -9,6 +9,7 @@
 
 from transaction import Transaction
 
+
 class BankAccount:
     OVERDRAFT_FEE = 20.00
     INTEREST_RATE = 0.075
@@ -21,8 +22,8 @@ class BankAccount:
     #@require last is a str of length 1-40 with no special characters
     #@ensure account number >= 1000
     def __init__(self, first: str = "", last: str =""):
-        assert 1 <= len(first) <= 25 and first.isalpha and isinstance(first, str), 'invalid first name'
-        assert 1 <= len(last) <= 40 and last.isalpha and isinstance(last, str), 'invalid last name'
+        assert isinstance(first, str) and first.isalpha() and 1 <= len(first) <= 25, 'invalid first name'
+        assert isinstance(last, str) and last.isalpha() and 1 <= len(last) <= 40, 'invalid last name'
     
         self._first = first
         self._last = last
@@ -50,7 +51,7 @@ class BankAccount:
     # getBalance returns the account's balance 
     # @return: the sum of the transactions list
     def getBalance(self) -> float:
-        return float(sum(self._transactions))
+        return 0 + float(sum(self._transactions))
     
     # getAccountNumber returns the account's account number 
     # @return: the account's accunt number
