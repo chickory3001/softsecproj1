@@ -10,7 +10,7 @@ Test each method with at least one unit test.
 import unittest
 from bankaccount import BankAccount
 
-"""Define TestBankAccount class by extending the unittest.TestCase class"""
+"""Define TestBankAccount class by extending the unittest.TestCase class."""
 
 class TestBankAccount(unittest.TestCase):
     
