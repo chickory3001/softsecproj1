@@ -102,7 +102,7 @@ class BankAccount:
     #@param amount: amount to deposit 
     #@require amount > 0 
     def deposit(self,amount:float):
-        assert isinstance(amount,float) and amount > 0.0, 'invalid deposit amount'
+        assert (isinstance(amount, float) or isinstance(amount, int)) and amount > 0.0, 'invalid deposit amount'
         self._transactions.append(Transaction(len(self._transactions)+1, 'deposit', amount))
     
     #calculates and adds interest into the account via creating an interest transaction
