@@ -172,6 +172,33 @@ class TestBankAccount(unittest.TestCase):
         # Assert withdrawing normally returns True. 
         self.bankAccount1.deposit(TestBankAccount.DEPOSIT1)
         self.assertTrue(self.bankAccount1.withdraw(TestBankAccount.VALIDWITHDRAWAL))
+      #Testing the transfer method
+    
+    
+    def test_transfer(self):
+        if TestBankAccount.DEBUG:
+            print("\nTesting the transfer method")
+        
+        # Deposit money into bankAccount1 so it has funds to transfer
+        self.bankAccount1.deposit(TestBankAccount.DEPOSIT1)
+        self.bankAccount2.deposit(TestBankAccount.DEPOSIT2)
+        
+        # Checks the balances before the transfer is done
+        initialBalance1 = self.bankAccount1.getBalance()
+        initialBalance2 = self.bankAccount2.getBalance()
+        
+        # Perform transfer of 500 from bankAccount1 → bankAccount2
+        # This is just a preset tester currently
+        amount = 500.0
+        result = self.bankAccount2.transfer(self.bankAccount1, amount)  #Transfer money from one account to another
+        
+        # Testing that it is returned true
+        self.assertTrue(result)
+        
+        # Updating the balances between both accounts
+        self.assertEqual(self.bankAccount1.getBalance(), initialBalance1 - amount)
+        self.assertEqual(self.bankAccount2.getBalance(), initialBalance2 + amount)
+
     
 if __name__ == "__main__":
     unittest.main()
