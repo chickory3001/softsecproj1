@@ -13,21 +13,7 @@ from BankAccount import BankAccount
 """Define TestBankAccount class by extending the unittest.TestCase class"""
 
 class TestBankAccount(unittest.TestCase):
-    
-    #first = input("Enter First Name:")
-    #last = input("Enter Last Name:")
-    #bankAccountNum = random(rndint(1000,1000000) #Chooses a random integer between 1,000 and 100,000
-    #BankAccount(first, last, bankAccountNum)
-    
-    #------------------------------------------------------------------------------------------------
-    #This is where the information returns to user: First and Last Name, Bank Account Number, Balance
-    #BankAccount.getFirst()
-    #BankAccount.getLast()
-    #BankAccount.getAccountNumber()
-    #BankAccount.getBalance()
-    #BankAccount.listTransacation[]
-    #------------------------------------------------------------------------------------------------
-    
+   
     DEPOSIT1 =   2600000000
     DEPOSIT2 = 106000000000
     INVALIDWITHDRAWAL =  2600000250
