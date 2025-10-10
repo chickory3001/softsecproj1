@@ -204,6 +204,20 @@ class BankAccount:
     #@return true if this account's account number is greater than or equal to other, false if otherwise
     def __ge__(self,other:'BankAccount') -> bool:
         return self._accountNumber >= other._accountNumber
+
+
+ def test_Interest(self):
+        if TestBankAccount.DEBUG:
+            print("\nTesting the interest method")
+        
+        self.bankAccount1.deposit(TestBankAccount.DEPOSIT1)
+        self.bankAccount1.addInterest()
+        self.assertEqual(len(self.bankAccount1.getTransactions()), 0)   #Testing if there are any transactions already
+        
+        lastTransaction = self.bankAccount1.getTransactions()[-1] #Get the last transaction to give the interest to
+        self.assertIn('interest', str(lastTransaction).lower())
+
+        
     
 
 if __name__ == "__main__":
