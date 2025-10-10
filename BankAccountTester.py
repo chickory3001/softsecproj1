@@ -213,6 +213,17 @@ class TestBankAccount(unittest.TestCase):
         lastTransaction = self.bankAccount1.getTransactions()[-1] #Get the last transaction to give the interest to
         self.assertIn('interest', str(lastTransaction).lower())
 
+    #Testing the overdraft method
+    def test_Overdraft(self):
+        if TestBankAccount.DEBUG:
+            print("\nTesting the overdraft method")
+        
+        self.bankAccount1._timesOverdrawn = 0
+        self.bankAccount1._incrementOverdraft()
+        
+        self.assertEqual(self.bankAccount1._timesOverdrawn, 1)
+        
+
 
     
 if __name__ == "__main__":
