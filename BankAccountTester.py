@@ -13,7 +13,21 @@ from BankAccount import BankAccount
 """Define TestBankAccount class by extending the unittest.TestCase class"""
 
 class TestBankAccount(unittest.TestCase):
-   
+    
+    #first = input("Enter First Name:")
+    #last = input("Enter Last Name:")
+    #bankAccountNum = random(rndint(1000,1000000) #Chooses a random integer between 1,000 and 100,000
+    #BankAccount(first, last, bankAccountNum)
+    
+    #------------------------------------------------------------------------------------------------
+    #This is where the information returns to user: First and Last Name, Bank Account Number, Balance
+    #BankAccount.getFirst()
+    #BankAccount.getLast()
+    #BankAccount.getAccountNumber()
+    #BankAccount.getBalance()
+    #BankAccount.listTransacation[]
+    #------------------------------------------------------------------------------------------------
+    
     DEPOSIT1 =   2600000000
     DEPOSIT2 = 106000000000
     INVALIDWITHDRAWAL =  2600000250
@@ -238,26 +252,7 @@ class TestBankAccount(unittest.TestCase):
         
         self.bankAccount1.deposit(100)
         self.bankAccount1.addInterest()
-<<<<<<< HEAD
         self.assertEqual(self.bankAccount1.getBalance(), 107.5)   #Testing if the interest added the appropriate amount
-=======
-        self.assertEqual(len(self.bankAccount1.getTransactions()), 0)   #Testing if there are any transactions already
-        
-        lastTransaction = self.bankAccount1.getTransactions()[-1] #Get the last transaction to give the interest to
-        self.assertIn('interest', str(lastTransaction).lower())
-
-    #Testing the overdraft method
-    def test_Overdraft(self):
-        if TestBankAccount.DEBUG:
-            print("\nTesting the overdraft method")
-        
-        self.bankAccount1._timesOverdrawn = 0
-        self.bankAccount1._incrementOverdraft()
-        
-        self.assertEqual(self.bankAccount1._timesOverdrawn, 1)
-        
-
->>>>>>> 25f347f7293b355a2f3cb6309ddc1a680cdab227
 
     
 if __name__ == "__main__":
