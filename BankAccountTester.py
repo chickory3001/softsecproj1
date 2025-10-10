@@ -172,9 +172,9 @@ class TestBankAccount(unittest.TestCase):
         # Assert withdrawing normally returns True. 
         self.bankAccount1.deposit(TestBankAccount.DEPOSIT1)
         self.assertTrue(self.bankAccount1.withdraw(TestBankAccount.VALIDWITHDRAWAL))
-      #Testing the transfer method
+      
     
-    
+    #Testing the transfer method
     def test_transfer(self):
         if TestBankAccount.DEBUG:
             print("\nTesting the transfer method")
@@ -198,6 +198,21 @@ class TestBankAccount(unittest.TestCase):
         # Updating the balances between both accounts
         self.assertEqual(self.bankAccount1.getBalance(), initialBalance1 - amount)
         self.assertEqual(self.bankAccount2.getBalance(), initialBalance2 + amount)
+
+
+
+    #Testing the interest method
+    def test_Interest(self):
+        if TestBankAccount.DEBUG:
+            print("\nTesting the interest method")
+        
+        self.bankAccount1.deposit(TestBankAccount.DEPOSIT1)
+        self.bankAccount1.addInterest()
+        self.assertEqual(len(self.bankAccount1.getTransactions()), 0)   #Testing if there are any transactions already
+        
+        lastTransaction = self.bankAccount1.getTransactions()[-1] #Get the last transaction to give the interest to
+        self.assertIn('interest', str(lastTransaction).lower())
+
 
     
 if __name__ == "__main__":
