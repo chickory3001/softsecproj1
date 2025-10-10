@@ -38,6 +38,7 @@ class TestBankAccount(unittest.TestCase):
     
     # The setup method creates two bank accounts. 
     def setUp(self):
+        # print('setup')
         self.bankAccount1 = BankAccount("Tim", "Apple")
         self.bankAccount2 = BankAccount("Billiam", "Gates")
         
@@ -79,8 +80,10 @@ class TestBankAccount(unittest.TestCase):
     def test_accountNumber(self):
         if TestBankAccount.DEBUG:
             print('\n testing account number increment')
-        self.assertEqual(self.bankAccount1.getAccountNumber(),1000)
-        self.assertEqual(self.bankAccount2.getAccountNumber(),1001)
+        nextNumber = BankAccount._nextAccountNumber - 2
+        self.assertEqual(self.bankAccount1.getAccountNumber(),nextNumber)
+        nextNumber = BankAccount._nextAccountNumber - 1
+        self.assertEqual(self.bankAccount2.getAccountNumber(),nextNumber)
     # Test the __eq__ special method.
     def test_eq(self):
         if TestBankAccount.DEBUG:
@@ -88,6 +91,38 @@ class TestBankAccount(unittest.TestCase):
             
         # Assert
         self.assertTrue(self.bankAccount1 == self.bankAccount1)
+        
+    # Test the __lt__ special method.
+    def test_lt(self):
+        if TestBankAccount.DEBUG:
+            print("\nTesting the less than special method")
+            
+        # Assert
+        self.assertTrue(self.bankAccount1 < self.bankAccount2)
+        
+    # Test the __gt__ special method.
+    def test_gt(self):
+        if TestBankAccount.DEBUG:
+            print("\nTesting the greater than special method")
+            
+        # Assert
+        self.assertTrue(self.bankAccount2 > self.bankAccount1)
+        
+    # Test the __le__ special method.
+    def test_le(self):
+        if TestBankAccount.DEBUG:
+            print("\nTesting the less than or equal to special method")
+            
+        # Assert
+        self.assertTrue(self.bankAccount1 <= self.bankAccount1)
+        
+    # Test the __ge__ special method.
+    def test_ge(self):
+        if TestBankAccount.DEBUG:
+            print("\nTesting the greater than or equal to special method")
+            
+        # Assert
+        self.assertTrue(self.bankAccount2 >= self.bankAccount1)
         
     # Second test of the __eq__ special method.
     def test_eq_2(self):
@@ -172,7 +207,11 @@ class TestBankAccount(unittest.TestCase):
         # Assert withdrawing normally returns True. 
         self.bankAccount1.deposit(TestBankAccount.DEPOSIT1)
         self.assertTrue(self.bankAccount1.withdraw(TestBankAccount.VALIDWITHDRAWAL))
-      
+
+        self.bankAccount2.deposit(1000)
+        self.bankAccount2.withdraw(1100)
+        self.assertEqual(self.bankAccount2.getBalance(),-100 - BankAccount.OVERDRAFT_FEE)
+        self.assertEqual(self.bankAccount2.getTimesOverdrawn(),1)
     
     #Testing the transfer method
     def test_transfer(self):
@@ -188,7 +227,6 @@ class TestBankAccount(unittest.TestCase):
         initialBalance2 = self.bankAccount2.getBalance()
         
         # Perform transfer of 500 from bankAccount1 → bankAccount2
-        # This is just a preset tester currently
         amount = 500.0
         result = self.bankAccount2.transfer(self.bankAccount1, amount)  #Transfer money from one account to another
         
@@ -199,20 +237,22 @@ class TestBankAccount(unittest.TestCase):
         self.assertEqual(self.bankAccount1.getBalance(), initialBalance1 - amount)
         self.assertEqual(self.bankAccount2.getBalance(), initialBalance2 + amount)
 
+        # test transfer that fails
+        self.bankAccount3 = BankAccount('e','e')
+        self.assertFalse(self.bankAccount1.transfer(self.bankAccount3,1000))
 
+        # test assertion must be > 0 
+        with self.assertRaises(AssertionError):
+            self.bankAccount3.transfer(self.bankAccount1,-1)
 
     #Testing the interest method
     def test_Interest(self):
         if TestBankAccount.DEBUG:
             print("\nTesting the interest method")
         
-        self.bankAccount1.deposit(TestBankAccount.DEPOSIT1)
+        self.bankAccount1.deposit(100)
         self.bankAccount1.addInterest()
-        self.assertEqual(len(self.bankAccount1.getTransactions()), 0)   #Testing if there are any transactions already
-        
-        lastTransaction = self.bankAccount1.getTransactions()[-1] #Get the last transaction to give the interest to
-        self.assertIn('interest', str(lastTransaction).lower())
-
+        self.assertEqual(self.bankAccount1.getBalance(), 107.5)   #Testing if the interest added the appropriate amount
 
     
 if __name__ == "__main__":
