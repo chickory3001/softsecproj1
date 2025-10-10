@@ -218,4 +218,5 @@ if __name__ == "__main__":
     # print(repr(account._transactions[0]))
     print(repr(account))
     # account.printTransactions()
+    BankAccount('!@#$%^&*','smith')
 
