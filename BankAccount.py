@@ -152,7 +152,7 @@ class BankAccount:
     
     ### Special Methods ###
     
-    # Returns a sring containing the account instance variables.
+    # Returns a string containing the account instance variables.
     # @return: The formatted, human readable string of the account 
     def __str__(self) -> str:
         string = (f'First Name: {self._first}\nLast Name: {self._last}\n'
@@ -162,7 +162,7 @@ class BankAccount:
             string += '\n' + str(x) 
         return string
     
-    # Returns a sring containing the account instance variables.
+    # Returns a string containing the account instance variables.
     # @return: The formatted, machine readable string of the account 
     def __repr__(self) -> str:
         string = (f'BankAccount(first : {self._first}, last : {self._last}, '
