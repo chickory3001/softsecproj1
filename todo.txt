@@ -1,6 +1,6 @@
-can client names be empty
-must the state abbreviations be capital ? 
-how to store address 
-what getters should we have 
-do we need to put inherited methods in the docs of the class that extends 
-
+write tests: 
+    bankaccount (many need to be rewritten / added)
+    client 
+    savingsaccount
+    checkingaccount
+    address

@@ -17,7 +17,7 @@ class BankAccount:
     
     #constructs a bank account object
     #@ensure account number >= 1000
-    def __init__(self):
+    def __init__(self) -> 'BankAccount':
         self._accountNumber = BankAccount._nextAccountNumber
         self._transactions = []
         self._timesOverdrawn = 0
@@ -50,11 +50,11 @@ class BankAccount:
         return self._timesOverdrawn
 
     #prints all of the account's instance variables 
-    def printAccount(self):
+    def printAccount(self) -> None:
         print(str(self))
     
     #prints the list of transactions for the account 
-    def printTransactions(self):
+    def printTransactions(self) -> None:
         #iterate over the list of transactions
         for x in self._transactions:
             print(str(x))
@@ -62,18 +62,18 @@ class BankAccount:
     ### COMMANDS ###
     
     #adds 1 to the timesOverdrawn counter variable 
-    def _incrementOverdraft(self):
+    def _incrementOverdraft(self) -> None:
         self._timesOverdrawn += 1
     
     #deposits money into the account via creating a deposit transaction
     #@param amount: amount to deposit 
     #@require amount > 0 
-    def deposit(self,amount:float):
+    def deposit(self,amount:float) -> None:
         assert (isinstance(amount, float) or isinstance(amount, int)) and amount > 0.0, 'invalid deposit amount'
         self._transactions.append(Transaction(len(self._transactions)+1, 'deposit', amount))
     
     #calculates and adds interest into the account via creating an interest transaction
-    def addInterest(self):
+    def addInterest(self) -> None:
         # don't do interest on negative balance, since it would be negative interest
         if self.getBalance() > 0:
             interest = self.getBalance() * BankAccount.INTEREST_RATE
