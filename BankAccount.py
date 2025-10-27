@@ -16,17 +16,8 @@ class BankAccount:
     _nextAccountNumber = 1000
     
     #constructs a bank account object
-    #@param first: the first name as a string, default empty string 
-    #@param last: the last name as a string, default empty string
-    #@require first is a str of length 1-25 with no special characters
-    #@require last is a str of length 1-40 with no special characters
     #@ensure account number >= 1000
-    def __init__(self, first: str = "", last: str =""):
-        assert isinstance(first, str) and first.isalpha() and 1 <= len(first) <= 25, 'invalid first name'
-        assert isinstance(last, str) and last.isalpha() and 1 <= len(last) <= 40, 'invalid last name'
-    
-        self._first = first
-        self._last = last
+    def __init__(self):
         self._accountNumber = BankAccount._nextAccountNumber
         self._transactions = []
         self._timesOverdrawn = 0
@@ -37,16 +28,6 @@ class BankAccount:
 
     
     ### QUERIES ###
-    
-    # getFirst returns the account's first name 
-    # @return: the account's first name
-    def getFirst(self) -> str:
-        return self._first
-    
-    # getLast returns the account's last name 
-    # @return: the account's last name
-    def getLast(self) -> str:
-        return self._last
     
     # getBalance returns the account's balance 
     # @return: the sum of the transactions list
@@ -78,22 +59,7 @@ class BankAccount:
         for x in self._transactions:
             print(str(x))
 
-
     ### COMMANDS ###
-    
-    #updates the first name of the account
-    #@param first: new first name string 
-    #@require first is a str of length 1-25 with no special characters
-    def _setFirstName(self,first:str):
-        assert 1 <= len(first) <= 25 and first.isalpha and isinstance(first, str), 'invalid first name'
-        self._first = first
-    
-    #updates the last name of the account
-    #@param last: new last name string 
-    #@require last is a str of length 1-40 with no special characters
-    def _setLastName(self,last:'str'):
-        assert 1 <= len(last) <= 25 and last.isalpha and isinstance(last, str), 'invalid last name'
-        self._last = last
     
     #adds 1 to the timesOverdrawn counter variable 
     def _incrementOverdraft(self):
@@ -148,15 +114,13 @@ class BankAccount:
         # if it's unsuccessful, don't deposit
         else:
             return False
-
     
     ### Special Methods ###
     
     # Returns a string containing the account instance variables.
     # @return: The formatted, human readable string of the account 
     def __str__(self) -> str:
-        string = (f'First Name: {self._first}\nLast Name: {self._last}\n'
-            f'Account Number: {self._accountNumber}\nBalance: {self.getBalance()}')
+        string = (f'Account Number: {self._accountNumber}\nBalance: {self.getBalance()}')
         #iterate over list of transactions, puts newline before to ensure there's no trailing newline char
         for x in self._transactions:
             string += '\n' + str(x) 
@@ -165,7 +129,7 @@ class BankAccount:
     # Returns a string containing the account instance variables.
     # @return: The formatted, machine readable string of the account 
     def __repr__(self) -> str:
-        string = (f'BankAccount(first : {self._first}, last : {self._last}, '
+        string = (f'BankAccount('
             f'accountNumber : {self._accountNumber}, timesOverdrawn : {self._timesOverdrawn}, transactions : [')
         #iterate over list of transactions, puts newline before to ensure there's no trailing newline char
         for x in self._transactions:
@@ -206,17 +170,6 @@ class BankAccount:
         return self._accountNumber >= other._accountNumber
 
 
-        
-    
-
 if __name__ == "__main__":
-    account = BankAccount('joe','shmoe')
-    account.deposit(100.0)
-    account.deposit(1000.0)
-    account.printAccount()
-    print()
-    # print(repr(account._transactions[0]))
-    print(repr(account))
-    # account.printTransactions()
-    BankAccount('!@#$%^&*','smith')
+    pass
 
