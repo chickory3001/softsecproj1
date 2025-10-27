@@ -1,9 +1,6 @@
-account num post condition > 1000 (or pre condition ig) 
-use _ before methods to signal private 
-post condition on times overdrawn, >= 0 
-equality 
-test for negative interest
+can client names be empty
+must the state abbreviations be capital ? 
+how to store address 
+what getters should we have 
+do we need to put inherited methods in the docs of the class that extends 
 
-
-@require - preconditions
-@ensure - post conditions and invariants 
