@@ -9,15 +9,18 @@
 
 from transaction import Transaction
 
-
 class BankAccount:
     OVERDRAFT_FEE = 20.00
     INTEREST_RATE = 0.075
+    ACCOUNT_TYPES = ['Checking','Savings']
     _nextAccountNumber = 1000
     
     #constructs a bank account object
+    #@param type the type of account
+    #@require type is in the allowed ACCOUNT_TYPES list 
     #@ensure account number >= 1000
-    def __init__(self) -> 'BankAccount':
+    def __init__(self,type) -> 'BankAccount':
+        assert type in BankAccount.ACCOUNT_TYPES, 'invalid account type'
         self._accountNumber = BankAccount._nextAccountNumber
         self._transactions = []
         self._timesOverdrawn = 0
@@ -25,7 +28,7 @@ class BankAccount:
         # Increment the next account number. 
         BankAccount._nextAccountNumber += 1
         assert self._accountNumber >= 1000, 'account number must be >= 1000'
-
+    
     
     ### QUERIES ###
     
@@ -58,7 +61,7 @@ class BankAccount:
         #iterate over the list of transactions
         for x in self._transactions:
             print(str(x))
-
+    
     ### COMMANDS ###
     
     #adds 1 to the timesOverdrawn counter variable 
@@ -169,7 +172,5 @@ class BankAccount:
     def __ge__(self,other:'BankAccount') -> bool:
         return self._accountNumber >= other._accountNumber
 
-
 if __name__ == "__main__":
     pass
-

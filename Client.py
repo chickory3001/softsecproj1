@@ -60,23 +60,26 @@ class Client:
     def getClientNumber(self) -> int:
         return self._clientNumber
     
+    #print all of the client details, including the accounts and their transactions 
     def printClient(self) -> None:
-        pass
-
+        print(f'First Name: {self._first}\nLast Name: {self._last}\nPhone Number: {self._phone}\n Address: {str(self._address)}')
+        for account in self._accounts:
+            print(account)
+    
     #updates the first name of the client
     #@param first: new first name string 
     #@require first is a str of length 1-25 with no special characters
     def _setFirstName(self,first:str):
-        assert 1 <= len(first) <= 25 and first.isalpha and isinstance(first, str), 'invalid first name'
+        assert 1 <= len(first) <= 25 and first.isalpha() and isinstance(first, str), 'invalid first name'
         self._first = first
     
     #updates the last name of the client
     #@param last: new last name string 
     #@require last is a str of length 1-40 with no special characters
     def _setLastName(self,last:'str'):
-        assert 1 <= len(last) <= 40 and last.isalpha and isinstance(last, str), 'invalid last name'
+        assert 1 <= len(last) <= 40 and last.isalpha() and isinstance(last, str), 'invalid last name'
         self._last = last
 
 if __name__ == "__main__":
-    
-    client = Client('timmy','smith',9123456789,Address('feafe','feafea','VA'))
+    client = Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'))
+    client.printClient()

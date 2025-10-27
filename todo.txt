@@ -4,3 +4,6 @@ write tests:
     savingsaccount
     checkingaccount
     address
+
+notes: 
+.isalpha() excludes numbers, so you can't include numbers in the street 

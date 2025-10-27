@@ -22,3 +22,8 @@ class Address:
         self._street = street
         self._city = city
         self._state = state
+    
+    # Returns a string containing the formatted address.
+    # @return: The formatted string of the address
+    def __str__(self) -> str:
+        return f'{self._street}\n{self._city}, {self._state}'
