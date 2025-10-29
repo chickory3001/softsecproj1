@@ -8,6 +8,7 @@
 # A class to represent a secure bank account.
 
 from transaction import Transaction
+from abc import ABC, abstractmethod
 
 class BankAccount:
     OVERDRAFT_FEE = 20.00
@@ -84,14 +85,14 @@ class BankAccount:
     
     #withdraws money from the account via creating a withdraw transaction
     #to be implemented by the subclasses checking account and savings account
-    #@abstractmethod
+    @abstractmethod
     def withdraw(self, amount: float) -> bool:
         pass
     
     #withdraws money from the other account and deposits it into self
     #via withdrawing from other and depositing into self
     #to be implemented by the subclasses checking account and savings account
-    #@abstractmethod
+    @abstractmethod
     def transfer(self, other: 'BankAccount', amount: float) -> bool:
         pass
     
