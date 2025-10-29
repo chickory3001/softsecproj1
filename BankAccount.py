@@ -83,40 +83,17 @@ class BankAccount:
             self._transactions.append(Transaction(len(self._transactions)+1, 'interest', interest))
     
     #withdraws money from the account via creating a withdraw transaction
-    #@param amount: amount to withdraw 
-    #@require amount > 0 
+    #to be implemented by the subclasses checking account and savings account
+    #@abstractmethod
     def withdraw(self, amount: float) -> bool:
-        assert amount > 0, 'invalid withdrawal amount'
-        if amount > self.getBalance()+250:
-            print("Transaction denied")
-            return False
-        elif self.getBalance() > 0.0:
-            withdrawalTransaction = Transaction(len(self._transactions)+1, "withdrawal", -amount)
-            self._transactions.append(withdrawalTransaction)
-            # Subtract from balance by amount
-            if self.getBalance() < 0:
-                self._incrementOverdraft()
-                penaltyTransaction = Transaction(len(self._transactions)+1, "penalty", -BankAccount.OVERDRAFT_FEE)
-                print("Account has been overdrawn")
-                self._transactions.append(penaltyTransaction)
-            return True 
-        else:
-            print("Transaction denied")
-            return False
+        pass
     
     #withdraws money from the other account and deposits it into self
     #via withdrawing from other and depositing into self
-    #@param amount: amount to transfer to the account 
-    #@require amount > 0 
+    #to be implemented by the subclasses checking account and savings account
+    #@abstractmethod
     def transfer(self, other: 'BankAccount', amount: float) -> bool:
-        assert amount > 0, 'invalid transfer amount'
-        # if the withdrawal from the other account is successful, deposit the amount into self
-        if other.withdraw(amount):
-            self.deposit(amount)
-            return True
-        # if it's unsuccessful, don't deposit
-        else:
-            return False
+        pass
     
     ### Special Methods ###
     
