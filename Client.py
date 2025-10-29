@@ -79,6 +79,16 @@ class Client:
     def _setLastName(self,last:'str'):
         assert 1 <= len(last) <= 40 and last.isalpha() and isinstance(last, str), 'invalid last name'
         self._last = last
+    
+    #Defines the account number if it is either checking or savings
+    #@reqire client number
+    def accountType(self, clientNumber):
+        pass
+    
+    #closes the account and withdrawing all the funds
+    def closeAccount(self):
+        pass
+
 
 if __name__ == "__main__":
     client = Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'))
