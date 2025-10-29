@@ -4,7 +4,10 @@ checkingInterst = .0015
 class CheckingAccount:
   def __init__(self, accountNumber):
     pass
-  
+
+  #displays account information
+  def displayAccount(self):
+    pass
   #deposit into the checking account
   def deposit(self):
     pass
