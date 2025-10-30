@@ -9,7 +9,6 @@ Test each method with at least one unit test.
 
 import unittest
 from BankAccount import BankAccount
-
 """Define TestBankAccount class by extending the unittest.TestCase class"""
 
 class TestBankAccount(unittest.TestCase):
@@ -241,6 +240,6 @@ class TestBankAccount(unittest.TestCase):
         self.bankAccount1.addInterest()
         self.assertEqual(self.bankAccount1.getBalance(), 107.5)   #Testing if the interest added the appropriate amount
 
-    
+
 if __name__ == "__main__":
     unittest.main()

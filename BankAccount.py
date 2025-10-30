@@ -25,6 +25,7 @@ class BankAccount:
         self._accountNumber = BankAccount._nextAccountNumber
         self._transactions = []
         self._timesOverdrawn = 0
+        self._type = type
     
         # Increment the next account number. 
         BankAccount._nextAccountNumber += 1
@@ -52,7 +53,7 @@ class BankAccount:
     # @return: the account's amount of times overdrawn
     def getTimesOverdrawn(self) -> int:
         return self._timesOverdrawn
-
+    
     #prints all of the account's instance variables 
     def printAccount(self) -> None:
         print(str(self))

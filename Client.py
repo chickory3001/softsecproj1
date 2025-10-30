@@ -9,6 +9,8 @@
 
 from BankAccount import *
 from Address import Address
+from CheckingAccount import CheckingAccount
+from savingsAccount import SavingsAccount
 
 class Client:
     # client numbers start at 100 
@@ -23,7 +25,7 @@ class Client:
     #@require last is a str of length 1-40 with no special characters
     #@require phone is all digits, length of 10, doesn't start with 0, 1, or 2
     #@require address is an address object 
-    def __init__(self, first: str, last: str, phone: int, address: Address) -> 'Client':
+    def __init__(self, first: str, last: str, phone: int, address: Address, initialAccountType: str) -> 'Client':
         assert isinstance(first, str) and first.isalpha() and 1 <= len(first) <= 25, 'invalid first name'
         assert isinstance(last, str) and last.isalpha() and 1 <= len(last) <= 40, 'invalid last name'
         #attempt to cast phone num to int, throw assertion error if it fails. 
@@ -69,14 +71,14 @@ class Client:
     #updates the first name of the client
     #@param first: new first name string 
     #@require first is a str of length 1-25 with no special characters
-    def _setFirstName(self,first:str):
+    def _setFirstName(self,first:str) -> None:
         assert 1 <= len(first) <= 25 and first.isalpha() and isinstance(first, str), 'invalid first name'
         self._first = first
     
     #updates the last name of the client
     #@param last: new last name string 
     #@require last is a str of length 1-40 with no special characters
-    def _setLastName(self,last:'str'):
+    def _setLastName(self,last:'str') -> None:
         assert 1 <= len(last) <= 40 and last.isalpha() and isinstance(last, str), 'invalid last name'
         self._last = last
     
@@ -85,11 +87,20 @@ class Client:
     def accountType(self, clientNumber):
         pass
     
+    #creates a new account and adds it to the client's list of accounts
+    #@param type: the type of the new account, as a string 
+    #@require type is a string in bankaccount's account types 
+    def openAccount(self,type:str) -> None:
+        assert isinstance(type,str) and type in BankAccount.ACCOUNT_TYPES
+        if type == 'Checking':
+            self._accounts.append(CheckingAccount())
+        elif type == 'Savings':
+            self._accounts.append(SavingsAccount())
+
     #closes the account and withdrawing all the funds
-    def closeAccount(self):
+    def closeAccount(self,number) -> None:
         pass
 
-
-if __name__ == "__main__":
-    client = Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'))
-    client.printClient()
+# if __name__ == "__main__":
+#     client = Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'))
+#     client.printClient()

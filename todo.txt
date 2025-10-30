@@ -7,3 +7,6 @@ write tests:
 
 notes: 
 .isalpha() excludes numbers, so you can't include numbers in the street 
+
+do we have to include the silly debug print statements in tests 
+specifics of how closeAccount is implemented, where do the funds go ? 
