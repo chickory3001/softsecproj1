@@ -46,6 +46,7 @@ class Client:
         self._clientNumber = Client._nextClientNumber
         #increment the next client number 
         Client._nextClientNumber += 1
+        self.openAccount(initialAccountType)
     
     # getFirstName returns the client's first name 
     # @return: the client's first name
