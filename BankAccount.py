@@ -39,6 +39,11 @@ class BankAccount:
     def getAccountNumber(self) -> int:
         return self._accountNumber
     
+    # getType returns the account's account type 
+    # @return: the account's account type as a string
+    def getType(self) -> 'str':
+        return self._type
+    
     # getTransactions returns the account's transactions list 
     # @return: the account's transaction list
     def getTransactions(self) -> list[Transaction]:
