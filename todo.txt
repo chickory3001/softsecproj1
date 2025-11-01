@@ -5,6 +5,9 @@ write tests:
     checkingaccount
     address
 
+make sure printTransactions works as intended for subclasses, ordered by date w/ separate lines 
+if printTransactions works as intended, write and read file should as well, but make sure 
+
 notes: 
 .isalpha() excludes numbers, so you can't include numbers in the street 
 

@@ -12,7 +12,6 @@ from BankAccount import BankAccount
 """Define TestBankAccount class by extending the unittest.TestCase class"""
 
 class TestBankAccount(unittest.TestCase):
-
     # Class constants.
     DEPOSIT1 =   2600000000
     DEPOSIT2 = 106000000000
