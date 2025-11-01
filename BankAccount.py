@@ -18,16 +18,14 @@ class BankAccount:
     #constructs a bank account object
     #@param type the type of account
     #@require type is in the allowed ACCOUNT_TYPES list 
-    #@ensure account number >= 1000
+    #@require account number >= 1000 and is an int 
     def __init__(self, type: str, number: int) -> 'BankAccount':
         assert type in BankAccount.ACCOUNT_TYPES, 'invalid account type'
+        assert isinstance(number, int) and number >= 1000, 'account number must be >= 1000 and type int'
         self._accountNumber = number
         self._transactions = []
         self._timesOverdrawn = 0
         self._type = type
-    
-        assert self._accountNumber >= 1000, 'account number must be >= 1000'
-    
     
     ### QUERIES ###
     
@@ -75,11 +73,12 @@ class BankAccount:
         self._transactions.append(Transaction(len(self._transactions)+1, 'deposit', amount))
     
     #calculates and adds interest into the account via creating an interest transaction
+    #@require balance > 0 
     def addInterest(self) -> None:
         # don't do interest on negative balance, since it would be negative interest
-        if self.getBalance() > 0:
-            interest = self.getBalance() * self.__class__.INTEREST_RATE
-            self._transactions.append(Transaction(len(self._transactions)+1, 'interest', interest))
+        assert self.getBalance() > 0, 'can\'t add interest with balance <= 0'
+        interest = self.getBalance() * self.__class__.INTEREST_RATE
+        self._transactions.append(Transaction(len(self._transactions)+1, 'interest', interest))
     
     #withdraws money from the account via creating a withdraw transaction
     #to be implemented by the subclasses checking account and savings account

@@ -13,7 +13,6 @@ from transaction import Transaction
 """ Define test testTransaction class by extending the unittest.TestCase class"""
 
 class TestTransaction(unittest.TestCase):
-    
     DEPOSIT = 2000   # Expected Deposit amount
     WITHDRAWL = 500  # Expected Withdrawl amount
     FIRST = 100      # Expected first transaction number
@@ -34,6 +33,15 @@ class TestTransaction(unittest.TestCase):
             print("\nTesting the constructor") 
             print("The first transaction: ", self.transaction1)
             print(repr(self.transaction1))
+
+    # tests the constructor asserts 
+    def test_constructor_asserts(self):
+        with self.assertRaises(AssertionError):
+            Transaction('s','deposit',TestTransaction.DEPOSIT)
+        with self.assertRaises(AssertionError):
+            Transaction(105,'sssss',TestTransaction.DEPOSIT)
+        with self.assertRaises(AssertionError):
+            Transaction(106,'deposit','s')
 
     # Test the __eq__ special method 
     def test_eq(self):
