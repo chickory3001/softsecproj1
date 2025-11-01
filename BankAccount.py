@@ -14,21 +14,18 @@ class BankAccount:
     OVERDRAFT_FEE = 20.00
     INTEREST_RATE = 0.075
     ACCOUNT_TYPES = ['Checking','Savings']
-    _nextAccountNumber = 1000
     
     #constructs a bank account object
     #@param type the type of account
     #@require type is in the allowed ACCOUNT_TYPES list 
     #@ensure account number >= 1000
-    def __init__(self,type) -> 'BankAccount':
+    def __init__(self, type: str, number: int) -> 'BankAccount':
         assert type in BankAccount.ACCOUNT_TYPES, 'invalid account type'
-        self._accountNumber = BankAccount._nextAccountNumber
+        self._accountNumber = number
         self._transactions = []
         self._timesOverdrawn = 0
         self._type = type
     
-        # Increment the next account number. 
-        BankAccount._nextAccountNumber += 1
         assert self._accountNumber >= 1000, 'account number must be >= 1000'
     
     
@@ -81,7 +78,7 @@ class BankAccount:
     def addInterest(self) -> None:
         # don't do interest on negative balance, since it would be negative interest
         if self.getBalance() > 0:
-            interest = self.getBalance() * BankAccount.INTEREST_RATE
+            interest = self.getBalance() * self.__class__.INTEREST_RATE
             self._transactions.append(Transaction(len(self._transactions)+1, 'interest', interest))
     
     #withdraws money from the account via creating a withdraw transaction
@@ -92,17 +89,23 @@ class BankAccount:
     
     #withdraws money from the other account and deposits it into self
     #via withdrawing from other and depositing into self
-    #to be implemented by the subclasses checking account and savings account
-    @abstractmethod
+    #@param amount: amount to transfer to the account 
+    #@require amount > 0 
     def transfer(self, other: 'BankAccount', amount: float) -> bool:
-        pass
+        assert amount > 0, 'invalid transfer amount'
+        # if the withdrawal from the other account is successful, deposit the amount into self
+        if other.withdraw(amount):
+            self.deposit(amount)
+            return True
+        # if it's unsuccessful, don't deposit
+        return False
     
     ### Special Methods ###
     
     # Returns a string containing the account instance variables.
     # @return: The formatted, human readable string of the account 
     def __str__(self) -> str:
-        string = (f'Account Number: {self._accountNumber}\nBalance: {self.getBalance()}')
+        string = (f'Account Type: {self._type}\nAccount Number: {self._accountNumber}\nBalance: {self.getBalance()}')
         #iterate over list of transactions, puts newline before to ensure there's no trailing newline char
         for x in self._transactions:
             string += '\n' + str(x) 

@@ -44,6 +44,7 @@ class Client:
         self._address = address
         self._accounts = []
         self._clientNumber = Client._nextClientNumber
+        self._nextAccountNumber = 1000
         #increment the next client number 
         Client._nextClientNumber += 1
         self.openAccount(initialAccountType)
@@ -83,20 +84,16 @@ class Client:
         assert 1 <= len(last) <= 40 and last.isalpha() and isinstance(last, str), 'invalid last name'
         self._last = last
     
-    #Defines the account number if it is either checking or savings
-    #@reqire client number
-    def accountType(self, clientNumber):
-        pass
-    
     #creates a new account and adds it to the client's list of accounts
     #@param type: the type of the new account, as a string 
     #@require type is a string in bankaccount's account types 
     def openAccount(self,type:str) -> None:
         assert isinstance(type,str) and type in BankAccount.ACCOUNT_TYPES
         if type == 'Checking':
-            self._accounts.append(CheckingAccount())
+            self._accounts.append(CheckingAccount(self._nextAccountNumber,self._first,self._last))
         elif type == 'Savings':
-            self._accounts.append(SavingsAccount())
+            self._accounts.append(SavingsAccount(self._nextAccountNumber,self._first,self._last))
+        self._nextAccountNumber += 1 
 
     #closes the account and withdrawing all the funds
     def closeAccount(self,number) -> None:
