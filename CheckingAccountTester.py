@@ -49,24 +49,23 @@ class TestCheckingAccount(unittest.TestCase):
         
         # catch the expected assertion errors
         # if an assertion error isn't raised on any of these, the test will fail 
+
+        # test type assertion
         with self.assertRaises(AssertionError):
             # using the bankaccount constructor to test a bad input, since CheckingAccount() 
             # always calls the BankAccount constructor with 'Checking', which is valid.
-            # with intended use, a BankAccount class will only ever be created via subclasses
+            # with intended use, the BankAccount constructor will always be called via subclasses
             BankAccount('401k',1003)
+        BankAccount('Checking')
+        CheckingAccount(1009)
+
+        #test number assertion
         with self.assertRaises(AssertionError):
             CheckingAccount('s')
         with self.assertRaises(AssertionError):
             CheckingAccount('900')
-    
-    # test account number increment 
-    def test_accountNumber(self):
-        if TestCheckingAccount.DEBUG:
-            print('\n testing account number increment')
-        nextNumber = BankAccount._nextAccountNumber - 2
-        self.assertEqual(self.account1.getAccountNumber(),nextNumber)
-        nextNumber = BankAccount._nextAccountNumber - 1
-        self.assertEqual(self.account2.getAccountNumber(),nextNumber)
+        CheckingAccount(1006)
+        CheckingAccount(5000)
     
     # Test the __eq__ special method.
     def test_eq(self):
@@ -75,6 +74,7 @@ class TestCheckingAccount(unittest.TestCase):
             
         # Assert
         self.assertTrue(self.account1 == self.account1)
+        self.assertFalse(self.account1 == self.account2)
     
     # Test the __lt__ special method.
     def test_lt(self):
@@ -83,6 +83,7 @@ class TestCheckingAccount(unittest.TestCase):
             
         # Assert
         self.assertTrue(self.account1 < self.account2)
+        self.assertFalse(self.account2 < self.account1)
     
     # Test the __gt__ special method.
     def test_gt(self):
@@ -91,6 +92,7 @@ class TestCheckingAccount(unittest.TestCase):
             
         # Assert
         self.assertTrue(self.account2 > self.account1)
+        self.assertFalse(self.account1 > self.account2)
     
     # Test the __le__ special method.
     def test_le(self):
@@ -99,6 +101,8 @@ class TestCheckingAccount(unittest.TestCase):
             
         # Assert
         self.assertTrue(self.account1 <= self.account1)
+        self.assertTrue(self.account1 <= self.account2)
+        self.assertFalse(self.account2 <= self.account1)
     
     # Test the __ge__ special method.
     def test_ge(self):
@@ -107,14 +111,8 @@ class TestCheckingAccount(unittest.TestCase):
             
         # Assert
         self.assertTrue(self.account2 >= self.account1)
-    
-    # Second test of the __eq__ special method.
-    def test_eq_2(self):
-        if TestCheckingAccount.DEBUG:
-            print("\nSecond test of the equal special method")
-            
-        # Assert
-        self.assertFalse(self.account1 == self.account2)
+        self.assertTrue(self.account2 >= self.account2)
+        self.assertFalse(self.account1 >= self.account2)
     
     # Test the __ne__ special method.
     def test_ne(self):
@@ -123,31 +121,9 @@ class TestCheckingAccount(unittest.TestCase):
             
         # Assert
         self.assertTrue(self.account1 != self.account2)
-    
-    # Second test of the __ne__ special method.
-    def test_ne_2(self):
-        if TestCheckingAccount.DEBUG:
-            print("\nSecond test of the not equal special method")
-            
-        # Assert
         self.assertFalse(self.account1 != self.account1)
     
-    # The test_getFirst method tests the getFirst method.
-    def test_getFirst(self):
-        if TestCheckingAccount.DEBUG:
-            print("\nTesting the getFirst method")
-            
-        # Assert
-        self.assertEqual(self.account1.getFirst(), TestCheckingAccount.FIRST)
-    
-    # The test_getLast method tests the getLast method.
-    def test_getLast(self):
-        if TestCheckingAccount.DEBUG:
-            print("\nTesting the getLast method")
-            
-        # Assert
-        self.assertEqual(self.account1.getLast(), TestCheckingAccount.LAST)
-    
+    # !!!!!!!!
     # The test_getBalance method tests the getBalance method.
     def test_getBalance(self):
         if TestCheckingAccount.DEBUG:

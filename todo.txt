@@ -11,5 +11,8 @@ if printTransactions works as intended, write and read file should as well, but 
 notes: 
 .isalpha() excludes numbers, so you can't include numbers in the street 
 
+qs:
+can i call the bankaccount class to test the constructor 
+how should we implement equality since you can have multiple of the same account num now 
 do we have to include the silly debug print statements in tests 
 specifics of how closeAccount is implemented, where do the funds go ? 
