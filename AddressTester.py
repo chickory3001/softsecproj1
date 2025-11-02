@@ -14,6 +14,7 @@ class TestAddress(unittest.TestCase):
     STREET = 'timmydrive'
     CITY = 'glenallen'
     STATE = 'VA'
+    DEBUG = False
     #setup creates an address
     def setUp(self):
         # print('setup')
@@ -21,13 +22,17 @@ class TestAddress(unittest.TestCase):
     
     #tests constructor
     def test_constructor(self):
+        if TestAddress.DEBUG:
+            print('\n testing constructor')
         self.assertEqual(self.address1._street,TestAddress.STREET)
         self.assertEqual(self.address1._city,TestAddress.CITY)
         self.assertEqual(self.address1._state,TestAddress.STATE)
 
     #tests constructor assertions 
     def test_constructor_asserts(self):
-        #all of these are expected to throw asserts, and be caught by the with: line 
+        if TestAddress.DEBUG:
+            print('\n testing constructor asserts')
+        
         #test string type assert
         with self.assertRaises(AssertionError):
             Address(1,TestAddress.CITY,TestAddress.STATE)
@@ -35,6 +40,7 @@ class TestAddress(unittest.TestCase):
             Address(TestAddress.STREET,1,TestAddress.STATE)
         with self.assertRaises(AssertionError):
             Address(TestAddress.STREET,TestAddress.CITY,1)
+        
         #test alphanumeric assert 
         with self.assertRaises(AssertionError):
             Address(' @#$%^',TestAddress.CITY,TestAddress.STATE)
@@ -42,6 +48,7 @@ class TestAddress(unittest.TestCase):
             Address(TestAddress.STREET,' @#$%^',TestAddress.STATE)
         with self.assertRaises(AssertionError):
             Address(TestAddress.STREET,TestAddress.CITY,' @#$%^')
+        
         #test length assert
         with self.assertRaises(AssertionError):
             Address('',TestAddress.CITY,TestAddress.STATE)
@@ -53,8 +60,12 @@ class TestAddress(unittest.TestCase):
             Address(TestAddress.STREET,'a'*31,TestAddress.STATE)
         with self.assertRaises(AssertionError):
             Address(TestAddress.STREET,TestAddress.CITY,'aaaa')
+        
         # test in list of states assert
         with self.assertRaises(AssertionError):
             Address(TestAddress.STREET,TestAddress.CITY,'ZZ')
         with self.assertRaises(AssertionError):
             Address(TestAddress.STREET,TestAddress.CITY,'va') 
+
+if __name__ == "__main__":
+    unittest.main()

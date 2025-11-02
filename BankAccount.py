@@ -2,7 +2,7 @@
 #
 # Created by: J. Bodde, C. Burrell, H. Hickory, R. Pelzel, C. Triplett
 # 
-# CSEC323 - Project 1
+# CSEC323 - Project 2
 # 
 # This module defines the BankAccount class.
 # A class to represent a secure bank account.
@@ -10,10 +10,12 @@
 from transaction import Transaction
 from abc import ABC, abstractmethod
 
+# a class to represent a secure bank account 
 class BankAccount:
     OVERDRAFT_FEE = 20.00
     INTEREST_RATE = 0.075
     ACCOUNT_TYPES = ['Checking','Savings']
+    STARTING_TRANSACTION_NUMBER = 100
     
     #constructs a bank account object
     #@param type the type of account
@@ -75,7 +77,7 @@ class BankAccount:
     #@require amount > 0 
     def deposit(self,amount:float) -> None:
         assert (isinstance(amount, float) or isinstance(amount, int)) and amount > 0.0, 'invalid deposit amount'
-        self._transactions.append(Transaction(len(self._transactions)+1, 'deposit', amount))
+        self._transactions.append(Transaction(len(self._transactions)+BankAccount.STARTING_TRANSACTION_NUMBER, 'deposit', amount))
     
     #calculates and adds interest into the account via creating an interest transaction
     #@require balance > 0 
@@ -83,7 +85,7 @@ class BankAccount:
         # don't do interest on negative balance, since it would be negative interest
         assert self.getBalance() > 0, 'can\'t add interest with balance <= 0'
         interest = self.getBalance() * self.__class__.INTEREST_RATE
-        self._transactions.append(Transaction(len(self._transactions)+1, 'interest', interest))
+        self._transactions.append(Transaction(len(self._transactions)+BankAccount.STARTING_TRANSACTION_NUMBER, 'interest', interest))
     
     #withdraws money from the account via creating a withdraw transaction
     #to be implemented by the subclasses checking account and savings account
@@ -97,6 +99,7 @@ class BankAccount:
     #@require amount > 0 
     def transfer(self, other: 'BankAccount', amount: float) -> bool:
         assert isinstance(amount,(int,float)) and amount > 0, 'invalid transfer amount'
+        assert other is not self, 'cannot transfer to the same account'
         # if the withdrawal from the other account is successful, deposit the amount into self
         if other.withdraw(amount):
             self.deposit(amount)

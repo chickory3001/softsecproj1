@@ -11,8 +11,9 @@ import unittest
 from CheckingAccount import CheckingAccount
 from BankAccount import BankAccount
 from transaction import Transaction
-"""Define TestCheckingAccount class by extending the unittest.TestCase class
-Tests the checking account class """
+
+# Define TestCheckingAccount class by extending the unittest.TestCase class
+# Tests the checking account class 
 class TestCheckingAccount(unittest.TestCase):
     # Class constants.
     ACCOUNT1NUMBER = 1000
@@ -40,6 +41,7 @@ class TestCheckingAccount(unittest.TestCase):
         self.assertEqual(self.account2.getType(),'Checking')
         self.assertEqual(self.account1.getTransactions(),[])
         self.assertEqual(self.account2.getTransactions(),[])
+        #this class doesn't even use timesOverdrawn but test it anyway 
         self.assertEqual(self.account1.getTimesOverdrawn(),0)
         self.assertEqual(self.account2.getTimesOverdrawn(),0)
     
@@ -61,7 +63,7 @@ class TestCheckingAccount(unittest.TestCase):
         with self.assertRaises(AssertionError):
             CheckingAccount('s')
         with self.assertRaises(AssertionError):
-            CheckingAccount('900')
+            CheckingAccount(900)
         CheckingAccount(1006)
         CheckingAccount(5000)
     
@@ -163,7 +165,7 @@ class TestCheckingAccount(unittest.TestCase):
         
         # Assert withdrawing too much returns False.
         self.account1.deposit(TestCheckingAccount.DEPOSIT1)
-        print('Expect Transaction Denied:')
+        print('Expect Transaction Denied: ')
         self.assertFalse(self.account1.withdraw(TestCheckingAccount.INVALIDWITHDRAWAL))
         self.assertEqual(self.account1.getBalance(),TestCheckingAccount.DEPOSIT1)
         
@@ -182,20 +184,24 @@ class TestCheckingAccount(unittest.TestCase):
         self.account2.deposit(TestCheckingAccount.DEPOSIT2)
         
         # Perform transfer of 100 from account1 → account2
-        amount = 100
+        amount = 100.0
         result = self.account2.transfer(self.account1, amount)  #Transfer money from one account to another
         
         # Testing that it is returned true
         self.assertTrue(result)
         
-        # Updating the balances between both accounts
+        # checking the balances between both accounts
         self.assertEqual(self.account1.getBalance(), TestCheckingAccount.DEPOSIT1 - amount)
         self.assertEqual(self.account2.getBalance(), TestCheckingAccount.DEPOSIT2 + amount)
         
         # test transfer that fails
         self.account3 = CheckingAccount(1008)
-        print('Expect Transaction Denied:')
+        print('Expect Transaction Denied: ')
         self.assertFalse(self.account1.transfer(self.account3,1000))
+        
+        #test assertion 'is not same account'
+        with self.assertRaises(AssertionError):
+            self.account2.transfer(self.account2,1.0)
         
         # test assertion must be > 0 
         with self.assertRaises(AssertionError):
@@ -204,7 +210,7 @@ class TestCheckingAccount(unittest.TestCase):
         #test type assertion
         with self.assertRaises(AssertionError):
             self.account3.transfer(self.account1,'s') 
-
+    
     #Testing the interest method
     def test_Interest(self):
         if TestCheckingAccount.DEBUG:
@@ -212,8 +218,11 @@ class TestCheckingAccount(unittest.TestCase):
         
         self.account1.deposit(TestCheckingAccount.DEPOSIT1)
         self.account1.addInterest()
-        self.assertEqual(self.account1.getBalance(), 115.0)   #Testing if the interest added the appropriate amount
-
+        
+        #hardcoding the correct interest rate
+        #rounding to 1 decimal place because of float inaccuracy 
+        self.assertEqual(round(self.account1.getBalance(),1), round(TestCheckingAccount.DEPOSIT1 * 1.015,1))   
+        
         # test assertion
         self.account3 = CheckingAccount(1010)
         # it's not possible to get a negative balance in a checking account (with intended use) (if withdraw works correctly)

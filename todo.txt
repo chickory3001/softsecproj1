@@ -7,12 +7,16 @@ write tests:
 
 make sure printTransactions works as intended for subclasses, ordered by date w/ separate lines 
 if printTransactions works as intended, write and read file should as well, but make sure 
+when we're done, put in the updated documentation 
 
 notes: 
 .isalpha() excludes numbers, so you can't include numbers in the street 
 
-qs:
+questions for mcmanus:
+do we have to make bankaccuont abstract or can we just have it intended to not be called directly 
 can i call the bankaccount class to test the constructor assert
-how should we implement equality since you can have multiple of the same account num now 
-do we have to include the silly debug print statements in tests 
+how should we implement equality and comparisons since you can have multiple of the same account num now 
 specifics of how closeAccount is implemented, where do the funds go ? 
+do we have to test the encryption and writing to files 
+what do you want in the class header comments 
+is it ok to round in the interest test bc of float inaccuracy 
