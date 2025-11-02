@@ -10,19 +10,20 @@ Test each method with at least one unit test.
 import unittest
 from CheckingAccount import CheckingAccount
 from BankAccount import BankAccount
-"""Define TestCheckingAccount class by extending the unittest.TestCase class"""
-
+from transaction import Transaction
+"""Define TestCheckingAccount class by extending the unittest.TestCase class
+Tests the checking account class """
 class TestCheckingAccount(unittest.TestCase):
     # Class constants.
     ACCOUNT1NUMBER = 1000
     ACCOUNT2NUMBER = 1001
-    DEPOSIT1 =   2600000000
-    DEPOSIT2 = 106000000000
-    INVALIDWITHDRAWAL =  2600000250
-    VALIDWITHDRAWAL = 50
+    DEPOSIT1 = 100.0
+    DEPOSIT2 = 150.0
+    INVALIDWITHDRAWAL =  101.0
+    VALIDWITHDRAWAL = 100.0
     DEBUG = False
     
-    # The setup method creates two checkint accounts. 
+    # The setup method creates two checking accounts. 
     def setUp(self):
         self.account1 = CheckingAccount(1000)
         self.account2 = CheckingAccount(1001)
@@ -47,16 +48,13 @@ class TestCheckingAccount(unittest.TestCase):
         if TestCheckingAccount.DEBUG:
             print('\n testing constructor assertions')
         
-        # catch the expected assertion errors
-        # if an assertion error isn't raised on any of these, the test will fail 
-
         # test type assertion
         with self.assertRaises(AssertionError):
             # using the bankaccount constructor to test a bad input, since CheckingAccount() 
             # always calls the BankAccount constructor with 'Checking', which is valid.
             # with intended use, the BankAccount constructor will always be called via subclasses
             BankAccount('401k',1003)
-        BankAccount('Checking')
+        BankAccount('Checking',1100)
         CheckingAccount(1009)
 
         #test number assertion
@@ -123,14 +121,13 @@ class TestCheckingAccount(unittest.TestCase):
         self.assertTrue(self.account1 != self.account2)
         self.assertFalse(self.account1 != self.account1)
     
-    # !!!!!!!!
     # The test_getBalance method tests the getBalance method.
     def test_getBalance(self):
         if TestCheckingAccount.DEBUG:
             print("\nTesting the getBalance method")
             
         # test initial balance = 0 
-        self.assertEqual(self.account1.getBalance(), 0)
+        self.assertEqual(self.account1.getBalance(), 0.0)
 
         #test that a deposit increases balance appropriately
         self.account1.deposit(TestCheckingAccount.DEPOSIT1)
@@ -144,7 +141,7 @@ class TestCheckingAccount(unittest.TestCase):
     def test_deposit(self):
         if TestCheckingAccount.DEBUG:
             print("\nTesting the deposit and getBalance methods")
-            
+        
         self.account1.deposit(TestCheckingAccount.DEPOSIT1)
         self.account2.deposit(TestCheckingAccount.DEPOSIT2)
         
@@ -156,22 +153,24 @@ class TestCheckingAccount(unittest.TestCase):
     def test_withdraw(self):
         if TestCheckingAccount.DEBUG:
             print("\nTesting the withdraw method")
-            
-        # Assert withdrawing negative amounts results in an error.
+        
+        # test withdraw asserts 
         with self.assertRaises(AssertionError):
             self.account1.withdraw(-1)
         
+        with self.assertRaises(AssertionError):
+            self.account1.withdraw('s')
+        
         # Assert withdrawing too much returns False.
+        self.account1.deposit(TestCheckingAccount.DEPOSIT1)
+        print('Expect Transaction Denied:')
         self.assertFalse(self.account1.withdraw(TestCheckingAccount.INVALIDWITHDRAWAL))
+        self.assertEqual(self.account1.getBalance(),TestCheckingAccount.DEPOSIT1)
         
         # Assert withdrawing normally returns True. 
-        self.account1.deposit(TestCheckingAccount.DEPOSIT1)
-        self.assertTrue(self.account1.withdraw(TestCheckingAccount.VALIDWITHDRAWAL))
-
-        self.account2.deposit(1000)
-        self.account2.withdraw(1100)
-        self.assertEqual(self.account2.getBalance(),-100 - BankAccount.OVERDRAFT_FEE)
-        self.assertEqual(self.account2.getTimesOverdrawn(),1)
+        self.account2.deposit(TestCheckingAccount.DEPOSIT2)
+        self.assertTrue(self.account2.withdraw(TestCheckingAccount.VALIDWITHDRAWAL))
+        self.assertEqual(self.account2.getBalance(),TestCheckingAccount.DEPOSIT2 - TestCheckingAccount.VALIDWITHDRAWAL)
     
     #Testing the transfer method
     def test_transfer(self):
@@ -182,38 +181,47 @@ class TestCheckingAccount(unittest.TestCase):
         self.account1.deposit(TestCheckingAccount.DEPOSIT1)
         self.account2.deposit(TestCheckingAccount.DEPOSIT2)
         
-        # Checks the balances before the transfer is done
-        initialBalance1 = self.account1.getBalance()
-        initialBalance2 = self.account2.getBalance()
-        
-        # Perform transfer of 500 from account1 → account2
-        amount = 500.0
+        # Perform transfer of 100 from account1 → account2
+        amount = 100
         result = self.account2.transfer(self.account1, amount)  #Transfer money from one account to another
         
         # Testing that it is returned true
         self.assertTrue(result)
         
         # Updating the balances between both accounts
-        self.assertEqual(self.account1.getBalance(), initialBalance1 - amount)
-        self.assertEqual(self.account2.getBalance(), initialBalance2 + amount)
-
+        self.assertEqual(self.account1.getBalance(), TestCheckingAccount.DEPOSIT1 - amount)
+        self.assertEqual(self.account2.getBalance(), TestCheckingAccount.DEPOSIT2 + amount)
+        
         # test transfer that fails
-        self.bankAccount3 = BankAccount('e','e')
-        self.assertFalse(self.account1.transfer(self.bankAccount3,1000))
-
+        self.account3 = CheckingAccount(1008)
+        print('Expect Transaction Denied:')
+        self.assertFalse(self.account1.transfer(self.account3,1000))
+        
         # test assertion must be > 0 
         with self.assertRaises(AssertionError):
-            self.bankAccount3.transfer(self.account1,-1)
+            self.account3.transfer(self.account1,-1)
+        
+        #test type assertion
+        with self.assertRaises(AssertionError):
+            self.account3.transfer(self.account1,'s') 
 
     #Testing the interest method
     def test_Interest(self):
         if TestCheckingAccount.DEBUG:
             print("\nTesting the interest method")
         
-        self.account1.deposit(100)
+        self.account1.deposit(TestCheckingAccount.DEPOSIT1)
         self.account1.addInterest()
-        self.assertEqual(self.account1.getBalance(), 107.5)   #Testing if the interest added the appropriate amount
+        self.assertEqual(self.account1.getBalance(), 115.0)   #Testing if the interest added the appropriate amount
 
+        # test assertion
+        self.account3 = CheckingAccount(1010)
+        # it's not possible to get a negative balance in a checking account (with intended use) (if withdraw works correctly)
+        # so I will manually add a transaction to make the balance negative 
+        self.account3._transactions.append(Transaction(100,'withdrawal',-100.0))
+        self.assertTrue(self.account3.getBalance() == -100.0)
+        with self.assertRaises(AssertionError):
+            self.account3.addInterest()
 
 if __name__ == "__main__":
     unittest.main()

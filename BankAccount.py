@@ -32,7 +32,7 @@ class BankAccount:
     # getBalance returns the account's balance 
     # @return: the sum of the transactions list
     def getBalance(self) -> float:
-        return 0 + float(sum(self._transactions))
+        return 0.0 + float(sum(self._transactions))
     
     # getAccountNumber returns the account's account number 
     # @return: the account's accunt number
@@ -96,7 +96,7 @@ class BankAccount:
     #@param amount: amount to transfer to the account 
     #@require amount > 0 
     def transfer(self, other: 'BankAccount', amount: float) -> bool:
-        assert amount > 0, 'invalid transfer amount'
+        assert isinstance(amount,(int,float)) and amount > 0, 'invalid transfer amount'
         # if the withdrawal from the other account is successful, deposit the amount into self
         if other.withdraw(amount):
             self.deposit(amount)

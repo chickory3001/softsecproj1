@@ -31,7 +31,7 @@ def decrypt_AES_CBC(ciphertext, key, iv):
     unpadded_data += unpadder.finalize()
     return unpadded_data.decode('utf-8')  
 
-def main():
+if __name__ == '__main__':
     # Encryption key (Ensure the key is 16, 24, or 32 bytes for AES-128, AES-192, or AES-256)
     key = b'MySuperSecretKey2222222222222222'  
     
@@ -56,6 +56,3 @@ def main():
     # Decrypt the encrypted text
     decrypted_text = decrypt_AES_CBC(filedata, key, iv)
     print(f'Decrypted text: {decrypted_text}')
-    
-main()
-

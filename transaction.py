@@ -98,7 +98,7 @@ class Transaction :
    # @return: The transaction type of the transaction
    def getTType(self) :
       return self._tType
-   
+
    # Prints all of the transaction instance variables.
    def printTransaction(self):
       print("Transaction # %d, amount $%.2f, date %s type: %s" % (self._tNumber, self._amount, self._date, self._tType))

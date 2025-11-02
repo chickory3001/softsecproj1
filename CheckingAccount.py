@@ -3,7 +3,7 @@ from transaction import Transaction
 from AES_CBC import *
 
 class CheckingAccount(BankAccount):
-    INTEREST_RATE = 0.015
+    INTEREST_RATE = 0.15
     ENCRYPTIONKEY = b'MySuperSecretKey2222222222222222' 
     ENCRYPTIONIV = b'MySuperSecretIV0'  
     def __init__(self, number: int) -> 'CheckingAccount':
@@ -13,9 +13,9 @@ class CheckingAccount(BankAccount):
     #@param amount: amount to withdraw 
     #@require amount > 0 
     def withdraw(self, amount: float) -> bool:
-        assert amount > 0, 'invalid withdrawal amount'
+        assert isinstance(amount,(int,float)) and amount > 0, 'invalid withdrawal amount'
         if amount > self.getBalance():
-            print("Transaction denied")
+            print("Transaction Denied")
             return False
         elif self.getBalance() > 0.0:
             # Subtract from balance by amount
@@ -23,7 +23,7 @@ class CheckingAccount(BankAccount):
             self._transactions.append(withdrawalTransaction)
             return True 
         else:
-            print("Transaction denied")
+            print("Transaction Denied")
             return False
     
     #encrypts and writes transactions to checking.txt
