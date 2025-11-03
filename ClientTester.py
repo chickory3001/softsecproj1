@@ -6,6 +6,7 @@
 # This is the tester for the client 
 
 import unittest
+from Address import Address
 from Client import Client
 class ClientTester:
   def __init__(unittest.TestCase):
