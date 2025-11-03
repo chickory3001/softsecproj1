@@ -172,6 +172,15 @@ class TestCheckingAccount(unittest.TestCase):
         self.account2.deposit(TestCheckingAccount.DEPOSIT2)
         self.assertTrue(self.account2.withdraw(TestCheckingAccount.VALIDWITHDRAWAL))
         self.assertEqual(self.account2.getBalance(),TestCheckingAccount.DEPOSIT2 - TestCheckingAccount.VALIDWITHDRAWAL)
+
+        # Assert withdrawing from a negative balance returns False.
+        self.account3 = CheckingAccount(1010)
+        # it's not possible to get a negative balance in a checking account (with intended use) (if withdraw works correctly)
+        # so I will manually add a transaction to make the balance negative 
+        self.account3._transactions.append(Transaction(100,'withdrawal',-100.0))
+        self.assertTrue(self.account3.getBalance() == -100.0)
+        self.assertFalse(self.account3.withdraw(TestCheckingAccount.VALIDWITHDRAWAL))
+        self.assertEqual(self.account3.getBalance(), -100.0)
     
     #Testing the transfer method
     def test_transfer(self):
