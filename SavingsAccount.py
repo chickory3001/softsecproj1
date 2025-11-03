@@ -70,6 +70,10 @@ class SavingsAccount(BankAccount):
             self._timesOverdrawn -= 1
         if prevBalance < 10000 and currentBalance >= 10000:
             self._timesOverdrawn = 0
+
+    #adds interests to the savings account
+    def interest(self):
+        self.getBalance = self.getBalance + (self.getBalance * INTEREST_RATE)
     
     #encrypts and writes transactions to savings.txt
     def writeTransactions(self) -> None:
