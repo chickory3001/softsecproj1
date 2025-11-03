@@ -2,7 +2,9 @@
 import unittest
 from TestTransaction import TestTransaction
 from CheckingAccountTester import TestCheckingAccount
+from SavingsAccountTester import TestSavingsAccount
 from AddressTester import TestAddress
 
 if __name__ == '__main__':
-    unittest.main()
+    suppressPrintStatements = True
+    unittest.main(buffer=suppressPrintStatements)

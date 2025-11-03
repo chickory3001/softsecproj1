@@ -1,10 +1,6 @@
 write tests: 
-    bankaccount (many need to be rewritten / added)
     client 
-    savingsaccount
-    checkingaccount
-    address
-
+maybe add assertions and typing to the encryption module 
 make sure printTransactions works as intended for subclasses, ordered by date w/ separate lines 
 if printTransactions works as intended, write and read file should as well, but make sure 
 when we're done, put in the updated documentation 
@@ -13,6 +9,9 @@ notes:
 .isalpha() excludes numbers, so you can't include numbers in the street 
 
 questions for mcmanus:
+is the overdraft $ limit for savingsaccount 250 
+specific logic in the reduction of overdraft counter in savings account  
+do we need to test the encryption module
 do we have to make bankaccuont abstract or can we just have it intended to not be called directly 
 can i call the bankaccount class to test the constructor assert
 how should we implement equality and comparisons since you can have multiple of the same account num now 

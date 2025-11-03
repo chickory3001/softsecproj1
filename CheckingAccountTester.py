@@ -58,7 +58,7 @@ class TestCheckingAccount(unittest.TestCase):
             BankAccount('401k',1003)
         BankAccount('Checking',1100)
         CheckingAccount(1009)
-
+        
         #test number assertion
         with self.assertRaises(AssertionError):
             CheckingAccount('s')
@@ -130,11 +130,11 @@ class TestCheckingAccount(unittest.TestCase):
             
         # test initial balance = 0 
         self.assertEqual(self.account1.getBalance(), 0.0)
-
+        
         #test that a deposit increases balance appropriately
         self.account1.deposit(TestCheckingAccount.DEPOSIT1)
         self.assertEqual(self.account1.getBalance(),TestCheckingAccount.DEPOSIT1)
-
+        
         #test that a withdrawal decreases balance appropriately
         self.account1.withdraw(TestCheckingAccount.VALIDWITHDRAWAL)
         self.assertEqual(self.account1.getBalance(),TestCheckingAccount.DEPOSIT1 - TestCheckingAccount.VALIDWITHDRAWAL)
@@ -159,7 +159,6 @@ class TestCheckingAccount(unittest.TestCase):
         # test withdraw asserts 
         with self.assertRaises(AssertionError):
             self.account1.withdraw(-1)
-        
         with self.assertRaises(AssertionError):
             self.account1.withdraw('s')
         
@@ -199,7 +198,7 @@ class TestCheckingAccount(unittest.TestCase):
         print('Expect Transaction Denied: ')
         self.assertFalse(self.account1.transfer(self.account3,1000))
         
-        #test assertion 'is not same account'
+        #test 'is not same account' assertion 
         with self.assertRaises(AssertionError):
             self.account2.transfer(self.account2,1.0)
         

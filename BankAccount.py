@@ -12,7 +12,6 @@ from abc import ABC, abstractmethod
 
 # a class to represent a secure bank account 
 class BankAccount:
-    OVERDRAFT_FEE = 20.00
     INTEREST_RATE = 0.075
     ACCOUNT_TYPES = ['Checking','Savings']
     STARTING_TRANSACTION_NUMBER = 100

@@ -1,5 +1,5 @@
 # CheckingAccount.py
-#
+# 
 # Created by: J. Bodde, C. Burrell, H. Hickory, R. Pelzel, C. Triplett
 # 
 # CSEC323 - Project 2
