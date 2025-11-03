@@ -6,4 +6,7 @@
 # This is the tester for the client 
 
 from Client import Client
-
+class ClientTester:
+  def __init__(self):
+    pass
+    
