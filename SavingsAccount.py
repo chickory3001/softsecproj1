@@ -41,8 +41,8 @@ class SavingsAccount(BankAccount):
             # if the withdrawal overdrafts
             if self.getBalance() < 0:
                 print("Overdraft charge has been added to account OVERDRAFTFEE[self.timesOverdrawn]")
-                self.getBalance = self.getBalance - OVERDRAFTFEE[self.timesOverdrawn]
-                self.timesOverdrawn = self._timesOverdrawn + 1 
+                self.getBalance = self.getBalance - OVERDRAFTFEE[self._timesOverdrawn]
+                self._timesOverdrawn = self._timesOverdrawn + 1 
             return True 
         else:
             print("Transaction denied")
