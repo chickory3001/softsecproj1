@@ -15,11 +15,10 @@ class SavingsAccount(BankAccount):
     INTEREST_RATE = 0.04 #overrides BankAccount's interest rate
     ENCRYPTIONKEY = b'MySuperSecretKey2222222222222222' 
     ENCRYPTIONIV = b'MySuperSecretIV0'  
-    OVERDRAFT_FEE1 = 20
-    OVERDRAFT_FEE2 = 30
-    OVERDRAFT_FEE3 = 50
+    OVERDRAFTFEE = [20,30,50]
     def __init__(self, number: int) -> 'SavingsAccount':
         super().__init__('Savings',number)
+        self.counter = 0
     
     #deposits money into the account via creating a depsoit transacation
     #@para amount: amount to deposit
@@ -40,19 +39,16 @@ class SavingsAccount(BankAccount):
             return False
         elif self.getBalance() > 0.0:
             # Subtract from balance by amount
+            if self.counter == 3:
+                print("Too many overdraft fees have occurred, transacation denied")
+                return false
             withdrawalTransaction = Transaction(len(self._transactions)+1, "withdrawal", -amount)
             self._transactions.append(withdrawalTransaction)
             # if the withdrawal overdrafts
             if self.getBalance() < 0:
-                self._incrementOverdraft()
-                if self._timesOverdrawn == 1:
-                    penaltyTransaction = Transaction(len(self._transactions)+1, "penalty", -SavingsAccount.OVERDRAFT_FEE1)
-                elif self._timesOverdrawn == 2:
-                    penaltyTransaction = Transaction(len(self._transactions)+1, "penalty", -SavingsAccount.OVERDRAFT_FEE2)
-                elif self._timesOverdrawn == 3:
-                    penaltyTransaction = Transaction(len(self._transactions)+1, "penalty", -SavingsAccount.OVERDRAFT_FEE3)
-                print("Account has been overdrawn")
-                self._transactions.append(penaltyTransaction)
+                print("Overdraft charge has been added to account OVERDRAFTFEE[self.counter]")
+                self.getBalance = self.getBalance - OVERDRAFTFEE[self.counter]
+                self.counter = self.counter + 1 
             return True 
         else:
             print("Transaction denied")
