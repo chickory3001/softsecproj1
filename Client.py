@@ -28,14 +28,15 @@ class Client:
     def __init__(self, first: str, last: str, phone: int, address: Address, initialAccountType: str) -> 'Client':
         assert isinstance(first, str) and first.isalpha() and 1 <= len(first) <= 25, 'invalid first name'
         assert isinstance(last, str) and last.isalpha() and 1 <= len(last) <= 40, 'invalid last name'
+        assert phone.isdecimal() and len(phone) == 10 and not phone[0] in ["0", "1", "2"] and all([int(i) in range(10) for i in phone]), "invalid phone number"
         #attempt to cast phone num to int, throw assertion error if it fails. 
         #this way it accepts strings, floats, and ints so long as it's castable to int  
-        try:
-            phone = int(phone)
-        except:
-            assert False, 'invalid phone number'
-        phonestr = str(phone)
-        assert len(phonestr) == 10 and not phonestr[0] in ['0','1','2'] and all([int(i) in range(10) for i in phonestr]), 'invalid phone number'
+        # try:
+        #     phone = int(phone)
+        # except:
+        #     assert False, 'invalid phone number'
+        # phonestr = str(phone)
+        # assert len(phonestr) == 10 and not phonestr[0] in ['0','1','2'] and all([int(i) in range(10) for i in phonestr]), 'invalid phone number'
         assert isinstance(address, Address)
         
         self._first = first
