@@ -84,4 +84,17 @@ class SavingsAccount(BankAccount):
         decrypted_text = decrypt_AES_CBC(filedata, SavingsAccount.ENCRYPTIONKEY, SavingsAccount.ENCRYPTIONIV)  
         print(decrypted_text)
 
+    # prints transactions to standard output
+    def printTransactions(self) -> None:
+    	
+    	# Create an empty string
+    	string = ""
+    	
+    	# Add each transaction to the string alongside a newline character
+    	for transaction in self._transactions:
+    		string += str(transaction) + "\n"
+    		
+    	# Print the string
+    	print(string)
+
 # if __name__ == "__main__":
