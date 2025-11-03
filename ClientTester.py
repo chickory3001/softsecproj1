@@ -5,8 +5,9 @@
 # CSEC323 - Project 2
 # This is the tester for the client 
 
+import unittest
 from Client import Client
 class ClientTester:
-  def __init__(self):
+  def __init__(unittest.TestCase):
     pass
     
