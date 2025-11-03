@@ -9,5 +9,8 @@ import unittest
 from Client import Client
 class ClientTester:
   def __init__(unittest.TestCase):
-    pass
+    firstName = reggie
+    lastName = homer
+    phoneNumber = 1111111111
+    
     
