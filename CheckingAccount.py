@@ -37,18 +37,7 @@ class CheckingAccount(BankAccount):
             print("Transaction Denied")
             return False
 
-    #transfer funds from one account to another
-    #@para amount: amount to transfer
-    #@require amount > 0
-    def transfer(self, other, amount):
-        assert amount > 0, "Enter amount that is larger than 0"
-        self.getBalance = self.getBalance - amount
-        other.getBalance = other.getBalance + amount
-
-    #adds interest to the checking account
-    #need to test this with the savings account interest checker too
-    def interest(self):
-        self.getBalance = self.getBalance + (self.getBalance * INTEREST_RATE)
+    
     
     #encrypts and writes transactions to checking.txt
     def writeTransactions(self) -> None:
