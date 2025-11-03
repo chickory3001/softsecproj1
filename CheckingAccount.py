@@ -42,6 +42,10 @@ class CheckingAccount(BankAccount):
         else:
             print("Transaction Denied")
             return False
+
+    #adds interest to the checking account
+    def interest(self):
+        self.getBalance = self.getBalance + (self.getBalance * INTEREST_RATE)
     
     #encrypts and writes transactions to checking.txt
     def writeTransactions(self) -> None:
