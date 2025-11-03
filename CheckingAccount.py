@@ -59,6 +59,19 @@ class CheckingAccount(BankAccount):
         decrypted_text = decrypt_AES_CBC(filedata, CheckingAccount.ENCRYPTIONKEY, CheckingAccount.ENCRYPTIONIV)  
         print(decrypted_text)
 
+    # prints transactions to standard output
+    def printTransactions(self) -> None:
+    	
+    	# Create an empty string
+    	string = ""
+    	
+    	# Add each transaction to the string alongside a newline character
+    	for transaction in self._transactions:
+    		string += str(transaction) + "\n"
+    		
+    	# Print the string
+    	print(string)
+
 # if __name__ == "__main__":
 #     account = CheckingAccount(1000)
 #     account.deposit(1000000)
