@@ -19,17 +19,7 @@ class CheckingAccount(BankAccount):
         super().__init__('Checking',number)
 
 
-    #deposits money into the account via creating a deposit transaction
-    #@param amount: amount to deposit 
-    #@require amount > 0 
-    def deposit(self,amount:float) -> None:
-        assert (isinstance(amount, float) or isinstance(amount, int)) and amount > 0.0, 'invalid deposit amount'
-        prevBalance = self.getBalance()
-        self._transactions.append(Transaction(len(self._transactions)+BankAccount.STARTING_TRANSACTION_NUMBER, 'deposit', amount))
-        currentBalance = self.getBalance()
-        
-
-    
+   
     #withdraws money from the account via creating a withdraw transaction
     #@param amount: amount to withdraw 
     #@require amount > 0 
