@@ -21,6 +21,13 @@ class SavingsAccount(BankAccount):
     def __init__(self, number: int) -> 'SavingsAccount':
         super().__init__('Savings',number)
     
+    #deposits money into the account via creating a depsoit transacation
+    #@para amount: amount to deposit
+    #@require amount > 0
+    def deposit(self, amount):
+        assert amount > 0, "Enter amount to deposit must be more than 0"
+        self.getBalance = self.getBalance + amount
+    
     #withdraws money from the account via creating a withdraw transaction
     #@param amount: amount to withdraw 
     #@require amount > 0 
