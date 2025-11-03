@@ -61,17 +61,7 @@ class SavingsAccount(BankAccount):
         if prevBalance < 10000 and currentBalance >= 10000:
             self._timesOverdrawn = 0
 
-    #transfer funds from one account to another
-    #@para amount: amount to transfer
-    #@require amount > 0
-    def transfer(self, other, amount):
-        assert amount > 0, "Enter amount that is larger than 0"
-        self.getBalance = self.getBalance - amount
-        other.getBalance = other.getBalance + amount
 
-    #adds interests to the savings account
-    def interest(self):
-        self.getBalance = self.getBalance + (self.getBalance * INTEREST_RATE)
     
     #encrypts and writes transactions to savings.txt
     def writeTransactions(self) -> None:
