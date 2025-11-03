@@ -17,6 +17,14 @@ class CheckingAccount(BankAccount):
     ENCRYPTIONIV = b'MySuperSecretIV0'  
     def __init__(self, number: int) -> 'CheckingAccount':
         super().__init__('Checking',number)
+
+
+    #deposits money into the account via creating a deposit transacation
+    #@para amount: amount to deposit
+    #@require amount > 0
+    def deposit(self, amount):
+        assert amount > 0 and amount != 0, "Enter amount greater than 0 to deposit into account"
+        self.getBalance = self.getBalance + amount
     
     #withdraws money from the account via creating a withdraw transaction
     #@param amount: amount to withdraw 
