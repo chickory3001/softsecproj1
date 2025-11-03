@@ -18,7 +18,7 @@ class SavingsAccount(BankAccount):
     OVERDRAFTFEE = [20,30,50]
     def __init__(self, number: int) -> 'SavingsAccount':
         super().__init__('Savings',number)
-        self.counter = 0
+        
     
     
     #withdraws money from the account via creating a withdraw transaction
@@ -40,9 +40,9 @@ class SavingsAccount(BankAccount):
             self._transactions.append(withdrawalTransaction)
             # if the withdrawal overdrafts
             if self.getBalance() < 0:
-                print("Overdraft charge has been added to account OVERDRAFTFEE[self.counter]")
-                self.getBalance = self.getBalance - OVERDRAFTFEE[self.counter]
-                self.counter = self.counter + 1 
+                print("Overdraft charge has been added to account OVERDRAFTFEE[self.timesOverdrawn]")
+                self.getBalance = self.getBalance - OVERDRAFTFEE[self.timesOverdrawn]
+                self.timesOverdrawn = self._timesOverdrawn + 1 
             return True 
         else:
             print("Transaction denied")
