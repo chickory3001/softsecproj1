@@ -60,6 +60,7 @@ class SavingsAccount(BankAccount):
             self._timesOverdrawn -= 1
         if prevBalance < 10000 and currentBalance >= 10000:
             self._timesOverdrawn = 0
+            print("Overdraft fees have been reset")
 
 
     
