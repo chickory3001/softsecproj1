@@ -48,6 +48,7 @@ class CheckingAccount(BankAccount):
             return False
 
     #adds interest to the checking account
+    #need to test this with the savings account interest checker too
     def interest(self):
         self.getBalance = self.getBalance + (self.getBalance * INTEREST_RATE)
     
