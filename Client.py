@@ -10,7 +10,7 @@
 from BankAccount import *
 from Address import Address
 from CheckingAccount import CheckingAccount
-from savingsAccount import SavingsAccount
+from SavingsAccount import SavingsAccount
 
 class Client:
     # client numbers start at 100 
