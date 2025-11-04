@@ -26,8 +26,8 @@ class Client:
     #@require phone is all digits, length of 10, doesn't start with 0, 1, or 2
     #@require address is an address object 
     def __init__(self, first: str, last: str, phone: int, address: Address, initialAccountType: str) -> 'Client':
-        assert isinstance(first, str) and first.isalpha() and 1 <= len(first) <= 25, 'invalid first name'
-        assert isinstance(last, str) and last.isalpha() and 1 <= len(last) <= 40, 'invalid last name'
+        assert isinstance(first, str) and first.isprintable() and 1 <= len(first) <= 25, 'invalid first name'
+        assert isinstance(last, str) and last.isprintable() and 1 <= len(last) <= 40, 'invalid last name'
         assert phone.isdecimal() and len(phone) == 10 and not phone[0] in ["0", "1", "2"] and all([int(i) in range(10) for i in phone]), "invalid phone number"
         #attempt to cast phone num to int, throw assertion error if it fails. 
         #this way it accepts strings, floats, and ints so long as it's castable to int  
@@ -75,14 +75,14 @@ class Client:
     #@param first: new first name string 
     #@require first is a str of length 1-25 with no special characters
     def _setFirstName(self,first:str) -> None:
-        assert 1 <= len(first) <= 25 and first.isalpha() and isinstance(first, str), 'invalid first name'
+        assert 1 <= len(first) <= 25 and first.isprintable() and isinstance(first, str), 'invalid first name'
         self._first = first
     
     #updates the last name of the client
     #@param last: new last name string 
     #@require last is a str of length 1-40 with no special characters
     def _setLastName(self,last:'str') -> None:
-        assert 1 <= len(last) <= 40 and last.isalpha() and isinstance(last, str), 'invalid last name'
+        assert 1 <= len(last) <= 40 and last.isprintable() and isinstance(last, str), 'invalid last name'
         self._last = last
     
     #creates a new account and adds it to the client's list of accounts

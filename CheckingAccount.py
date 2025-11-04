@@ -19,7 +19,6 @@ class CheckingAccount(BankAccount):
         super().__init__('Checking',number)
 
 
-   
     #withdraws money from the account via creating a withdraw transaction
     #@param amount: amount to withdraw 
     #@require amount > 0 

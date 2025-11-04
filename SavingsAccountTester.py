@@ -199,21 +199,21 @@ class TestSavingsAccount(unittest.TestCase):
         print('Expect Account has been overdrawn:')
         self.assertTrue(self.account1.withdraw(overdraftwithdrawal))
         self.assertEqual(self.account1.getTimesOverdrawn(),1)
-        self.assertEqual(self.account1.getBalance(),  deposit - overdraftwithdrawal - SavingsAccount.OVERDRAFT_FEE1)
+        self.assertEqual(self.account1.getBalance(),  deposit - overdraftwithdrawal - SavingsAccount.OVERDRAFTFEE[0])
         
         # test second overdraft
         self.account1.deposit(abs(self.account1.getBalance()) + deposit) # set balance back to deposit 
         print('Expect Account has been overdrawn:')
         self.assertTrue(self.account1.withdraw(overdraftwithdrawal))
         self.assertEqual(self.account1.getTimesOverdrawn(),2)
-        self.assertEqual(self.account1.getBalance(), deposit - overdraftwithdrawal - SavingsAccount.OVERDRAFT_FEE2)
+        self.assertEqual(self.account1.getBalance(), deposit - overdraftwithdrawal - SavingsAccount.OVERDRAFTFEE[1])
         
         #test third overdraft
         self.account1.deposit(abs(self.account1.getBalance()) + deposit) # set balance back to deposit 
         print('Expect Account has been overdrawn:')
         self.assertTrue(self.account1.withdraw(overdraftwithdrawal))
         self.assertEqual(self.account1.getTimesOverdrawn(),3)
-        self.assertEqual(self.account1.getBalance(), deposit - overdraftwithdrawal - SavingsAccount.OVERDRAFT_FEE3)
+        self.assertEqual(self.account1.getBalance(), deposit - overdraftwithdrawal - SavingsAccount.OVERDRAFTFEE[2])
         
         #ensure withdrawals after 3rd overdraft are denied 
         self.account1.deposit(abs(self.account1.getBalance()) + deposit) # set balance back to deposit 
