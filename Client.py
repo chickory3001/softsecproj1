@@ -25,19 +25,12 @@ class Client:
     #@require last is a str of length 1-40 with no special characters
     #@require phone is all digits, length of 10, doesn't start with 0, 1, or 2
     #@require address is an address object 
-    def __init__(self, first: str, last: str, phone: int, address: Address, initialAccountType: str) -> 'Client':
+    def __init__(self, first: str, last: str, phone: str, address: Address, initialAccountType: str) -> 'Client':
         assert isinstance(first, str) and first.isprintable() and 1 <= len(first) <= 25, 'invalid first name'
         assert isinstance(last, str) and last.isprintable() and 1 <= len(last) <= 40, 'invalid last name'
-        assert phone.isdecimal() and len(phone) == 10 and not phone[0] in ["0", "1", "2"] and all([int(i) in range(10) for i in phone]), "invalid phone number"
-        #attempt to cast phone num to int, throw assertion error if it fails. 
-        #this way it accepts strings, floats, and ints so long as it's castable to int  
-        # try:
-        #     phone = int(phone)
-        # except:
-        #     assert False, 'invalid phone number'
-        # phonestr = str(phone)
-        # assert len(phonestr) == 10 and not phonestr[0] in ['0','1','2'] and all([int(i) in range(10) for i in phonestr]), 'invalid phone number'
-        assert isinstance(address, Address)
+        assert isinstance(phone, str) and phone.isdecimal() and len(phone) == 10 and not phone[0] in ["0", "1", "2"], "invalid phone number"
+        assert isinstance(address, Address), "invalid address"
+        assert isinstance(initialAccountType, str) and initialAccountType.lower() in ["c", "s"], "invalid account type"
         
         self._first = first
         self._last = last
@@ -49,6 +42,9 @@ class Client:
         #increment the next client number 
         Client._nextClientNumber += 1
         self.openAccount(initialAccountType)
+    
+    
+    ### QUERIES ###
     
     # getFirstName returns the client's first name 
     # @return: the client's first name
@@ -65,11 +61,19 @@ class Client:
     def getClientNumber(self) -> int:
         return self._clientNumber
     
+    # getPhoneNum returns the client's phone number
+    # @return: the client's phone number
+    def getPhoneNum(self) -> str:
+        return self._phone
+    
     #print all of the client details, including the accounts and their transactions 
     def printClient(self) -> None:
-        print(f'First Name: {self._first}\nLast Name: {self._last}\nPhone Number: {self._phone}\n Address: {str(self._address)}')
+        print(f'First Name: {self._first}\nLast Name: {self._last}\nPhone Number: {self._phone}\n Address: {self._address}')
         for account in self._accounts:
             print(account)
+    
+    
+    ### COMMANDS ###
     
     #updates the first name of the client
     #@param first: new first name string 
@@ -88,17 +92,36 @@ class Client:
     #creates a new account and adds it to the client's list of accounts
     #@param type: the type of the new account, as a string 
     #@require type is a string in bankaccount's account types 
-    def openAccount(self,type:str) -> None:
-        assert isinstance(type,str) and type in BankAccount.ACCOUNT_TYPES
-        if type == 'Checking':
+    def openAccount(self, type: str):
+        assert isinstance(type, str) and type.lower() in ["c", "s"], "invalid account type"
+        
+        if type == 'c':
             self._accounts.append(CheckingAccount(self._nextAccountNumber,self._first,self._last))
-        elif type == 'Savings':
+        elif type == 's':
             self._accounts.append(SavingsAccount(self._nextAccountNumber,self._first,self._last))
+            
         self._nextAccountNumber += 1 
 
-    #closes the account and withdrawing all the funds
-    def closeAccount(self,number) -> None:
-        pass
+    # closes the account and withdrawing all the funds
+    def closeAccount(self, number: int) -> bool:
+        assert isinstance(number, int), "invalid input for account number"
+        
+        # Loop through the list of accounts until an account number matches
+        for i in range(len(self._accounts)):
+            if self._accounts[i].getAccountNumber() == number:
+                
+                # Withdraw the current balance of the account
+                self._accounts[i].withdraw(self._accounts[i].getBalance())
+                
+                # Remove this account from the client's list of accounts
+                self._accounts.pop(i)
+                
+                # Return True once completed
+                return True
+        
+        # Return False if the account doesn't exist
+        return False
+                
 
 # if __name__ == "__main__":
 #     client = Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'))
