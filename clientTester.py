@@ -16,12 +16,13 @@ class TestClient(unittest.TestCase):
     FIRSTNAME = 'timmy'
     LASTNAME = 'smith'
     PHONE= "9123456789"
-    ADDRESS = Address('timmydrive','glenallen','VA')
+    ADDRESS = Address('304 timmy Drive','Glen alLen','vA')
+    INITIALTYPE = 'c'
     DEBUG = False
 
-    # The setup method craetes a client
+    # The setup method creates a client
     def setUp(self):
-        self.client1 = Client('timmy','smith',TestClient.Phone,TestClient.Address, 'Checking')
+        self.client1 = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
 
     #Tests constuctor   
     def test_constructor(self):
@@ -29,10 +30,10 @@ class TestClient(unittest.TestCase):
             print("\nTesting the constructor")
             print("The first client: ", self.client1)
             
-        self.assertEqual(self.client1.getFirstName(), TestClient.FIRSTNAME)
-        self.assertEqual(self.client1.getLastName(), TestClient.LASTNAME)
+        self.assertEqual(self.client1._first, TestClient.FIRSTNAME)
+        self.assertEqual(self.client1._last, TestClient.LASTNAME)
         self.assertEqual(self.client1._phone, TestClient.PHONE)
-        self.assertEqual(self.client1.Address, TestClient.ADDRESS)
+        self.assertEqual(self.client1._address, TestClient.ADDRESS)
         self.assertEqual(self.client1._clientNumber, 1000)
 
         
@@ -43,7 +44,7 @@ class TestClient(unittest.TestCase):
     def test_client_savings(self):
         client = Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'), 'savings')
         self.assertEqual(client._accountType.lower(), 'savings')
-     
+    
     # Testing an invalid first name
     def test_first_name(self):
         with self.assertRaises(AssertionError):

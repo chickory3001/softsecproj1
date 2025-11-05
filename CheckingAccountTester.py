@@ -51,12 +51,9 @@ class TestCheckingAccount(unittest.TestCase):
             print('\n testing constructor assertions')
         
         # test type assertion
-        with self.assertRaises(AssertionError):
-            # using the bankaccount constructor to test a bad input, since CheckingAccount() 
-            # always calls the BankAccount constructor with 'Checking', which is valid.
-            # with intended use, the BankAccount constructor will always be called via subclasses
-            BankAccount('401k',1003)
-        BankAccount('Checking',1100)
+        # BankAccount constructor is only called by CheckingAccount and SavingsAccount, 
+        # which call it with a valid type 
+        # can't test an invalid type because BankAccount is abstract 
         CheckingAccount(1009)
         
         #test number assertion

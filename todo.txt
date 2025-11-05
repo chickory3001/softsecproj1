@@ -5,6 +5,8 @@ make sure printTransactions works as intended for subclasses, ordered by date w/
 if printTransactions works as intended, write and read file should as well, but make sure 
 when we're done, put in the updated documentation 
 
+make bank account abstract 
+
 notes: 
 .isalpha() excludes numbers, so you can't include numbers in the street 
 
