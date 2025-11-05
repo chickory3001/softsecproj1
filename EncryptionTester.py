@@ -70,3 +70,6 @@ class TestEncryption(unittest.TestCase):
                 decrypt_AES_CBC(TestEncryption.PLAINTEXT,TestEncryption.KEY,1234123412341234)
             with self.assertRaises(AssertionError):
                 decrypt_AES_CBC(TestEncryption.PLAINTEXT,TestEncryption.KEY,b'123')
+
+if __name__ == "__main__":
+    unittest.main()
