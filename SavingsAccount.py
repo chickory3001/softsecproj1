@@ -16,6 +16,8 @@ class SavingsAccount(BankAccount):
     ENCRYPTIONKEY = b'MySuperSecretKey2222222222222222' 
     ENCRYPTIONIV = b'MySuperSecretIV0'  
     OVERDRAFTFEE = [20,30,50]
+    
+    
     def __init__(self, number: int) -> 'SavingsAccount':
         super().__init__('Savings',number)
     
