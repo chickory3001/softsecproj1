@@ -37,8 +37,8 @@ class TestSavingsAccount(unittest.TestCase):
         
         self.assertEqual(self.account1.getAccountNumber(), TestSavingsAccount.ACCOUNT1NUMBER)
         self.assertEqual(self.account2.getAccountNumber(), TestSavingsAccount.ACCOUNT2NUMBER)
-        self.assertEqual(self.account1.getType(),'Savings')
-        self.assertEqual(self.account2.getType(),'Savings')
+        self.assertEqual(self.account1.getType(),'s')
+        self.assertEqual(self.account2.getType(),'s')
         self.assertEqual(self.account1.getTransactions(),[])
         self.assertEqual(self.account2.getTransactions(),[])
         self.assertEqual(self.account1.getTimesOverdrawn(),0)
@@ -55,7 +55,7 @@ class TestSavingsAccount(unittest.TestCase):
             # always calls the BankAccount constructor with 'Savings', which is valid.
             # with intended use, the BankAccount constructor will always be called via subclasses
             BankAccount('401k',1003)
-        BankAccount('Savings',1100)
+        BankAccount('s',1100)
         SavingsAccount(1009)
         
         #test number assertion
