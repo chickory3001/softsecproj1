@@ -16,7 +16,7 @@ class CheckingAccount(BankAccount):
     ENCRYPTIONKEY = b'MySuperSecretKey2222222222222222' 
     ENCRYPTIONIV = b'MySuperSecretIV0'  
     def __init__(self, number: int) -> 'CheckingAccount':
-        super().__init__('Checking',number)
+        super().__init__('c',number)
 
     #withdraws money from the account via creating a withdraw transaction
     #@param amount: amount to withdraw 

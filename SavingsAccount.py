@@ -19,7 +19,7 @@ class SavingsAccount(BankAccount):
     
     
     def __init__(self, number: int) -> 'SavingsAccount':
-        super().__init__('Savings',number)
+        super().__init__('s',number)
     
     #withdraws money from the account via creating a withdraw transaction
     #@param amount: amount to withdraw 

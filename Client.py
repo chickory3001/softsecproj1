@@ -68,7 +68,7 @@ class Client:
     
     #print all of the client details, including the accounts and their transactions 
     def printClient(self) -> None:
-        print(f'First Name: {self._first}\nLast Name: {self._last}\nPhone Number: {self._phone}\n Address: {self._address}')
+        print(f'First Name: {self._first}\nLast Name: {self._last}\nPhone Number: {self._phone}\nAddress: {str(self._address)}\nClient Number: {self._clientNumber}\n')
         for account in self._accounts:
             print(account)
     
@@ -131,8 +131,8 @@ class Client:
         
         # Return False if the account doesn't exist
         return False
-                
 
-# if __name__ == "__main__":
-#     client = Client('timmy', 'smith', '9123456789', Address('323 timmy drive', 'glen allen', 'VA'))
-#     client.printClient()
+if __name__ == "__main__":
+    client = Client('timmy', 'smith', '9123456789', Address('323 timmy drive', 'glen allen', 'VA'),'c')
+    client._accounts[0].deposit(100)
+    client.printClient()

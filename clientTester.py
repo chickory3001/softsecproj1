@@ -18,13 +18,17 @@ class TestClient(unittest.TestCase):
     PHONE= "9123456789"
     ADDRESS = Address('304 timmy Drive','Glen alLen','vA')
     INITIALTYPE = 'c'
-    CLIENTNUMBER = 1000 
+    CLIENTNUMBER = 100
     DEBUG = False
 
     # The setup method creates a client
     def setUp(self):
         self.client1 = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
-
+    
+    # teardown resets the first client number 
+    def tearDown(self):
+        Client._nextClientNumber = 100
+    
     #Tests constuctor   
     def test_constructor(self):
         if TestClient.DEBUG:
@@ -39,7 +43,7 @@ class TestClient(unittest.TestCase):
         self.assertEqual(len(self.client1._accounts), 1)
 
         client2 = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, 's')
-        self.assertEqual(self.client1._accounts[0]._type, 's')
+        self.assertEqual(client2._accounts[0]._type, 's')
 
     # testing assertions in the constructor 
     def test_constructor_asserts(self):
@@ -87,15 +91,20 @@ class TestClient(unittest.TestCase):
         if TestClient.DEBUG:
             print("\nTesting the openAccount method")
         
+        self.assertEqual(len(self.client1._accounts), 1)
+        self.assertEqual(self.client1._accounts[0]._accountNumber,1000)
+
         #Testing a valid checking account opening
         self.client1.openAccount("c")
         self.assertEqual(len(self.client1._accounts), 2)
         self.assertEqual(self.client1._accounts[1]._type, "c")
+        self.assertEqual(self.client1._accounts[1]._accountNumber,1001)
 
         #Testing a valid savings account opening
         self.client1.openAccount("s")
         self.assertEqual(len(self.client1._accounts), 3)
         self.assertEqual(self.client1._accounts[2]._type, "s")
+        self.assertEqual(self.client1._accounts[2]._accountNumber,1002)
 
         #Testing that having the type argument not be of type string leads to assert error
         with self.assertRaises(AssertionError):
@@ -115,16 +124,12 @@ class TestClient(unittest.TestCase):
         self.assertEqual(len(self.client1._accounts), 1)
 
         # Test assert for trying to close an account with the number not being an int
-        try:
-            result = self.client1.closeAccount("Invalid")
-        except AssertionError:
-            print("Test Passed: Object not created")
+        with self.assertRaises(AssertionError):
+            self.client1.closeAccount("Invalid")
 
         # Test assert for trying to close an account with the number being less than 1000
-        try:
-            result = self.client1.closeAccount(10)
-        except AssertionError:
-            print("Test Passed: Object not created")
+        with self.assertRaises(AssertionError):
+            self.client1.closeAccount(10)
 
         # Attempt to close a nonexistant account, should return False
         result = self.client1.closeAccount(9999)
@@ -132,7 +137,7 @@ class TestClient(unittest.TestCase):
 
         #Adding a 2nd account so we can close it with no balance
         self.client1.openAccount("c")
-        self.assertEqual(len(self.client._accounts), 2)
+        self.assertEqual(len(self.client1._accounts), 2)
 
         #Closing 2nd account with a balance of zero, should return True
         result = self.client1.closeAccount(self.client1._accounts[1].getAccountNumber())
@@ -141,8 +146,8 @@ class TestClient(unittest.TestCase):
 
         #Adding an account so we can close it with a positive balance
         self.client1.openAccount("c")
-        self.assertEqual(len(self.client._accounts), 2)
-        self.client1.accounts[1].deposit(1000.0)
+        self.assertEqual(len(self.client1._accounts), 2)
+        self.client1._accounts[1].deposit(1000.0)
 
         #Closing the account with a positive balance, should return True
         result = self.client1.closeAccount(self.client1._accounts[1].getAccountNumber())
@@ -150,10 +155,11 @@ class TestClient(unittest.TestCase):
         self.assertEqual(len(self.client1._accounts),1)
 
         #Adding an account so we can close it with a negative balance
-        self.client1.openAccount("c")
-        self.assertEqual(len(self.client._accounts), 2)
-        # Cannot deposit negative values, so a transaction is appended 
-        self.client1.accounts[1]._transactions.append(Transaction(100,'withdrawal',-100.0))
+        self.client1.openAccount("s")
+        self.assertEqual(len(self.client1._accounts), 2)
+        self.client1._accounts[1].deposit(1)
+        self.client1._accounts[1].withdraw(10)
+        self.assertTrue(self.client1._accounts[1].getBalance() < 0)
 
         #Closing the account with a negative balance, should return False
         result = self.client1.closeAccount(self.client1._accounts[1].getAccountNumber())
