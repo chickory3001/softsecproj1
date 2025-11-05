@@ -239,6 +239,21 @@ class TestCheckingAccount(unittest.TestCase):
         self.assertTrue(self.account3.getBalance() == -100.0)
         with self.assertRaises(AssertionError):
             self.account3.addInterest()
+    
+        #test the encryption/decryption and writing/reading to file 
+    def test_encryption(self):
+        # load up some transactions
+        self.account1.deposit(10)
+        self.account1.deposit(20)
+        self.account1.withdraw(10)
+
+        transactions = ''
+        for transaction in self.account1._transactions:
+            transactions += str(transaction)
+        
+        self.account1.writeTransactions()
+        result = self.account1.getTransactionData()
+        self.assertEqual(transactions,result)
 
 if __name__ == "__main__":
     unittest.main()

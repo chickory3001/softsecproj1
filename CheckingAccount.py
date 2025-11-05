@@ -35,7 +35,7 @@ class CheckingAccount(BankAccount):
             print("Transaction Denied")
             return False
     
-    #encrypts and writes transactions to checking.txt
+    #encrypts and writes transactions to savings.txt
     def writeTransactions(self) -> None:
         string = ''
         for transaction in self._transactions:
@@ -46,14 +46,18 @@ class CheckingAccount(BankAccount):
         with open("checking.txt", "wb") as f:
             f.write(encrypted_text)
     
-    #reads, decrypts, and prints transactions from checking.txt
-    def readTransactions(self) -> None:
+    #reads the transaction data from the file, decrypts it, and returns it 
+    def getTransactionData(self) -> str:
             # read raw bytes back
         with open("checking.txt", "rb") as f:
             filedata = f.read()
         # Decrypt the encrypted text
         decrypted_text = decrypt_AES_CBC(filedata, CheckingAccount.ENCRYPTIONKEY, CheckingAccount.ENCRYPTIONIV)  
-        print(decrypted_text)
+        return decrypted_text
+    
+    #prints the transaction data from file 
+    def readTransactions(self) -> None:
+        print(self.getTransactionData())
 
     # prints transactions to standard output
     def printTransactions(self) -> None:
