@@ -119,6 +119,7 @@ class Client:
 
                 # Only withdraw if there is a balance in the account
                 if self._accounts[i].getBalance() > 0:
+                    
                     # Withdraw the current balance of the account
                     self._accounts[i].withdraw(self._accounts[i].getBalance())
                     
@@ -133,5 +134,5 @@ class Client:
                 
 
 # if __name__ == "__main__":
-#     client = Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'))
+#     client = Client('timmy', 'smith', '9123456789', Address('323 timmy drive', 'glen allen', 'VA'))
 #     client.printClient()
