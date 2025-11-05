@@ -57,16 +57,16 @@ class CheckingAccount(BankAccount):
 
     # prints transactions to standard output
     def printTransactions(self) -> None:
-    	
-    	# Create an empty string
-    	string = ""
-    	
-    	# Add each transaction to the string alongside a newline character
-    	for transaction in self._transactions:
-    		string += str(transaction) + "\n"
-    		
-    	# Print the string
-    	print(string)
+        
+        # Create an empty string
+        string = ""
+        
+        # Add each transaction to the string alongside a newline character
+        for transaction in self._transactions:
+            string += str(transaction) + "\n"
+            
+        # Print the string
+        print(string)
 
 # if __name__ == "__main__":
 #     account = CheckingAccount(1000)
