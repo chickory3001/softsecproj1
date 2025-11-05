@@ -99,6 +99,20 @@ class TestAddress(unittest.TestCase):
             print("\nTesting getState method")
             
         self.assertEqual(self.address1.getState(), TestAddress.STATE)
+        
+    # Tests the special equality method on two addresses
+    def test_address_equality(self):
+        if TestAddress.DEBUG:
+            print("\nTesting Address equality operation")
+        
+        addr1 = self.address1
+        addr2 = Address("304 Henry Street", "Ashland", "VA")
+        
+        self.assertEqual(addr1, self.address1)
+        self.assertNotEqual(addr2, self.address1)
+        
+        with self.assertRaises(AssertionError):
+            self.assertEqual(addr2, "addr2")
 
 if __name__ == "__main__":
     unittest.main()
