@@ -12,6 +12,7 @@ from Address import Address
 from CheckingAccount import CheckingAccount
 from SavingsAccount import SavingsAccount
 
+# class to represent a client of a bank 
 class Client:
     # client numbers start at 100 
     _nextClientNumber = 100

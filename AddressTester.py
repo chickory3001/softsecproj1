@@ -10,6 +10,7 @@ Test each method with at least one unit test.
 import unittest
 from Address import Address
 
+# class to test the address class 
 class TestAddress(unittest.TestCase):
     
     # Inconsistent cases will be corrected by the Address class

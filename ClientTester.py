@@ -11,6 +11,7 @@ import unittest
 from Client import Client
 from Address import Address
 
+# class to test the client class 
 class TestClient(unittest.TestCase):
     #Constants
     FIRSTNAME = 'timmy'

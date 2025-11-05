@@ -11,8 +11,8 @@ import unittest
 from AES_CBC import *
 
 
-# Define TestCheckingAccount class by extending the unittest.TestCase class
-# Tests the checking account class 
+# Define TestEncryption class by extending the unittest.TestCase class
+# Tests the encryption module 
 class TestEncryption(unittest.TestCase):
     KEY = b'MySuperSecretKey2222222222222222'
     IV = b'MySuperSecretIV0'  

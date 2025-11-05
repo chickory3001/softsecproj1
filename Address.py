@@ -7,6 +7,7 @@
 # This module defines the Address class.
 # A simple class to hold 3 string parts of an address. 
 
+# A simple class to hold 3 string parts of an address. 
 class Address:
     #constructs an address object
     #@param street: the street of the client address 
