@@ -13,10 +13,10 @@ from abc import ABC, abstractmethod
 # a class to represent a secure bank account 
 class BankAccount(ABC):
     INTEREST_RATE = 0.075
-    ACCOUNT_TYPES = ['c','s']
+    ACCOUNT_TYPES = ['c','s']    # Checking and Savings
     STARTING_TRANSACTION_NUMBER = 100
     
-    #constructs a bank account object
+    # Constructs a bank account object
     #@param type the type of account
     #@require type is in the allowed ACCOUNT_TYPES list 
     #@require account number >= 1000 and is an int 
@@ -55,11 +55,11 @@ class BankAccount(ABC):
     def getTimesOverdrawn(self) -> int:
         return self._timesOverdrawn
     
-    #prints all of the account's instance variables 
+    # Prints all of the account's instance variables 
     def printAccount(self) -> None:
         print(str(self))
     
-    #prints the list of transactions for the account 
+    # Prints the list of transactions for the account 
     def printTransactions(self) -> None:
         #iterate over the list of transactions
         for x in self._transactions:
@@ -67,18 +67,18 @@ class BankAccount(ABC):
     
     ### COMMANDS ###
     
-    #adds 1 to the timesOverdrawn counter variable 
+    # Adds 1 to the timesOverdrawn counter variable 
     def _incrementOverdraft(self) -> None:
         self._timesOverdrawn += 1
     
-    #deposits money into the account via creating a deposit transaction
+    # Deposits money into the account via creating a deposit transaction
     #@param amount: amount to deposit 
     #@require amount > 0 
     def deposit(self,amount:float) -> None:
         assert (isinstance(amount, float) or isinstance(amount, int)) and amount > 0.0, 'invalid deposit amount'
         self._transactions.append(Transaction(len(self._transactions)+BankAccount.STARTING_TRANSACTION_NUMBER, 'deposit', amount))
     
-    #calculates and adds interest into the account via creating an interest transaction
+    # Calculates and adds interest into the account via creating an interest transaction
     #@require balance > 0 
     def addInterest(self) -> None:
         # don't do interest on negative balance, since it would be negative interest
@@ -86,14 +86,14 @@ class BankAccount(ABC):
         interest = self.getBalance() * self.__class__.INTEREST_RATE
         self._transactions.append(Transaction(len(self._transactions)+BankAccount.STARTING_TRANSACTION_NUMBER, 'interest', interest))
     
-    #withdraws money from the account via creating a withdraw transaction
-    #to be implemented by the subclasses checking account and savings account
+    # Withdraws money from the account via creating a withdraw transaction
+    # To be implemented by the subclasses checking account and savings account
     @abstractmethod
     def withdraw(self, amount: float) -> bool:
         pass
     
-    #withdraws money from the other account and deposits it into self
-    #via withdrawing from other and depositing into self
+    # Withdraws money from the other account and deposits it into self
+    # via withdrawing from other and depositing into self
     #@param amount: amount to transfer to the account 
     #@require amount > 0 
     def transfer(self, other: 'BankAccount', amount: float) -> bool:
@@ -130,31 +130,31 @@ class BankAccount(ABC):
         string = string.replace('=',':')
         return string
     
-    #checks to see if two accounts have the same account number
+    # Checks to see if two accounts have the same account number
     #@param other: the account obj being compared to 
     #@return true if the account numbers are the same, false if not 
     def __eq__(self,other:'BankAccount') -> bool:
         return self._accountNumber == other._accountNumber
     
-    #checks if this account's account number is less than the other
+    # Checks if this account's account number is less than the other
     #@param other: the account obj being compared to
     #@return true if this account's account number is less than other, false if otherwise
     def __lt__(self,other:'BankAccount') -> bool:
         return self._accountNumber < other._accountNumber
     
-    #checks if this account's account number is greater than the other
+    # Checks if this account's account number is greater than the other
     #@param other: the account obj being compared to
     #@return true if this account's account number is greater than other, false if otherwise
     def __gt__(self,other:'BankAccount') -> bool:
         return self._accountNumber > other._accountNumber
     
-    #checks if this account's account number is less than or equal to the other
+    # Checks if this account's account number is less than or equal to the other
     #@param other: the account obj being compared to
     #@return true if this account's account number is less than or equal to other, false if otherwise
     def __le__(self,other:'BankAccount') -> bool:
         return self._accountNumber <= other._accountNumber
     
-    #checks if this account's account number is greater than or equal to the other
+    # Checks if this account's account number is greater than or equal to the other
     #@param other: the account obj being compared to
     #@return true if this account's account number is greater than or equal to other, false if otherwise
     def __ge__(self,other:'BankAccount') -> bool:
