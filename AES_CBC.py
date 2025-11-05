@@ -10,7 +10,10 @@ from cryptography.hazmat.primitives import padding
 # @parameter data: The text to decrypt
 # @parameter key: the key to decrypt the ciphertext
 # @parameter iv: The initialization vector
-def encrypt_AES_CBC(data, key, iv):
+def encrypt_AES_CBC(data: str, key: bytes, iv: bytes) -> str:
+    assert isinstance(data,str)
+    assert isinstance(key,bytes) and len(key) in [16,24,32]
+    assert isinstance(iv,bytes) and len(iv) == 16
     padder = padding.PKCS7(128).padder()  
     padded_data = padder.update(data.encode('utf-8'))  
     padded_data += padder.finalize()
@@ -23,7 +26,10 @@ def encrypt_AES_CBC(data, key, iv):
 # @parameter ciphertext: The ciphertext to decrypt
 # @parameter key: the key to decrypt the ciphertext
 # @parameter iv: The initialization vector
-def decrypt_AES_CBC(ciphertext, key, iv):
+def decrypt_AES_CBC(ciphertext: str, key: bytes, iv: bytes) -> str:
+    assert isinstance(ciphertext,str)
+    assert isinstance(key,bytes) and len(key) in [16,24,32]
+    assert isinstance(iv,bytes) and len(iv) == 16
     decryptor = Cipher(algorithms.AES(key), modes.CBC(iv), backend=default_backend()).decryptor()  
     decrypted_data = decryptor.update(ciphertext) + decryptor.finalize() 
     unpadder = padding.PKCS7(128).unpadder()  
@@ -34,10 +40,8 @@ def decrypt_AES_CBC(ciphertext, key, iv):
 if __name__ == '__main__':
     # Encryption key (Ensure the key is 16, 24, or 32 bytes for AES-128, AES-192, or AES-256)
     key = b'MySuperSecretKey2222222222222222'  
-    
     # Initialization vector (Ensure the IV is 16 bytes)
     iv = b'MySuperSecretIV0'  
-    
     plaintext = "This is my secret text\n   ffffflewfeauifeuwaihfieawo\n feuiowja\n"  
     print(f'Plain text: {plaintext}')
     
