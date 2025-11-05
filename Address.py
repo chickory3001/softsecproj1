@@ -34,6 +34,9 @@ class Address:
         self._city = city.title()
         self._state = state.upper()
     
+    
+    ### QUERIES ###
+    
     # getStreet returns the street name
     # @return self._street: the street name as a string
     def getStreet(self) -> str:
@@ -48,7 +51,17 @@ class Address:
     # @return self._state: the state name as a string
     def getState(self) -> str:
         return self._state
+ 
     
+    ### SPECIAL METHODS ###
+    
+    # Tests quality between two addresses
+    # @ensure self is being compared to another Address
+    # @return: True if equal, else False
+    def __eq__(self, other: 'Address') -> bool:
+        assert isinstance(other, Address), "invalid comparison"
+        return self._street == other._street and self._city == other._city and self._state == other._state
+        
     # Returns a string containing the formatted address.
     # @return: The formatted string of the address
     def __str__(self) -> str:
