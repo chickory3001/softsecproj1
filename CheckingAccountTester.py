@@ -37,8 +37,8 @@ class TestCheckingAccount(unittest.TestCase):
         
         self.assertEqual(self.account1.getAccountNumber(), TestCheckingAccount.ACCOUNT1NUMBER)
         self.assertEqual(self.account2.getAccountNumber(), TestCheckingAccount.ACCOUNT2NUMBER)
-        self.assertEqual(self.account1.getType(),'Checking')
-        self.assertEqual(self.account2.getType(),'Checking')
+        self.assertEqual(self.account1.getType(),'c')
+        self.assertEqual(self.account2.getType(),'c')
         self.assertEqual(self.account1.getTransactions(),[])
         self.assertEqual(self.account2.getTransactions(),[])
         #this class doesn't even use timesOverdrawn but test it anyway 
@@ -52,7 +52,7 @@ class TestCheckingAccount(unittest.TestCase):
         
         # test type assertion
         # BankAccount constructor is only called by CheckingAccount and SavingsAccount, 
-        # which call it with a valid type 
+        # which call it with a valid type, so 
         # can't test an invalid type because BankAccount is abstract 
         CheckingAccount(1009)
         
@@ -176,6 +176,7 @@ class TestCheckingAccount(unittest.TestCase):
         # so I will manually add a transaction to make the balance negative 
         self.account3._transactions.append(Transaction(100,'withdrawal',-100.0))
         self.assertTrue(self.account3.getBalance() == -100.0)
+        print('Expect Transaction Denied: ')
         self.assertFalse(self.account3.withdraw(TestCheckingAccount.VALIDWITHDRAWAL))
         self.assertEqual(self.account3.getBalance(), -100.0)
     
@@ -237,19 +238,27 @@ class TestCheckingAccount(unittest.TestCase):
         with self.assertRaises(AssertionError):
             self.account3.addInterest()
     
-        #test the encryption/decryption and writing/reading to file 
+    #test the encryption/decryption and writing/reading to file 
     def test_encryption(self):
+        if TestCheckingAccount.DEBUG:
+            print("\nTesting the read and write transactions methods ")
         # load up some transactions
         self.account1.deposit(10)
         self.account1.deposit(20)
         self.account1.withdraw(10)
 
+        # get data to be encrypted 
         transactions = ''
         for transaction in self.account1._transactions:
             transactions += str(transaction)
         
+        #encrypt and write to file 
         self.account1.writeTransactions()
+
+        #decrypt and read from file 
         result = self.account1.getTransactionData()
+
+        #compare the data before and after 
         self.assertEqual(transactions,result)
 
 if __name__ == "__main__":

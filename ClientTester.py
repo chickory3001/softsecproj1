@@ -165,9 +165,6 @@ class TestClient(unittest.TestCase):
         result = self.client1.closeAccount(self.client1._accounts[1].getAccountNumber())
         self.assertEqual(result, False)
         self.assertEqual(len(self.client1._accounts),2)
-        
-    def test_print_client(self):
-        pass
 
 if __name__ == "__main__":
     unittest.main()

@@ -11,7 +11,7 @@ from transaction import Transaction
 from abc import ABC, abstractmethod
 
 # a class to represent a secure bank account 
-class BankAccount:
+class BankAccount(ABC):
     INTEREST_RATE = 0.075
     ACCOUNT_TYPES = ['c','s']
     STARTING_TRANSACTION_NUMBER = 100

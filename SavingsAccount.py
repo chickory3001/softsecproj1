@@ -46,7 +46,7 @@ class SavingsAccount(BankAccount):
             
             # if the withdrawal overdrafts
             if self.getBalance() < 0:
-                print("Overdraft charge has been added to account OVERDRAFTFEE[self._timesOverdrawn]")
+                print("Overdraft charge has been added to account")
                 penaltyTransaction = Transaction(len(self._transactions)+1, "penalty", -SavingsAccount.OVERDRAFTFEE[self._timesOverdrawn])
                 self._transactions.append(penaltyTransaction)
                 self._timesOverdrawn = self._timesOverdrawn + 1 
