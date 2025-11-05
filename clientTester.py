@@ -43,37 +43,41 @@ class TestClient(unittest.TestCase):
     def test_client_savings(self):
         client = Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'), 'savings')
         self.assertEqual(client._accountType.lower(), 'savings')
-
+     
+    # Testing an invalid first name
     def test_first_name(self):
         with self.assertRaises(AssertionError):
             Client("t1mmy", "smith", 9123456789, TestClient.ADDRESS, "Checking")
-            
+    # Testing an invalid last name         
     def test_last_name(self):
         with self.assertRaises(AssertionError):
             Client("timmy", "sm1th", 9123456789, TestClient.ADDRESS, "Checking")
-            
+    
+    # Testing an invalid phone length        
     def test_phone_length(self):
         with self.assertRaises(AssertionError):
             Client("timmy", "smith", 912345678, TestClient.ADDRESS, "Checking")
-            
+    
+    # Testing an invalid staring digit for phone number        
     def test_phone_start_digit(self):
         with self.assertRaises(AssertionError):
             Client("timmy", "smith", 2123456789, TestClient.ADDRESS, "Checking") 
-            
+    # Testing an invalid adress        
     def test_address(self):
         with self.assertRaises(AssertionError):
             Client("timmy", "Brown", 9123456789, "Address", "Checking")
-            
+    
+    # Tests setting an invalid first name        
     def test_set_first_name(self):
         client = Client("timmy", "smith", 9123456789, TestClient.ADDRESS, "Checking")
         with self.assertRaises(AssertionError):
                     client._setFirstName("t1mmy")
-                    
+    # Tests setting an invalid last name              
     def test_set_last_name(self):
         client = Client("timmy", "smith", 9123456789, TestClient.ADDRESS, "Checking")
         with self.assertRaises(AssertionError):
                     client._setLastName("sm1th") 
-                    
+    # Testing opening an account               
     def test_open_account(self):
         if TestClient.DEBUG:
             print("\nTesting the openAccount method")
@@ -102,7 +106,7 @@ class TestClient(unittest.TestCase):
             print("Test Passed: Object not created")
         self.assertEqual(len(self.client1._accounts), 3)
     
-        
+    # Testing closing an account   
     def test_close_account(self):
         if TestClient.DEBUG:
             print("\nTesting the closeAccount method")
