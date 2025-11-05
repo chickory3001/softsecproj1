@@ -96,9 +96,9 @@ class Client:
         assert isinstance(type, str) and type.lower() in ["c", "s"], "invalid account type"
         
         if type.lower() == 'c':
-            self._accounts.append(CheckingAccount(self._nextAccountNumber,self._first,self._last))
+            self._accounts.append(CheckingAccount(self._nextAccountNumber))
         elif type.lower() == 's':
-            self._accounts.append(SavingsAccount(self._nextAccountNumber,self._first,self._last))
+            self._accounts.append(SavingsAccount(self._nextAccountNumber))
             
         self._nextAccountNumber += 1 
 
