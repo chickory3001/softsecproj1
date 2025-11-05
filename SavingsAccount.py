@@ -61,7 +61,6 @@ class SavingsAccount(BankAccount):
             self._timesOverdrawn = 0
             print("Overdraft fees have been reset")
 
-
     
     #encrypts and writes transactions to savings.txt
     def writeTransactions(self) -> None:

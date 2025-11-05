@@ -274,7 +274,7 @@ class TestSavingsAccount(unittest.TestCase):
             self.account3.transfer(self.account1,'s') 
     
     #Testing the interest method
-    def test_Interest(self):
+    def test_interest(self):
         if TestSavingsAccount.DEBUG:
             print("\nTesting the interest method")
         
@@ -293,6 +293,21 @@ class TestSavingsAccount(unittest.TestCase):
         self.assertTrue(self.account3.getBalance() == -21.0)
         with self.assertRaises(AssertionError):
             self.account3.addInterest()
+    
+    #test the encryption/decryption and writing/reading to file 
+    def test_encryption(self):
+        # load up some transactions
+        self.account1.deposit(10)
+        self.account1.deposit(20)
+        self.account1.withdraw(10)
+
+        transactions = ''
+        for transaction in self.account1._transactions:
+            transactions += str(transaction)
+        
+        self.account1.writeTransactions()
+        result = self.account1.getTransactionData()
+        self.assertEqual(transactions,result)
 
 if __name__ == "__main__":
     unittest.main()
