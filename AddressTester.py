@@ -11,8 +11,8 @@ import unittest
 from Address import Address
 
 class TestAddress(unittest.TestCase):
-    STREET = 'timmydrive'
-    CITY = 'glenallen'
+    STREET = 'Timmy Drive'
+    CITY = 'Glen Allen'
     STATE = 'VA'
     DEBUG = False
     #setup creates an address
