@@ -92,7 +92,7 @@ class Client:
     #creates a new account and adds it to the client's list of accounts
     #@param type: the type of the new account, as a string 
     #@require type is a string in bankaccount's account types 
-    def openAccount(self, type: str):
+    def openAccount(self, type: str) -> None:
         assert isinstance(type, str) and type.lower() in ["c", "s"], "invalid account type"
         
         if type.lower() == 'c':
@@ -103,7 +103,8 @@ class Client:
         self._nextAccountNumber += 1 
 
     # closes the account and withdrawing all the funds
-    # Account number can be obtained using getAccountNumber() method
+    # @param number: the account number, can be obtained using getAccountNumber() method
+    # @require number is an int >= 1000 
     def closeAccount(self, number: int) -> bool:
         assert isinstance(number, int), "invalid input for account number"
         assert number >= 1000, "invalid input for account number"

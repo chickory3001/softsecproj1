@@ -18,6 +18,7 @@ class TestClient(unittest.TestCase):
     PHONE= "9123456789"
     ADDRESS = Address('304 timmy Drive','Glen alLen','vA')
     INITIALTYPE = 'c'
+    CLIENTNUMBER = 1000 
     DEBUG = False
 
     # The setup method creates a client
@@ -28,83 +29,82 @@ class TestClient(unittest.TestCase):
     def test_constructor(self):
         if TestClient.DEBUG:
             print("\nTesting the constructor")
-            print("The first client: ", self.client1)
-            
+        
         self.assertEqual(self.client1._first, TestClient.FIRSTNAME)
         self.assertEqual(self.client1._last, TestClient.LASTNAME)
         self.assertEqual(self.client1._phone, TestClient.PHONE)
         self.assertEqual(self.client1._address, TestClient.ADDRESS)
-        self.assertEqual(self.client1._clientNumber, 1000)
+        self.assertEqual(self.client1._clientNumber, TestClient.CLIENTNUMBER)
+        self.assertEqual(self.client1._accounts[0]._type, TestClient.INITIALTYPE)
+        self.assertEqual(len(self.client1._accounts), 1)
 
+        client2 = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, 's')
+        self.assertEqual(self.client1._accounts[0]._type, 's')
+
+    # testing assertions in the constructor 
+    def test_constructor_asserts(self):
+        if TestClient.DEBUG:
+            print("\nTesting the constructor assertions")
         
-    def test_client_checking(self):
-        client = Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'), 'checking')
-        self.assertEqual(client._accountType.lower(), 'checking')
+        # test first name assert 
+        with self.assertRaises(AssertionError):
+            client = Client(12312321,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
+        with self.assertRaises(AssertionError):
+            client = Client('whatever\n',TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
+        with self.assertRaises(AssertionError):
+            client = Client('',TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
+        with self.assertRaises(AssertionError):
+            client = Client('a'*26,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
+        # test last name assert 
+        with self.assertRaises(AssertionError):
+            client = Client(TestClient.FIRSTNAME,12312321,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
+        with self.assertRaises(AssertionError):
+            client = Client(TestClient.FIRSTNAME,'whatever\n',TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
+        with self.assertRaises(AssertionError):
+            client = Client(TestClient.FIRSTNAME,'',TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
+        with self.assertRaises(AssertionError):
+            client = Client(TestClient.FIRSTNAME,'a'*41,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
+        # test phone number assert 
+        with self.assertRaises(AssertionError):
+            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,9123456789,TestClient.ADDRESS, TestClient.INITIALTYPE)
+        with self.assertRaises(AssertionError):
+            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,'a'*10,TestClient.ADDRESS, TestClient.INITIALTYPE)
+        with self.assertRaises(AssertionError):
+            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,'a'*11,TestClient.ADDRESS, TestClient.INITIALTYPE)
+        with self.assertRaises(AssertionError):
+            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,'0123456789',TestClient.ADDRESS, TestClient.INITIALTYPE)
+        # test address assert 
+        with self.assertRaises(AssertionError):
+            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,'ssssssss', TestClient.INITIALTYPE)
+        # test inital account type assert 
+        with self.assertRaises(AssertionError):
+            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, 123131)
+        with self.assertRaises(AssertionError):
+            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, 'a')
 
-    def test_client_savings(self):
-        client = Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'), 'savings')
-        self.assertEqual(client._accountType.lower(), 'savings')
-    
-    # Testing an invalid first name
-    def test_first_name(self):
-        with self.assertRaises(AssertionError):
-            Client("t1mmy", "smith", 9123456789, TestClient.ADDRESS, "Checking")
-    # Testing an invalid last name         
-    def test_last_name(self):
-        with self.assertRaises(AssertionError):
-            Client("timmy", "sm1th", 9123456789, TestClient.ADDRESS, "Checking")
-    
-    # Testing an invalid phone length        
-    def test_phone_length(self):
-        with self.assertRaises(AssertionError):
-            Client("timmy", "smith", 912345678, TestClient.ADDRESS, "Checking")
-    
-    # Testing an invalid staring digit for phone number        
-    def test_phone_start_digit(self):
-        with self.assertRaises(AssertionError):
-            Client("timmy", "smith", 2123456789, TestClient.ADDRESS, "Checking") 
-    # Testing an invalid adress        
-    def test_address(self):
-        with self.assertRaises(AssertionError):
-            Client("timmy", "Brown", 9123456789, "Address", "Checking")
-    
-    # Tests setting an invalid first name        
-    def test_set_first_name(self):
-        client = Client("timmy", "smith", 9123456789, TestClient.ADDRESS, "Checking")
-        with self.assertRaises(AssertionError):
-                    client._setFirstName("t1mmy")
-    # Tests setting an invalid last name              
-    def test_set_last_name(self):
-        client = Client("timmy", "smith", 9123456789, TestClient.ADDRESS, "Checking")
-        with self.assertRaises(AssertionError):
-                    client._setLastName("sm1th") 
     # Testing opening an account               
     def test_open_account(self):
         if TestClient.DEBUG:
             print("\nTesting the openAccount method")
-            
+        
         #Testing a valid checking account opening
         self.client1.openAccount("c")
         self.assertEqual(len(self.client1._accounts), 2)
-        self.assertEqual(self.client1._accounts[0].accountType, "Checking")
+        self.assertEqual(self.client1._accounts[1]._type, "c")
 
-        #Testing a valid checking account opening
+        #Testing a valid savings account opening
         self.client1.openAccount("s")
         self.assertEqual(len(self.client1._accounts), 3)
-        self.assertEqual(self.client1._accounts[1].accountType, "Savings")
+        self.assertEqual(self.client1._accounts[2]._type, "s")
 
         #Testing that having the type argument not be of type string leads to assert error
-        try:
-            result = self.client1.openAccount(10)
-        except AssertionError:
-            print("Test Passed: Object not created")
+        with self.assertRaises(AssertionError):
+            self.client1.openAccount(10)
         self.assertEqual(len(self.client1._accounts), 3)
         
         #Testing that having the type argument not be either "c" or "s" leads to assert error
-        try:
-            result = self.client1.openAccount("Invalid")
-        except AssertionError:
-            print("Test Passed: Object not created")
+        with self.assertRaises(AssertionError):
+            self.client1.openAccount("Invalid")
         self.assertEqual(len(self.client1._accounts), 3)
     
     # Testing closing an account   
