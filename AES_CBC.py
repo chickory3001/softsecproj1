@@ -10,7 +10,7 @@ from cryptography.hazmat.primitives import padding
 # @parameter data: The text to decrypt
 # @parameter key: the key to decrypt the ciphertext
 # @parameter iv: The initialization vector
-def encrypt_AES_CBC(data: str, key: bytes, iv: bytes) -> str:
+def encrypt_AES_CBC(data: str, key: bytes, iv: bytes) -> bytes:
     assert isinstance(data,str)
     assert isinstance(key,bytes) and len(key) in [16,24,32]
     assert isinstance(iv,bytes) and len(iv) == 16
@@ -26,8 +26,8 @@ def encrypt_AES_CBC(data: str, key: bytes, iv: bytes) -> str:
 # @parameter ciphertext: The ciphertext to decrypt
 # @parameter key: the key to decrypt the ciphertext
 # @parameter iv: The initialization vector
-def decrypt_AES_CBC(ciphertext: str, key: bytes, iv: bytes) -> str:
-    assert isinstance(ciphertext,str)
+def decrypt_AES_CBC(ciphertext: bytes, key: bytes, iv: bytes) -> str:
+    assert isinstance(ciphertext,bytes)
     assert isinstance(key,bytes) and len(key) in [16,24,32]
     assert isinstance(iv,bytes) and len(iv) == 16
     decryptor = Cipher(algorithms.AES(key), modes.CBC(iv), backend=default_backend()).decryptor()  
@@ -37,26 +37,26 @@ def decrypt_AES_CBC(ciphertext: str, key: bytes, iv: bytes) -> str:
     unpadded_data += unpadder.finalize()
     return unpadded_data.decode('utf-8')  
 
-if __name__ == '__main__':
-    # Encryption key (Ensure the key is 16, 24, or 32 bytes for AES-128, AES-192, or AES-256)
-    key = b'MySuperSecretKey2222222222222222'  
-    # Initialization vector (Ensure the IV is 16 bytes)
-    iv = b'MySuperSecretIV0'  
-    plaintext = "This is my secret text\n   ffffflewfeauifeuwaihfieawo\n feuiowja\n"  
-    print(f'Plain text: {plaintext}')
+# if __name__ == '__main__':
+#     # Encryption key (Ensure the key is 16, 24, or 32 bytes for AES-128, AES-192, or AES-256)
+#     key = b'MySuperSecretKey2222222222222222'  
+#     # Initialization vector (Ensure the IV is 16 bytes)
+#     iv = b'MySuperSecretIV0'  
+#     plaintext = "This is my secret text\n   ffffflewfeauifeuwaihfieawo\n feuiowja\n"  
+#     print(f'Plain text: {plaintext}')
     
-    # Encrypt the plaintext
-    encrypted_text = encrypt_AES_CBC(plaintext, key, iv)  
-    print(f'Encrypted text: {encrypted_text}')
+#     # Encrypt the plaintext
+#     encrypted_text = encrypt_AES_CBC(plaintext, key, iv)  
+#     print(f'Encrypted text: {encrypted_text}')
     
-    # write raw bytes to text file 
-    with open("checking.txt", "wb") as f:
-        f.write(encrypted_text)
+#     # write raw bytes to text file 
+#     with open("checking.txt", "wb") as f:
+#         f.write(encrypted_text)
 
-    # read raw bytes back
-    with open("checking.txt", "rb") as f:
-        filedata = f.read()
+#     # read raw bytes back
+#     with open("checking.txt", "rb") as f:
+#         filedata = f.read()
 
-    # Decrypt the encrypted text
-    decrypted_text = decrypt_AES_CBC(filedata, key, iv)
-    print(f'Decrypted text: {decrypted_text}')
+#     # Decrypt the encrypted text
+#     decrypted_text = decrypt_AES_CBC(filedata, key, iv)
+#     print(f'Decrypted text: {decrypted_text}')
