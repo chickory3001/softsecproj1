@@ -18,7 +18,7 @@ class Address:
     def __init__(self, street: str, city: str, state: str) -> 'Address':
         assert isinstance(street, str) and 1 <= len(street) <= 30, 'invalid street'
         assert isinstance(city, str) and 1 <= len(city) <= 30, 'invalid city'
-        assert isinstance(state, str) and state.isalpha() and len(state) == 2 and state in ["VA", 'MD', 'NJ', 'PA', 'DE', 'NC', 'WV', 'DC'], 'invalid state'
+        assert isinstance(state, str) and state.isalpha() and len(state) == 2 and state.upper() in ["VA", 'MD', 'NJ', 'PA', 'DE', 'NC', 'WV', 'DC'], 'invalid state'
         
         # Verify valid street name (allowing for spaces and numbers)
         splitStreet = street.split()
@@ -30,9 +30,9 @@ class Address:
         for c in splitCity:
             assert c.isalpha(), "invalid city name"
         
-        self._street = street
-        self._city = city
-        self._state = state
+        self._street = street.title()
+        self._city = city.title()
+        self._state = state.upper()
     
     # Returns a string containing the formatted address.
     # @return: The formatted string of the address
