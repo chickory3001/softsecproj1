@@ -90,11 +90,23 @@ class TestClient(unittest.TestCase):
     
         
     def test_close_account(self):
-        Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'), 'checking')
-        client.openAccount('checking')
-        result = client.closeAccount('checking')
-        self.assertTrue('checking' not in client._accounts)
-        self.assertEqual(result, "Savings account closed successfully")
+        if TestClient.DEBUG:
+            print("\nTesting the closeAccount method")
+        #1 is the checking account created from the constructor
+        self.assertEqual(len(self.client._accounts), 1)
+
+        #Adding a 2nd account so we can close it
+        self.client1.openAccount("Checking")
+        self.assertEqual(len(self.client._accounts), 2)
+
+        #Closing 2nd account
+        self.client1.closeAccount(self.client1._accounts[1].getAccountNumber())
+        self.assertEqual(len(self.client1._accounts),1)
+
+        #Closing a non existent account, should do nothing
+        result = self.client1.closeAccount(9999)
+        self.assertIsNone(result)
+        self.assertEqual(len(self.client1._accounts),1)
         
     def test_print_client(self):
         pass
