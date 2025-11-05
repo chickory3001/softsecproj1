@@ -20,7 +20,7 @@ class TestClient(unittest.TestCase):
     ADDRESS = Address('304 timmy Drive','Glen alLen','vA')
     INITIALTYPE = 'c'
     CLIENTNUMBER = 100
-    DEBUG = False
+    DEBUG = True
 
     # The setup method creates a client
     def setUp(self):
