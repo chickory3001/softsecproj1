@@ -95,27 +95,35 @@ class Client:
     def openAccount(self, type: str):
         assert isinstance(type, str) and type.lower() in ["c", "s"], "invalid account type"
         
-        if type == 'c':
+        if type.lower() == 'c':
             self._accounts.append(CheckingAccount(self._nextAccountNumber,self._first,self._last))
-        elif type == 's':
+        elif type.lower() == 's':
             self._accounts.append(SavingsAccount(self._nextAccountNumber,self._first,self._last))
             
         self._nextAccountNumber += 1 
 
     # closes the account and withdrawing all the funds
+    # Account number can be obtained using getAccountNumber() method
     def closeAccount(self, number: int) -> bool:
         assert isinstance(number, int), "invalid input for account number"
+        assert number >= 1000, "invalid input for account number"
         
         # Loop through the list of accounts until an account number matches
         for i in range(len(self._accounts)):
             if self._accounts[i].getAccountNumber() == number:
-                
-                # Withdraw the current balance of the account
-                self._accounts[i].withdraw(self._accounts[i].getBalance())
-                
+
+                # If the account's balance is negative do not close and return False
+                if self._accounts[i].getBalance() < 0:
+                    return False
+
+                # Only withdraw if there is a balance in the account
+                if self._accounts[i].getBalance() > 0:
+                    # Withdraw the current balance of the account
+                    self._accounts[i].withdraw(self._accounts[i].getBalance())
+                    
                 # Remove this account from the client's list of accounts
                 self._accounts.pop(i)
-                
+                    
                 # Return True once completed
                 return True
         
