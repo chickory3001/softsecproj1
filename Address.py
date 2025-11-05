@@ -23,7 +23,7 @@ class Address:
         # Verify valid street name (allowing for spaces and numbers)
         splitStreet = street.split()
         for s in splitStreet:
-            assert s.isprintable(), "invalid street name"
+            assert s.isalnum(), "invalid street name"
         
         # Verify valid city name (allowing for spaces in city name)
         splitCity = city.split()
