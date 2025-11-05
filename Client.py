@@ -133,5 +133,5 @@ class Client:
                 
 
 # if __name__ == "__main__":
-#     client = Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'))
+#     client = Client('timmy', 'smith', '9123456789', Address('323 timmy drive', 'glen allen', 'VA'))
 #     client.printClient()
