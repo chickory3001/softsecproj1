@@ -124,3 +124,6 @@ class TestClient(unittest.TestCase):
         
     def test_print_client(self):
         pass
+
+if __name__ == "__main__":
+    unittest.main()
