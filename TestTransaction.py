@@ -11,7 +11,7 @@ import unittest
 from transaction import Transaction
 
 """ Define test testTransaction class by extending the unittest.TestCase class"""
-
+# a class that tests the transaction class 
 class TestTransaction(unittest.TestCase):
     DEPOSIT = 2000   # Expected Deposit amount
     WITHDRAWL = 500  # Expected Withdrawl amount

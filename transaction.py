@@ -5,7 +5,6 @@ import datetime
 
 #  This module defines the Transaction class.
 #  A class to represent the data elements and methods required to implement a back account transaction.
-
 class Transaction :
    
    DEBUG = False # A class constant that turns debugging printing on and off
