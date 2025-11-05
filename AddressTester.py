@@ -23,57 +23,82 @@ class TestAddress(unittest.TestCase):
     STATE = "VA"
     
     DEBUG = True
-    #setup creates an address
-    def setUp(self):
-        # print('setup')
-        self.address1 = Address(TestAddress.STREET_,TestAddress.CITY_,TestAddress.STATE_)
     
-    #tests constructor
+    # setUp creates an address
+    def setUp(self):   
+        self.address1 = Address(TestAddress.STREET_,
+                                TestAddress.CITY_,
+                                TestAddress.STATE_
+                                )
+    
+    # Tests constructor
     def test_constructor(self):
         if TestAddress.DEBUG:
-            print('\n testing constructor')
-        self.assertEqual(self.address1._street,TestAddress.STREET)
-        self.assertEqual(self.address1._city,TestAddress.CITY)
-        self.assertEqual(self.address1._state,TestAddress.STATE)
+            print('\nTesting constructor')
+        
+        self.assertEqual(self.address1._street, TestAddress.STREET)
+        self.assertEqual(self.address1._city, TestAddress.CITY)
+        self.assertEqual(self.address1._state, TestAddress.STATE)
 
-    #tests constructor assertions 
+    # Tests constructor assertions 
     def test_constructor_asserts(self):
         if TestAddress.DEBUG:
-            print('\n testing constructor asserts')
+            print('\nTesting constructor asserts')
         
-        #test string type assert
+        # Test string type assert
         with self.assertRaises(AssertionError):
-            Address(1,TestAddress.CITY,TestAddress.STATE)
+            Address(1, TestAddress.CITY, TestAddress.STATE)
         with self.assertRaises(AssertionError):
-            Address(TestAddress.STREET,1,TestAddress.STATE)
+            Address(TestAddress.STREET, 1, TestAddress.STATE)
         with self.assertRaises(AssertionError):
-            Address(TestAddress.STREET,TestAddress.CITY,1)
+            Address(TestAddress.STREET, TestAddress.CITY, 1)
         
-        #test alphanumeric assert 
+        # Test alphanumeric assert 
         with self.assertRaises(AssertionError):
-            Address(' @#$%^',TestAddress.CITY,TestAddress.STATE)
+            Address(' @#$%^', TestAddress.CITY, TestAddress.STATE)
         with self.assertRaises(AssertionError):
-            Address(TestAddress.STREET,' @#$%^',TestAddress.STATE)
+            Address(TestAddress.STREET, ' @#$%^', TestAddress.STATE)
         with self.assertRaises(AssertionError):
-            Address(TestAddress.STREET,TestAddress.CITY,' @#$%^')
+            Address(TestAddress.STREET, TestAddress.CITY, ' @#$%^')
         
-        #test length assert
+        # Test length assert
         with self.assertRaises(AssertionError):
-            Address('',TestAddress.CITY,TestAddress.STATE)
+            Address('', TestAddress.CITY, TestAddress.STATE)
         with self.assertRaises(AssertionError):
-            Address('a'*31,TestAddress.CITY,TestAddress.STATE)
+            Address('a'*31, TestAddress.CITY, TestAddress.STATE)
         with self.assertRaises(AssertionError):
-            Address(TestAddress.STREET,'',TestAddress.STATE)
+            Address(TestAddress.STREET, '', TestAddress.STATE)
         with self.assertRaises(AssertionError):
-            Address(TestAddress.STREET,'a'*31,TestAddress.STATE)
+            Address(TestAddress.STREET, 'a'*31, TestAddress.STATE)
         with self.assertRaises(AssertionError):
-            Address(TestAddress.STREET,TestAddress.CITY,'aaaa')
+            Address(TestAddress.STREET, TestAddress.CITY, 'aaaa')
         
-        # test in list of states assert
+        # Test in list of states assert
         with self.assertRaises(AssertionError):
-            Address(TestAddress.STREET,TestAddress.CITY,'ZZ')
+            Address(TestAddress.STREET, TestAddress.CITY, 'ZZ')
         with self.assertRaises(AssertionError):
-            Address(TestAddress.STREET,TestAddress.CITY,'vaa') 
+            Address(TestAddress.STREET, TestAddress.CITY, 'vaa') 
+            
+    # Tests getStreet method
+    def test_getStreet(self):
+        if TestAddress.DEBUG:
+            print("\nTesting getStreet method")
+            
+        self.assertEqual(self.address1.getStreet(), TestAddress.STREET)
+        
+    # Tests getCity method
+    def test_getCity(self):
+        if TestAddress.DEBUG:
+            print("\nTesting getCity method")
+            
+        self.assertEqual(self.address1.getCity(), TestAddress.CITY)
+        
+    # Tests getState method
+    def test_getState(self):
+        if TestAddress.DEBUG:
+            print("\nTesting getState method")
+            
+        self.assertEqual(self.address1.getState(), TestAddress.STATE)
 
 if __name__ == "__main__":
     unittest.main()
