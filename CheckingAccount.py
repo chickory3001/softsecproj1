@@ -18,7 +18,6 @@ class CheckingAccount(BankAccount):
     def __init__(self, number: int) -> 'CheckingAccount':
         super().__init__('Checking',number)
 
-
     #withdraws money from the account via creating a withdraw transaction
     #@param amount: amount to withdraw 
     #@require amount > 0 
@@ -35,8 +34,6 @@ class CheckingAccount(BankAccount):
         else:
             print("Transaction Denied")
             return False
-
-    
     
     #encrypts and writes transactions to checking.txt
     def writeTransactions(self) -> None:

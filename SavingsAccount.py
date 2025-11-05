@@ -74,14 +74,18 @@ class SavingsAccount(BankAccount):
         with open("savings.txt", "wb") as f:
             f.write(encrypted_text)
     
-    #reads, decrypts, and prints transactions from savings.txt
-    def readTransactions(self) -> None:
+    #reads the transaction data from the file, decrypts it, and returns it 
+    def getTransactionData(self) -> str:
             # read raw bytes back
         with open("savings.txt", "rb") as f:
             filedata = f.read()
         # Decrypt the encrypted text
         decrypted_text = decrypt_AES_CBC(filedata, SavingsAccount.ENCRYPTIONKEY, SavingsAccount.ENCRYPTIONIV)  
-        print(decrypted_text)
+        return decrypted_text
+    
+    #prints the transaction data from file 
+    def readTransactions(self) -> None:
+        print(self.getTransactionData())
 
     # prints transactions to standard output
     def printTransactions(self) -> None:
