@@ -34,6 +34,21 @@ class Address:
         self._city = city.title()
         self._state = state.upper()
     
+    # getStreet returns the street name
+    # @return self._street: the street name as a string
+    def getStreet(self) -> str:
+        return self._street
+    
+    # getCity returns the city name
+    # @return self._city: the city name as a string
+    def getCity(self) -> str:
+        return self._city
+    
+    # getState returns the state name
+    # @return self._state: the state name as a string
+    def getState(self) -> str:
+        return self._state
+    
     # Returns a string containing the formatted address.
     # @return: The formatted string of the address
     def __str__(self) -> str:
