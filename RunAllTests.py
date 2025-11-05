@@ -1,4 +1,5 @@
-#simple program to import all the test classes and run them
+# Simple program to import all the test classes and run them
+
 import unittest
 from TestTransaction import TestTransaction
 from CheckingAccountTester import TestCheckingAccount
