@@ -11,14 +11,22 @@ import unittest
 from Address import Address
 
 class TestAddress(unittest.TestCase):
-    STREET = 'Timmy Drive'
-    CITY = 'Glen Allen'
-    STATE = 'VA'
-    DEBUG = False
+    
+    # Inconsistent cases will be corrected by the Address class
+    STREET_ = '304 timmy Drive'
+    CITY_ = 'Glen alLen'
+    STATE_ = 'vA'
+    
+    # The correct output for what Address should spit out
+    STREET = "304 Timmy Drive"
+    CITY = "Glen Allen"
+    STATE = "VA"
+    
+    DEBUG = True
     #setup creates an address
     def setUp(self):
         # print('setup')
-        self.address1 = Address(TestAddress.STREET,TestAddress.CITY,TestAddress.STATE)
+        self.address1 = Address(TestAddress.STREET_,TestAddress.CITY_,TestAddress.STATE_)
     
     #tests constructor
     def test_constructor(self):
@@ -65,7 +73,7 @@ class TestAddress(unittest.TestCase):
         with self.assertRaises(AssertionError):
             Address(TestAddress.STREET,TestAddress.CITY,'ZZ')
         with self.assertRaises(AssertionError):
-            Address(TestAddress.STREET,TestAddress.CITY,'va') 
+            Address(TestAddress.STREET,TestAddress.CITY,'vaa') 
 
 if __name__ == "__main__":
     unittest.main()
