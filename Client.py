@@ -118,6 +118,7 @@ class Client:
 
                 # Only withdraw if there is a balance in the account
                 if self._accounts[i].getBalance() > 0:
+                    
                     # Withdraw the current balance of the account
                     self._accounts[i].withdraw(self._accounts[i].getBalance())
                     
