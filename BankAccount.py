@@ -105,7 +105,7 @@ class BankAccount(ABC):
         # if it's unsuccessful, don't deposit
         return False
     
-    ### Special Methods ###
+    ### SPECIAL METHODS ###
     
     # Returns a string containing the account instance variables.
     # @return: The formatted, human readable string of the account 
