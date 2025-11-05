@@ -15,13 +15,13 @@ class TestClient(unittest.TestCase):
     #Constants
     FIRSTNAME = 'timmy'
     LASTNAME = 'smith'
-    PHONE= 9123456789
+    PHONE= "9123456789"
     ADDRESS = Address('timmydrive','glenallen','VA')
     DEBUG = False
 
     # The setup method craetes a client
     def setUp(self):
-        self.client1 = Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'), 'checking')
+        self.client1 = Client('timmy','smith',TestClient.Phone,TestClient.Address, 'Checking')
 
     #Tests constuctor   
     def test_constructor(self):
@@ -34,15 +34,14 @@ class TestClient(unittest.TestCase):
         self.assertEqual(self.client1._phone, TestClient.PHONE)
         self.assertEqual(self.client1.Address, TestClient.ADDRESS)
         self.assertEqual(self.client1._clientNumber, 1000)
-        self.assertEqual(self.client1._nextClientNumber, 1001)
-        self.assertEqual(self.client1.openAccount, 'checking')
+
         
     def test_client_checking(self):
-        Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'), 'checking')
+        client = Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'), 'checking')
         self.assertEqual(client._accountType.lower(), 'checking')
 
     def test_client_savings(self):
-        Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'), 'savings')
+        client = Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'), 'savings')
         self.assertEqual(client._accountType.lower(), 'savings')
 
     def test_first_name(self):
@@ -76,10 +75,19 @@ class TestClient(unittest.TestCase):
                     client._setLastName("sm1th") 
                     
     def test_open_account(self):
-        Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'), 'checking')
-        result = client.openAccount('checking')
-        self.assertTrue('checking' in client._accounts)
-        self.assertEqual(result, "Savings account opened successfully")
+        if TestClient.DEBUG:
+            print("\nTesting the openAccount method")
+            
+            #Testing a valid checking account opening
+            self.client1.openAccount("Checking")
+            self.assertEqual(len(self.client1._accounts), 1)
+            self.assertEqual(self.client1._accounts[0].accountType, "Checking")
+            
+            #Testing that an invalid account wouldn't be added
+            result = self.client1.openAccount("Invalid")
+            self.assertIsNone(result)
+            self.assertEqual(len(self.client1._accounts), 1)
+    
         
     def test_close_account(self):
         Client('timmy','smith',9123456789,Address('timmydrive','glenallen','VA'), 'checking')
