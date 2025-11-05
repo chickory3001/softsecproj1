@@ -24,18 +24,24 @@ class SavingsAccount(BankAccount):
     #@require amount > 0 
     def withdraw(self, amount: float) -> bool:
         assert isinstance(amount,(int,float)) and amount > 0, 'invalid withdrawal amount'
+
+        #If there isn't enough and times overdrawn are past 3 times, to deny the withdraw
         if amount > self.getBalance()+250 or self._timesOverdrawn >= 3:
             print("Transaction denied")
             if self._timesOverdrawn >= 3:
                 print("Too many overdrafts, raise balance to 100$ to withdraw")
             return False
+
+        #If the balanace is correct, check if it has overdraw fees
         elif self.getBalance() > 0.0:
-            # Subtract from balance by amount
             if self._timesOverdrawn == 3:
                 print("Too many overdraft fees have occurred, transacation denied")
                 return False
+
+            #Transaction is approved
             withdrawalTransaction = Transaction(len(self._transactions)+1, "withdrawal", -amount)
             self._transactions.append(withdrawalTransaction)
+            
             # if the withdrawal overdrafts
             if self.getBalance() < 0:
                 print("Overdraft charge has been added to account OVERDRAFTFEE[self._timesOverdrawn]")
@@ -55,8 +61,12 @@ class SavingsAccount(BankAccount):
         prevBalance = self.getBalance()
         self._transactions.append(Transaction(len(self._transactions)+BankAccount.STARTING_TRANSACTION_NUMBER, 'deposit', amount))
         currentBalance = self.getBalance()
+        
+        #Removes one of the overdraft violation
         if prevBalance < 100 and currentBalance >= 100 and self._timesOverdrawn > 0:
             self._timesOverdrawn -= 1
+        
+        #Removes all overdraft violations
         if prevBalance < 10000 and currentBalance >= 10000:
             self._timesOverdrawn = 0
             print("Overdraft fees have been reset")
