@@ -78,15 +78,29 @@ class TestClient(unittest.TestCase):
         if TestClient.DEBUG:
             print("\nTesting the openAccount method")
             
-            #Testing a valid checking account opening
-            self.client1.openAccount("Checking")
-            self.assertEqual(len(self.client1._accounts), 1)
-            self.assertEqual(self.client1._accounts[0].accountType, "Checking")
-            
-            #Testing that an invalid account wouldn't be added
+        #Testing a valid checking account opening
+        self.client1.openAccount("c")
+        self.assertEqual(len(self.client1._accounts), 1)
+        self.assertEqual(self.client1._accounts[0].accountType, "Checking")
+
+        #Testing a valid checking account opening
+        self.client1.openAccount("s")
+        self.assertEqual(len(self.client1._accounts), 2)
+        self.assertEqual(self.client1._accounts[1].accountType, "Savings")
+
+        #Testing that having the type argument not be of type string leads to assert error
+        try:
+            result = self.client1.openAccount(10)
+        except AssertionError:
+            print("Test Passed: Object not created")
+        self.assertEqual(len(self.client1._accounts), 2)
+        
+        #Testing that having the type argument not be either "c" or "s" leads to assert error
+        try:
             result = self.client1.openAccount("Invalid")
-            self.assertIsNone(result)
-            self.assertEqual(len(self.client1._accounts), 1)
+        except AssertionError:
+            print("Test Passed: Object not created")
+        self.assertEqual(len(self.client1._accounts), 2)
     
         
     def test_close_account(self):
