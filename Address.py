@@ -16,9 +16,20 @@ class Address:
     #@require city is a str of length 1-30 with no special characters
     #@require state is a str of length 2 with no special characters, must be one of VA, MD, NJ, PA, DE, NC, WV, DC
     def __init__(self, street: str, city: str, state: str) -> 'Address':
-        assert isinstance(street, str) and street.isalpha() and 1 <= len(street) <= 30, 'invalid street'
-        assert isinstance(city, str) and city.isalpha() and 1 <= len(city) <= 30, 'invalid city'
+        assert isinstance(street, str) and 1 <= len(street) <= 30, 'invalid street'
+        assert isinstance(city, str) and 1 <= len(city) <= 30, 'invalid city'
         assert isinstance(state, str) and state.isalpha() and len(state) == 2 and state in ["VA", 'MD', 'NJ', 'PA', 'DE', 'NC', 'WV', 'DC'], 'invalid state'
+        
+        # Verify valid street name (allowing for spaces and numbers)
+        splitStreet = street.split()
+        for s in splitStreet():
+            assert s.isprintable(), "invalid street name"
+        
+        # Verify valid city name (allowing for spaces in city name)
+        splitCity = city.split()
+        for c in splitCity:
+            assert c.isalpha(), "invalid city name"
+        
         self._street = street
         self._city = city
         self._state = state
