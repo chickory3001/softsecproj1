@@ -12,20 +12,21 @@ from Address import Address
 from CheckingAccount import CheckingAccount
 from SavingsAccount import SavingsAccount
 
-# class to represent a client of a bank 
+# Class to represent a client of a bank 
 class Client:
-    # client numbers start at 100 
+    
+    # Client numbers start at 100 
     _nextClientNumber = 100
 
-    #creates a client object 
-    #@param first: the first name as a string
-    #@param last: the last name as a string 
-    #@param phone: the phone number of the client
-    #@param address: the address of the client 
-    #@require first is a str of length 1-25 with no special characters
-    #@require last is a str of length 1-40 with no special characters
-    #@require phone is all digits, length of 10, doesn't start with 0, 1, or 2
-    #@require address is an address object 
+    # Creates a client object 
+    # @param first: the first name as a string
+    # @param last: the last name as a string 
+    # @param phone: the phone number of the client
+    # @param address: the address of the client 
+    # @require first is a str of length 1-25 with no special characters
+    # @require last is a str of length 1-40 with no special characters
+    # @require phone is all digits, length of 10, doesn't start with 0, 1, or 2
+    # @require address is an address object 
     def __init__(self, first: str, last: str, phone: str, address: Address, initialAccountType: str) -> 'Client':
         assert isinstance(first, str) and first.isprintable() and 1 <= len(first) <= 25, 'invalid first name'
         assert isinstance(last, str) and last.isprintable() and 1 <= len(last) <= 40, 'invalid last name'
@@ -40,7 +41,8 @@ class Client:
         self._accounts = []
         self._clientNumber = Client._nextClientNumber
         self._nextAccountNumber = 1000
-        #increment the next client number 
+        
+        # Increment the next client number 
         Client._nextClientNumber += 1
         self.openAccount(initialAccountType)
     
@@ -67,7 +69,7 @@ class Client:
     def getPhoneNum(self) -> str:
         return self._phone
     
-    #print all of the client details, including the accounts and their transactions 
+    # Print all of the client details, including the accounts and their transactions 
     def printClient(self) -> None:
         print(f'First Name: {self._first}\nLast Name: {self._last}\nPhone Number: {self._phone}\nAddress: {str(self._address)}\nClient Number: {self._clientNumber}\n')
         for account in self._accounts:
@@ -76,24 +78,24 @@ class Client:
     
     ### COMMANDS ###
     
-    #updates the first name of the client
-    #@param first: new first name string 
-    #@require first is a str of length 1-25 with no special characters
-    def _setFirstName(self,first:str) -> None:
+    # Updates the first name of the client
+    # @param first: new first name string 
+    # @require first is a str of length 1-25 with no special characters
+    def _setFirstName(self,first:str):
         assert 1 <= len(first) <= 25 and first.isprintable() and isinstance(first, str), 'invalid first name'
         self._first = first
     
-    #updates the last name of the client
-    #@param last: new last name string 
-    #@require last is a str of length 1-40 with no special characters
-    def _setLastName(self,last:'str') -> None:
+    # Updates the last name of the client
+    # @param last: new last name string 
+    # @require last is a str of length 1-40 with no special characters
+    def _setLastName(self,last:'str'):
         assert 1 <= len(last) <= 40 and last.isprintable() and isinstance(last, str), 'invalid last name'
         self._last = last
     
-    #creates a new account and adds it to the client's list of accounts
-    #@param type: the type of the new account, as a string 
-    #@require type is a string in bankaccount's account types 
-    def openAccount(self, type: str) -> None:
+    # Creates a new account and adds it to the client's list of accounts
+    # @param type: the type of the new account, as a string 
+    # @require type is a string in bankaccount's account types 
+    def openAccount(self, type: str):
         assert isinstance(type, str) and type.lower() in ["c", "s"], "invalid account type"
         
         if type.lower() == 'c':
@@ -103,7 +105,7 @@ class Client:
             
         self._nextAccountNumber += 1 
 
-    # closes the account and withdrawing all the funds
+    # Closes the account and withdrawing all the funds
     # @param number: the account number, can be obtained using getAccountNumber() method
     # @require number is an int >= 1000 
     def closeAccount(self, number: int) -> bool:
