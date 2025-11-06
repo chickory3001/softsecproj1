@@ -12,9 +12,12 @@ from AES_CBC import *
 
 # Checking account subclass extends BankAccount
 class CheckingAccount(BankAccount):
-    INTEREST_RATE = 0.015 #overrides BankAccount's interest rate
+    
+    # Class constants
+    INTEREST_RATE = 0.015   # Overrides BankAccount's interest rate
     ENCRYPTIONKEY = b'MySuperSecretKey2222222222222222' 
     ENCRYPTIONIV = b'MySuperSecretIV0'  
+    
     def __init__(self, number: int) -> 'CheckingAccount':
         super().__init__('c',number)
 
