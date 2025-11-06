@@ -10,7 +10,7 @@ from BankAccount import BankAccount
 from transaction import Transaction 
 from AES_CBC import *
 
-# checking account subclass extends BankAccount
+# Checking account subclass extends BankAccount
 class CheckingAccount(BankAccount):
     INTEREST_RATE = 0.015 #overrides BankAccount's interest rate
     ENCRYPTIONKEY = b'MySuperSecretKey2222222222222222' 
@@ -18,9 +18,9 @@ class CheckingAccount(BankAccount):
     def __init__(self, number: int) -> 'CheckingAccount':
         super().__init__('c',number)
 
-    #withdraws money from the account via creating a withdraw transaction
-    #@param amount: amount to withdraw 
-    #@require amount > 0 
+    # Withdraws money from the account via creating a withdraw transaction
+    # @param amount: amount to withdraw 
+    # @require amount > 0 
     def withdraw(self, amount: float) -> bool:
         assert isinstance(amount,(int,float)) and amount > 0, 'invalid withdrawal amount'
         if amount > self.getBalance():
@@ -35,31 +35,35 @@ class CheckingAccount(BankAccount):
             print("Transaction Denied")
             return False
     
-    #encrypts and writes transactions to savings.txt
+    # Encrypts and writes transactions to savings.txt
     def writeTransactions(self) -> None:
         string = ''
         for transaction in self._transactions:
             string += str(transaction)
-        # encrypt the string
+        
+        # Encrypt the string
         encrypted_text = encrypt_AES_CBC(string, CheckingAccount.ENCRYPTIONKEY, CheckingAccount.ENCRYPTIONIV)  
-        # write raw bytes to text file 
+        
+        # Write raw bytes to text file 
         with open("checking.txt", "wb") as f:
             f.write(encrypted_text)
     
-    #reads the transaction data from the file, decrypts it, and returns it 
+    # Reads the transaction data from the file, decrypts it, and returns it 
     def getTransactionData(self) -> str:
-            # read raw bytes back
+            
+            # Read raw bytes back
         with open("checking.txt", "rb") as f:
             filedata = f.read()
+        
         # Decrypt the encrypted text
         decrypted_text = decrypt_AES_CBC(filedata, CheckingAccount.ENCRYPTIONKEY, CheckingAccount.ENCRYPTIONIV)  
         return decrypted_text
     
-    #prints the transaction data from file 
+    # Prints the transaction data from file 
     def readTransactions(self) -> None:
         print(self.getTransactionData())
 
-    # prints transactions to standard output
+    # Prints transactions to standard output
     def printTransactions(self) -> None:
         
         # Create an empty string
@@ -71,12 +75,3 @@ class CheckingAccount(BankAccount):
             
         # Print the string
         print(string)
-
-# if __name__ == "__main__":
-#     account = CheckingAccount(1000)
-#     account.deposit(1000000)
-#     account.addInterest()
-#     account.withdraw(100)
-#     print(str(account))
-#     account.printTransactions()
-#     account.printAccount()
