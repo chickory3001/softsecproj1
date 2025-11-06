@@ -12,7 +12,9 @@ from AES_CBC import *
 
 # Savings account subclass extends BankAccount
 class SavingsAccount(BankAccount):
-    INTEREST_RATE = 0.04 #overrides BankAccount's interest rate
+    
+    # Class constants
+    INTEREST_RATE = 0.04 # Overrides BankAccount's interest rate
     ENCRYPTIONKEY = b'MySuperSecretKey2222222222222222' 
     ENCRYPTIONIV = b'MySuperSecretIV0'  
     OVERDRAFTFEE = [20,30,50]
