@@ -140,7 +140,7 @@ class Client:
         # Return False if the account doesn't exist
         return False
 
-if __name__ == "__main__":
-    client = Client('timmy', 'smith', '9123456789', Address('323 timmy drive', 'glen allen', 'VA'),'c')
-    client._accounts[0].deposit(100)
-    client.printClient()
+# if __name__ == "__main__":
+#     client = Client('timmy', 'smith', '9123456789', Address('323 timmy drive', 'glen allen', 'VA'),'c')
+#     client._accounts[0].deposit(100)
+#     client.printClient()
