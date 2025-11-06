@@ -8,13 +8,14 @@
 # A simple class to hold 3 string parts of an address. 
 
 class Address:
-    #constructs an address object
-    #@param street: the street of the client address 
-    #@param city: the city of the client address 
-    #@param state: the state of the client address 
-    #@require street is a str of length 1-30 with no special characters
-    #@require city is a str of length 1-30 with no special characters
-    #@require state is a str of length 2 with no special characters, must be one of VA, MD, NJ, PA, DE, NC, WV, DC
+    
+    # Constructs an address object
+    # @param street: the street of the client address 
+    # @param city: the city of the client address 
+    # @param state: the state of the client address 
+    # @require street is a str of length 1-30 with no special characters
+    # @require city is a str of length 1-30 with no special characters
+    # @require state is a str of length 2 with no special characters, must be one of VA, MD, NJ, PA, DE, NC, WV, DC
     def __init__(self, street: str, city: str, state: str) -> 'Address':
         assert isinstance(street, str) and 1 <= len(street) <= 30, 'invalid street'
         assert isinstance(city, str) and 1 <= len(city) <= 30, 'invalid city'
@@ -51,7 +52,7 @@ class Address:
     # @return self._state: the state name as a string
     def getState(self) -> str:
         return self._state
-
+ 
     
     ### SPECIAL METHODS ###
     
