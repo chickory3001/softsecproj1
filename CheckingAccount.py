@@ -39,7 +39,7 @@ class CheckingAccount(BankAccount):
             return False
     
     # Encrypts and writes transactions to savings.txt
-    def writeTransactions(self) -> None:
+    def writeTransactions(self):
         string = ''
         for transaction in self._transactions:
             string += str(transaction)
@@ -63,11 +63,11 @@ class CheckingAccount(BankAccount):
         return decrypted_text
     
     # Prints the transaction data from file 
-    def readTransactions(self) -> None:
+    def readTransactions(self):
         print(self.getTransactionData())
 
     # Prints transactions to standard output
-    def printTransactions(self) -> None:
+    def printTransactions(self):
         
         # Create an empty string
         string = ""
