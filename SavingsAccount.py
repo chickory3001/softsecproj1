@@ -19,7 +19,6 @@ class SavingsAccount(BankAccount):
     ENCRYPTIONIV = b'MySuperSecretIV0'  
     OVERDRAFTFEE = [20,30,50]
     
-    
     def __init__(self, number: int) -> 'SavingsAccount':
         super().__init__('s',number)
     
