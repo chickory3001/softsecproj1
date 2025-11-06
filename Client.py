@@ -71,7 +71,7 @@ class Client:
     
     # getAddress returns the client's address
     # @return: the client's address as an Address object
-    def getAddress(self):
+    def getAddress(self) -> Address:
         return self._address
     
     # Print all of the client details, including the accounts and their transactions 
