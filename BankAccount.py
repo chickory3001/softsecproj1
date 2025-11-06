@@ -27,6 +27,7 @@ class BankAccount(ABC):
         self._timesOverdrawn = 0
         self._type = type
     
+    
     ### QUERIES ###
     
     # getBalance returns the account's balance 
@@ -55,32 +56,35 @@ class BankAccount(ABC):
         return self._timesOverdrawn
     
     # Prints all of the account's instance variables 
-    def printAccount(self) -> None:
+    def printAccount(self):
         print(str(self))
     
     # Prints the list of transactions for the account 
-    def printTransactions(self) -> None:
-        #iterate over the list of transactions
+    def printTransactions(self):
+        
+        # Iterate over the list of transactions
         for x in self._transactions:
             print(str(x))
+    
     
     ### COMMANDS ###
     
     # Adds 1 to the timesOverdrawn counter variable 
-    def _incrementOverdraft(self) -> None:
+    def _incrementOverdraft(self):
         self._timesOverdrawn += 1
     
     # Deposits money into the account via creating a deposit transaction
     # @param amount: amount to deposit 
     # @require amount > 0 
-    def deposit(self,amount:float) -> None:
+    def deposit(self,amount:float):
         assert (isinstance(amount, float) or isinstance(amount, int)) and amount > 0.0, 'invalid deposit amount'
         self._transactions.append(Transaction(len(self._transactions)+BankAccount.STARTING_TRANSACTION_NUMBER, 'deposit', amount))
     
     # Calculates and adds interest into the account via creating an interest transaction
     # @require balance > 0 
-    def addInterest(self) -> None:
-        # don't do interest on negative balance, since it would be negative interest
+    def addInterest(self):
+        
+        # Don't do interest on negative balance, since it would be negative interest
         assert self.getBalance() > 0, 'can\'t add interest with balance <= 0'
         interest = self.getBalance() * self.__class__.INTEREST_RATE
         self._transactions.append(Transaction(len(self._transactions)+BankAccount.STARTING_TRANSACTION_NUMBER, 'interest', interest))
@@ -98,12 +102,15 @@ class BankAccount(ABC):
     def transfer(self, other: 'BankAccount', amount: float) -> bool:
         assert isinstance(amount,(int,float)) and amount > 0, 'invalid transfer amount'
         assert other is not self, 'cannot transfer to the same account'
-        # if the withdrawal from the other account is successful, deposit the amount into self
+        
+        # If the withdrawal from the other account is successful, deposit the amount into self
         if other.withdraw(amount):
             self.deposit(amount)
             return True
-        # if it's unsuccessful, don't deposit
+        
+        # If it's unsuccessful, don't deposit
         return False
+    
     
     ### SPECIAL METHODS ###
     
@@ -111,9 +118,11 @@ class BankAccount(ABC):
     # @return: The formatted, human readable string of the account 
     def __str__(self) -> str:
         string = (f'Account Type: {self._type}\nAccount Number: {self._accountNumber}\nBalance: {self.getBalance()}')
-        #iterate over list of transactions, puts newline before to ensure there's no trailing newline char
+        
+        # Iterate over list of transactions, puts newline before to ensure there's no trailing newline char
         for x in self._transactions:
             string += '\n' + str(x) 
+        
         return string
     
     # Returns a string containing the account instance variables.
@@ -121,11 +130,13 @@ class BankAccount(ABC):
     def __repr__(self) -> str:
         string = (f'BankAccount('
             f'accountNumber : {self._accountNumber}, timesOverdrawn : {self._timesOverdrawn}, transactions : [')
-        #iterate over list of transactions, puts newline before to ensure there's no trailing newline char
+        
+        # Iterate over list of transactions, puts newline before to ensure there's no trailing newline char
         for x in self._transactions:
             string += '\n' + repr(x) 
         string += '])'
-        #use : instead of = because McManus said so 
+        
+        # Use : instead of = because McManus said so 
         string = string.replace('=',':')
         return string
     
