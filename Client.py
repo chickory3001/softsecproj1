@@ -69,8 +69,13 @@ class Client:
     def getPhoneNum(self) -> str:
         return self._phone
     
+    # getAddress returns the client's address
+    # @return: the client's address as an Address object
+    def getAddress(self):
+        return self._address
+    
     # Print all of the client details, including the accounts and their transactions 
-    def printClient(self) -> None:
+    def printClient(self):
         print(f'First Name: {self._first}\nLast Name: {self._last}\nPhone Number: {self._phone}\nAddress: {str(self._address)}\nClient Number: {self._clientNumber}\n')
         for account in self._accounts:
             print(account)
