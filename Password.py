@@ -9,6 +9,8 @@ from ClientHash import Client
 class Password:
   def __init__(self):
     self._password = password
+  
+  #Asks user for a password to enter, make it go through the Client Hash written by the professor to check
   def creationPassword(self):
     userPassword = scan("Enter a pasword between 8 - 16 characters:")
     Client(userPassword)
