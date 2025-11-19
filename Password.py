@@ -18,7 +18,7 @@ class Password:
   #@Require Password being set is valid
   #@Ensure Password is saved to the client's account
   def passwordChecker(self):
-    self._password = scan("Enter a password between 8 - 16 characters:")
+    self._password = scan("Enter a password between 8 - 16 characters:")  #Ignore this for rn this needs to be in the tester - Josh
     passwordCheck = invalidPasswordChar[0]
     
     #Checks the userPassword with the list of invalid password characters
