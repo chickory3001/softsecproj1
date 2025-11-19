@@ -16,15 +16,31 @@ class Password:
   
   #Asks user for a password to enter, make it go through the Client Hash written by the professor to check
   def passwordChecker(self):
-    userPassword = scan("Enter a pasword between 8 - 16 characters:")
+    self._password = scan("Enter a password between 8 - 16 characters:")
     passwordCheck = invalidPasswordChar[0]
     
     #Checks the userPassword with the list of invalid password characters
-    while userPassword != "":
-      if userPassword == invalidPasswordChar[passwordCheck]:
+    while self._password != "":
+      if self._password == invalidPasswordChar[passwordCheck]:
         print("Invalid Character", invalidPasswordChar[passwordCheck])
       else:
-      userPassword == True
+      self._password == True
+
+    def changePassword(self):
+      userPassword = scan("Enter the previous password")
+      if self._password != userPassword:  #Returns false if the previous password isn't entered correctly
+        return False
+      else:
+        userPassword = scan("Enter your new password betweeen 8 - 16 characters)
+        passwordConfrim = scan("Enter your password again to confirm")
+        if userPassword != passwordConfrim:  #If the new passwords aren't the same then it will deny the changes
+          print("Incorrect password")
+        else:
+          self._password = userPassword  #Resets to the new password
+        
+        
+      
+      
     
     
     
