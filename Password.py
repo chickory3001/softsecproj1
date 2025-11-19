@@ -18,6 +18,8 @@ class Password:
   def passwordChecker(self):
     userPassword = scan("Enter a pasword between 8 - 16 characters:")
     passwordCheck = invalidPasswordChar[0]
+    
+    #Checks the userPassword with the list of invalid password characters
     while userPassword != "":
       if userPassword == invalidPasswordChar[passwordCheck]:
         print("Invalid Character", invalidPasswordChar[passwordCheck])
