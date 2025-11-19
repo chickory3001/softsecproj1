@@ -31,7 +31,7 @@ class Password:
       if self._password != userPassword:  #Returns false if the previous password isn't entered correctly
         return False
       else:
-        userPassword = scan("Enter your new password betweeen 8 - 16 characters)
+        userPassword = scan("Enter your new password betweeen 8 - 16 characters")
         passwordConfrim = scan("Enter your password again to confirm")
         if userPassword != passwordConfrim:  #If the new passwords aren't the same then it will deny the changes
           print("Incorrect password")
