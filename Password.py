@@ -21,10 +21,12 @@ class Password:
     
     #Checks the userPassword with the list of invalid password characters
     while self._password != "":
-      if self._password == invalidPasswordChar[passwordCheck]:
+      if self._password == invalidPasswordChar[passwordCheck]:  #Prints why it fails, special characters that can't be used
         print("Invalid Character", invalidPasswordChar[passwordCheck])
+      elif len(self._password) < 8 and len(self._password) > 16:  #Prints why it fails, doesn't follow length requirements
+        print("Password length isn't valid, needs to be between 8 - 16 characters:")
       else:
-      self._password == True
+      self._password == True    #Saves Password
 
     def changePassword(self):
       userPassword = scan("Enter the previous password")
@@ -33,10 +35,18 @@ class Password:
       else:
         userPassword = scan("Enter your new password betweeen 8 - 16 characters")
         passwordConfrim = scan("Enter your password again to confirm")
+        
         if userPassword != passwordConfrim:  #If the new passwords aren't the same then it will deny the changes
           print("Incorrect password")
+        
         else:
-          self._password = userPassword  #Resets to the new password
+          while userPassword !=:  #Redo the while loop from earlier, to verify the password being changed follows the right parameters
+          if userPassword == invalidPasswordChar[passwordCheck]:
+            print("Invalid Character", invalidPasswordChar[passwordCheck])
+          elif len(userPassword) < 8 and len(userPassword) > 16:
+            print("Password length isn't valid, needs to be between 8 - 16 characters")
+          else:
+            self._password = userPassword  #Resets to the new password
         
         
       
