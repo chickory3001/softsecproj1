@@ -3,7 +3,7 @@ Password
 
 Created by: J. Bodde, C. Burrell, H. Hickory, R. Pelzel, C. Triplett
 
-Creates a password and checks to see if the password is valid
+Creates a password and checks to see if the password is valid, also resets when correct condentials have been fulfilled
 """
 from ClientHash import Client
 
