@@ -14,7 +14,9 @@ class Password:
   def __init__(self):
     self._password = password
   
-  #Asks user for a password to enter, make it go through the Client Hash written by the professor to check
+  #Sets password, goes throught a while loop to check if the password is valid within the parameters
+  #@Require Password being set is valid
+  #@Ensure Password is saved to the client's account
   def passwordChecker(self):
     self._password = scan("Enter a password between 8 - 16 characters:")
     passwordCheck = invalidPasswordChar[0]
@@ -28,6 +30,10 @@ class Password:
       else:
       self._password == True    #Saves Password
 
+    
+    #Changes the password the user wants to enter
+    #@Require Password is already associated with an account
+    #@Ensure Password is being changed
     def changePassword(self):
       userPassword = scan("Enter the previous password")
       if self._password != userPassword:  #Returns false if the previous password isn't entered correctly
