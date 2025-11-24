@@ -9,18 +9,20 @@
 from BankAccount import BankAccount
 from transaction import Transaction 
 from AES_CBC import *
+from base64 import b64encode, b64decode
+from os import urandom
 
 # Savings account subclass extends BankAccount
 class SavingsAccount(BankAccount):
     
     # Class constants
     INTEREST_RATE = 0.04 # Overrides BankAccount's interest rate
-    ENCRYPTIONKEY = b'MySuperSecretKey2222222222222222' 
-    ENCRYPTIONIV = b'MySuperSecretIV0'  
     OVERDRAFTFEE = [20,30,50]
     
     def __init__(self, number: int) -> 'SavingsAccount':
         super().__init__('s',number)
+        _ENCRYPTIONKEY = urandom(16)
+        _ENCRYPTIONIV = urandom(16)
     
     # Withdraws money from the account via creating a withdraw transaction
     # @param amount: amount to withdraw 
