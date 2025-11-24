@@ -19,10 +19,7 @@ class PhoneNumber:
         else:
             splitNum = phoneNum.split("-")
             assert len(splitNum) == 3, "improper use of hyphens"
-            
-            phoneNum = ""
-            for nums in splitNum:
-                phoneNum += nums
+            phoneNum = "".join(splitNum)
             
             assert len(phoneNum) == 10, "phone number length must be 10"
             assert phoneNum.isdecimal(), "phone number must be numbers"
