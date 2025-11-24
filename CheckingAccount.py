@@ -9,17 +9,19 @@
 from BankAccount import BankAccount
 from transaction import Transaction 
 from AES_CBC import *
+from base64 import b64encode, b64decode
+from os import urandom
 
 # Checking account subclass extends BankAccount
 class CheckingAccount(BankAccount):
     
     # Class constants
     INTEREST_RATE = 0.015   # Overrides BankAccount's interest rate
-    ENCRYPTIONKEY = b'MySuperSecretKey2222222222222222' 
-    ENCRYPTIONIV = b'MySuperSecretIV0'  
     
     def __init__(self, number: int) -> 'CheckingAccount':
         super().__init__('c',number)
+        _ENCRYPTIONKEY = urandom(16)
+        _ENCRYPTIONIV = urandom(16)
 
     # Withdraws money from the account via creating a withdraw transaction
     # @param amount: amount to withdraw 
