@@ -79,7 +79,7 @@ class SavingsAccount(BankAccount):
 
     
     # Encrypts and writes transactions to savings.txt
-    def writeTransactions(self):
+    def _writeTransactions(self):
         string = ''
         for transaction in self._transactions:
             string += str(transaction)
@@ -92,7 +92,7 @@ class SavingsAccount(BankAccount):
             f.write(encrypted_text)
     
     # Reads the transaction data from the file, decrypts it, and returns it 
-    def getTransactionData(self) -> str:
+    def _getTransactionData(self) -> str:
             
             # Read raw bytes back
         with open("savings.txt", "rb") as f:
@@ -104,18 +104,5 @@ class SavingsAccount(BankAccount):
         return decrypted_text
     
     # Prints the transaction data from file 
-    def readTransactions(self):
+    def _readTransactions(self):
         print(self.getTransactionData())
-
-    # Prints transactions to standard output
-    def printTransactions(self):
-        
-        # Create an empty string
-        string = ""
-        
-        # Add each transaction to the string alongside a newline character
-        for transaction in self._transactions:
-            string += str(transaction) + "\n"
-            
-        # Print the string
-        print(string)
