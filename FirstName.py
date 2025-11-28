@@ -1,0 +1,15 @@
+# FirstName.py
+#
+# Created by: J. Bodde, C. Burrell, H. Hickory, R. Pelzel, C. Triplett
+# 
+# CSEC323 - Project 2
+# 
+# This module defines the FirstName class.
+# Holds a single string with restrictions on its structure
+
+class FirstName(Name):
+
+  def __init__(self, name: str) -> 'firstName':
+    assert len(name) <= 25
+    super().__init__('s',number)
+
