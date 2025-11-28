@@ -4,7 +4,7 @@
 # 
 # CSEC323 - Project 2
 # 
-# This module defines the FirstName class.
+# This module defines the Name class.
 # Holds a single string with restrictions on its structure
 
 class Name:
