@@ -27,15 +27,48 @@ class TestFirstName(unittest.TestCase):
     self.FirstName2 = FirstName(validFirst2)
 
   def test_constructor(self):
+    if TestCheckingAccount.DEBUG:
+      print("\nTesting the constructor")
+    
     self.assertEqual(self.FirstName1.getName(), TestFirstName.validFirst1)
     self.assertEqual(self.FirstName2.getName(), TestFirstName.validFirst2)
     self.assertTrue(isinstance(self.FirstName1, str))
     self.assertTrue(isinstance(self.FirstName2, str))
     
   def test_constructor_asserts(self):
-
+    if TestCheckingAccount.DEBUG:
+      print("\nTesting the constructor asserts")
+    
+    with self.assertRaises(AssertionError):
+      FirstName(invalidName1)
+    with self.assertRaises(AssertionError):
+      FirstName(invalidName2)
+    with self.assertRaises(AssertionError):
+      FirstName(invalidName3)
+    with self.assertRaises(AssertionError):
+      FirstName(invalidFirst)
     
   def test_getName(self):
+
+    
   def test_eq(self):
+    if TestCheckingAccount.DEBUG:
+      print("\nTesting the equal special method")
+      
+    self.assertTrue(self.FirstName1 == self.FirstName1)
+    self.assertFalse(self.FirstName1 == self.FirstName2)
+    
   def test_lt(self):
+    if TestCheckingAccount.DEBUG:
+      print("\nTesting the less than special method")
+            
+    self.assertTrue(self.FirstName1 < self.FirstName2)
+    self.assertFalse(self.FirstName1 < self.FirstName1)
+    
   def test_le(self):
+    if TestCheckingAccount.DEBUG:
+      print("\nTesting the less than or equal to special method")
+            
+    self.assertTrue(self.FirstName1 <= self.FirstName1)
+    self.assertTrue(self.FirstName1 <= self.FirstName2)
+    self.assertFalse(self.FirstName2 <= self.FirstName1)
