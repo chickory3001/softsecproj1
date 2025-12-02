@@ -2,7 +2,7 @@
 #
 # Created by: J. Bodde, C. Burrell, H. Hickory, R. Pelzel, C. Triplett
 # 
-# CSEC323 - Project 2
+# CSEC323 - Project 3
 # 
 # This module defines the Name class.
 # Holds a single string with restrictions on its structure
@@ -13,8 +13,8 @@ class Name:
   # @param first: the first name as a string
   # @require first is a str of length 1-25 with no special characters
   def __init__(self, name: str) -> 'name':
-    assert isInstance(name, str)
-    assert name.isPrintable()
+    assert isinstance(name, str)
+    assert name.isprintable()
     assert 1 <= len(name)
 
     self._name = name
@@ -32,20 +32,21 @@ class Name:
   # @ensure self is being compared to another Name
   # @return: True if equal, else False
   def __eq__(self, other: 'Name') -> bool:
-    assert isInstance(other, Name), "Invalid comparison"
+    assert isinstance(other, Name), "Invalid comparison"
     return self._name == other._name
 
   # Tests less than comparison between two names
   # @ensure self is being compared to another Name
   # @return: True if equal, else False
   def __lt__(self, other: 'Name') -> bool:
-    assert isInstance(other, Name), "Invalid comparison"
+    assert isinstance(other, Name), "Invalid comparison"
     return self._name < other._name
 
   # Tests less than or equal to comparison between two names
   # @ensure self is being compared to another Name
   # @return: True if equal, else False
   def __le__(self, other: 'Name') -> bool:
-    assert isInstance(other, Name), "Invalid comparison"
+    assert isinstance(other, Name), "Invalid comparison"
     return self._name <= other._name
+
 
