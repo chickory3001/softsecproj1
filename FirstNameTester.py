@@ -49,6 +49,10 @@ class TestFirstName(unittest.TestCase):
       FirstName(invalidFirst)
     
   def test_getName(self):
+    if TestCheckingAccount.DEBUG:
+      print("\nTesting the getter method")
+
+    self.assertEqual(self.FirstName1.getName(), TestFirstName.validFirst1)
 
     
   def test_eq(self):
