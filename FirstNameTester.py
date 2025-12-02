@@ -8,6 +8,7 @@
 # Test each method of both FirstName and Name to get full branch coverage.
 # Note: When using coverage report, it will show the debug statements as failing.
 
+import unittest
 from FirstName import FirstName
 
 class TestFirstName(unittest.TestCase):
