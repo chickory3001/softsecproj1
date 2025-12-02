@@ -7,6 +7,8 @@
 # This module defines the FirstName class.
 # Holds a single string with restrictions on its structure
 
+from Name import Name
+
 class LastName(Name):
 
   def __init__(self, name: str) -> 'lastName':
