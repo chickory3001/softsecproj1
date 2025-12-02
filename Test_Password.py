@@ -15,33 +15,53 @@ class passwordTester(self):
     self._invalidPassword = ["linesAmIRight?||||", "Bad/Pass1", "Wrong\\Key9", "Too<Short", "Space Bar1"] 
     self.passwordObj = Password()  #creating a password object to test
 
+  
+  
+  
   #Testing valid passwords from list
+  #@Require that the passwords are correctly entered
+  #@Ensure the passwords do return true 
   def testValidPass(self):
     print("Testing valid passwords:")
     for passwords in self.validPasswords:
       result = self.passwordObj.isValid(passwords)
       print(f" {passwords}: {"FAIL (correct)" if not result else "PASS (should NOT be valid!)"}")
   
+  
+  
+  
   #Testing invalid passwords form list
+  #@Require that the passwords are correctly entered
+  #@Ensure the passwords do return false
   def testInvalidPass(self):
     print("Testing invalid passwords:")
     for passwords in self.invalidPasswords:
       result = self.passwordObj.isValid(passwords)
       print(f"  {passwords}: {'FAIL (correct)' if not result else 'PASS (should NOT be valid!)'}")
 
+  
+  
+  
+  #Testing changing of passwords from both valid and invalid
+  #@Require that the passwords are correctly entered
+  #@Ensure the passwords do return true if valid and false if not
   def testChangingPassword(self):
     print("Testing password changes")
+    
+    #Testing valid password change
     oldPass = self._validPassword[0]
     newPass = "ValidNewPass67"
 
-    self.passwordObj._password = oldPass
+    self.passwordObj._password = oldPass     #Making password object to store previous passwords 
     changeResult = self.passwordObj.changePassword(oldPass, newPass)
     print(f" Changing VALID -> VALID: {oldPass} -> {newPass}: {'SUCCESS' if changeResult else 'FAIL'}")
 
+    
+    #Testing invalid password change
     oldInvalid = self._invalidPassword[0]
     newInvalid = "invalidNewPass|||67"
 
-    self.passwordObj._password = oldInvalid
+    self.passwordObj._password = oldInvalid    #Making password object to store previous passwords 
     changeResult = self.passwordObj.changePassword(oldInvalid, newInvalid)
     print(f" Changing INVALID -> INVALID: {oldInvalid} -> {newInvalid}: {SUCCESS (should NOT happen!}' if changeResult else 'FAIL (correct)'}")
 
