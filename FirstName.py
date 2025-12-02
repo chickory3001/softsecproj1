@@ -1,4 +1,4 @@
-# FirstName.py
+# LastName.py
 #
 # Created by: J. Bodde, C. Burrell, H. Hickory, R. Pelzel, C. Triplett
 # 
@@ -9,9 +9,10 @@
 
 from Name import Name
 
-class FirstName(Name):
+class LastName(Name):
 
-  def __init__(self, name: str) -> 'firstName':
+  def __init__(self, name: str) -> 'lastName':
     super().__init__(name)
-    assert len(name) <= 25
+    assert len(name) <= 45
+
 
