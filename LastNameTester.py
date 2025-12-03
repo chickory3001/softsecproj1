@@ -17,7 +17,7 @@ class TestLastName(unittest.TestCase):
   validLast2 = "Skyler"
   invalidLast = "Davidsonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
   
-  debug = False
+  debug = True
 
 def setUp(self):
     self.LastName1 = LastName(self.validLast1)
