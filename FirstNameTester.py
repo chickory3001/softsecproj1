@@ -20,7 +20,7 @@ class TestFirstName(unittest.TestCase):
   invalidName3 = ""
   invalidFirst = "Davidddddddddddddddddddddd"
 
-  debug = False
+  debug = True
 
 
   def setUp(self):
