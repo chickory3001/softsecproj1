@@ -3,10 +3,10 @@
 import unittest
 from TestTransaction import TestTransaction
 from Test_CheckingAccount import TestCheckingAccount
-from SavingsAccountTester import TestSavingsAccount
+from Test_SavingsAccount import TestSavingsAccount
 from Test_Client import TestClient
 from Test_Address import TestAddress
-from EncryptionTester import TestEncryption
+from Test_Encryption import TestEncryption
 
 if __name__ == '__main__':
     suppressPrintStatements = True
