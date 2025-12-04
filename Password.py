@@ -8,9 +8,10 @@ Creates a password and checks to see if the password is valid, also resets when 
 from ClientHash import Client
 
 
-invalidPasswordChar = ["/", "\", "<", ">", "|", "_"]
 #Creates the password object
 class Password:
+  invalidPasswordChar = ["/", "\\", "<", ">", "|", "_"]
+
   def __init__(self):
     self._password = ""
   
@@ -18,7 +19,7 @@ class Password:
   #@Require Password being set is valid
   #@Ensure Password is saved to the client's account
   def passwordChecker(self, userPassword):
-    for character in invalidPassswordChar:
+    for character in Password.invalidPassswordChar:
       if character in userPassword:
         print("Invalid character:", character)
         return False
@@ -27,50 +28,38 @@ class Password:
         print("Password length must be between 8 - 16 characters:")
         return False
     return True
-
     
-    #Changes the password the user wants to enter
-    #@Require Password is already associated with an account
-    #@Ensure Password is being changed
-    def changePassword(self):
-      oldPass = input("Enter your previous password")  #Check previous password
-      if oldPass != self._password:
-        print("Incorrect Previous Password:")
-        return False
+  #Changes the password the user wants to enter
+  #@Require Password is already associated with an account
+  #@Ensure Password is being changed
+  def changePassword(self):
+    oldPass = input("Enter your previous password")  #Check previous password
+    if oldPass != self._password:
+      print("Incorrect Previous Password:")
+      return False
 
-      #Creation of new password and confirm password
+    #Creation of new password and confirm password
+    newPass = input("Enter your new password")
+    confirmPass = input("Enter your new password to confirm")
+    
+    #If the passwords don't match try again
+    while newPass != confirmPass:
+      print("Passwords do not match try again:")
       newPass = input("Enter your new password")
       confirmPass = input("Enter your new password to confirm")
-      
-      #If the passwords don't match try again
+
+    
+    #Checks new password to see if it is valid, if not prompt the user to try again
+    while not self.isValid(newPass):
+      newPass = input("Enter your new password")
+      confirmPass = input("Enter your new password to confirm")
+
       while newPass != confirmPass:
         print("Passwords do not match try again:")
         newPass = input("Enter your new password")
         confirmPass = input("Enter your new password to confirm")
 
-      
-      #Checks new password to see if it is valid, if not prompt the user to try again
-      while not self.isValid(newPass):
-        newPass = input("Enter your new password")
-        confirmPass = input("Enter your new password to confirm")
 
-        while newPass != confirmPass:
-        print("Passwords do not match try again:")
-        newPass = input("Enter your new password")
-        confirmPass = input("Enter your new password to confirm")
-
-
-      self._password = newPass
-      print("Password changed successfully")
-      return True
-        
-        
-
-
-      
-        
-      
-      
-    
-    
-    
+    self._password = newPass
+    print("Password changed successfully")
+    return True

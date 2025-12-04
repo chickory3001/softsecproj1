@@ -6,7 +6,7 @@
 # 
 # Import the unittest module and the FirstName class.
 # Test each method of both FirstName and Name to get full branch coverage.
-# Note: When using coverage report, it will show the debug statements as failing.
+# Note: When using coverage report, it will show the DEBUG statements as failing.
 
 import unittest
 from FirstName import FirstName
@@ -20,7 +20,7 @@ class TestFirstName(unittest.TestCase):
   invalidName3 = ""
   invalidFirst = "Davidddddddddddddddddddddd"
 
-  debug = True
+  DEBUG = True
 
 
   def setUp(self):
@@ -28,14 +28,14 @@ class TestFirstName(unittest.TestCase):
     self.FirstName2 = FirstName(self.validFirst2)
 
   def test_constructor(self):
-    if self.debug:
+    if self.DEBUG:
       print("\nTesting the constructor")
     
     self.assertEqual(self.FirstName1._name, TestFirstName.validFirst1)
     self.assertEqual(self.FirstName2._name, TestFirstName.validFirst2)
     
   def test_constructor_asserts(self):
-    if self.debug:
+    if self.DEBUG:
       print("\nTesting the constructor asserts")
     
     with self.assertRaises(AssertionError):
@@ -48,30 +48,33 @@ class TestFirstName(unittest.TestCase):
       FirstName(self.invalidFirst)
     
   def test_getName(self):
-    if self.debug:
+    if self.DEBUG:
       print("\nTesting the getter method")
 
     self.assertEqual(self.FirstName1.getName(), TestFirstName.validFirst1)
 
     
   def test_eq(self):
-    if self.debug:
+    if self.DEBUG:
       print("\nTesting the equal special method")
       
     self.assertTrue(self.FirstName1 == self.FirstName1)
     self.assertFalse(self.FirstName1 == self.FirstName2)
     
   def test_lt(self):
-    if self.debug:
+    if self.DEBUG:
       print("\nTesting the less than special method")
             
     self.assertTrue(self.FirstName1 < self.FirstName2)
     self.assertFalse(self.FirstName1 < self.FirstName1)
     
   def test_le(self):
-    if self.debug:
+    if self.DEBUG:
       print("\nTesting the less than or equal to special method")
             
     self.assertTrue(self.FirstName1 <= self.FirstName1)
     self.assertTrue(self.FirstName1 <= self.FirstName2)
     self.assertFalse(self.FirstName2 <= self.FirstName1)
+
+if __name__ == "__main__":
+    unittest.main()

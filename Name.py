@@ -1,5 +1,5 @@
 # Name.py
-#
+# 
 # Created by: J. Bodde, C. Burrell, H. Hickory, R. Pelzel, C. Triplett
 # 
 # CSEC323 - Project 3
@@ -8,11 +8,10 @@
 # Holds a single string with restrictions on its structure
 
 class Name:
-
   # Construct the Name object
   # @param first: the first name as a string
   # @require first is a str of length 1-25 with no special characters
-  def __init__(self, name: str) -> 'name':
+  def __init__(self, name: str) -> 'Name':
     assert isinstance(name, str)
     assert name.isprintable()
     assert 1 <= len(name)
