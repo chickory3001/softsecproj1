@@ -9,10 +9,10 @@
 
 from Name import Name
 
-class LastName(Name):
+class FirstName(Name):
 
-  def __init__(self, name: str) -> 'firstName':
-    super().__init__(name)
+  def __init__(self, name: str) -> 'FirstName':
     assert len(name) <= 45
+    super().__init__(name)
 
 
