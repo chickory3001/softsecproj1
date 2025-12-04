@@ -11,6 +11,8 @@ from BankAccount import *
 from Address import Address
 from CheckingAccount import CheckingAccount
 from SavingsAccount import SavingsAccount
+from FirstName import FirstName
+from LastName import LastName
 
 # Class to represent a client of a bank 
 class Client:
@@ -27,9 +29,9 @@ class Client:
     # @require last is a str of length 1-40 with no special characters
     # @require phone is all digits, length of 10, doesn't start with 0, 1, or 2
     # @require address is an address object 
-    def __init__(self, first: str, last: str, phone: str, address: Address, initialAccountType: str) -> 'Client':
-        assert isinstance(first, str) and first.isprintable() and 1 <= len(first) <= 25, 'invalid first name'
-        assert isinstance(last, str) and last.isprintable() and 1 <= len(last) <= 40, 'invalid last name'
+    def __init__(self, first: FirstName, last: LastName, phone: str, address: Address, initialAccountType: str) -> 'Client':
+        assert isinstance(first, FirstName), 'invalid first name'
+        assert isinstance(last, LastName), 'invalid last name'
         assert isinstance(phone, str) and phone.isdecimal() and len(phone) == 10 and not phone[0] in ["0", "1", "2"], "invalid phone number"
         assert isinstance(address, Address), "invalid address"
         assert isinstance(initialAccountType, str) and initialAccountType.lower() in ["c", "s"], "invalid account type"
@@ -52,12 +54,12 @@ class Client:
     # getFirstName returns the client's first name 
     # @return: the client's first name
     def getFirstName(self) -> str:
-        return self._first
+        return self._first.getName()
     
     # getLastName returns the client's last name 
     # @return: the client's last name
     def getLastName(self) -> str:
-        return self._last
+        return self._last.getName()
     
     # getClientNumber returns the client's client number 
     # @return: the client's client number
