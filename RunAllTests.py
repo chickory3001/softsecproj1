@@ -2,10 +2,10 @@
 
 import unittest
 from TestTransaction import TestTransaction
-from CheckingAccountTester import TestCheckingAccount
+from Test_CheckingAccount import TestCheckingAccount
 from SavingsAccountTester import TestSavingsAccount
-from ClientTester import TestClient
-from AddressTester import TestAddress
+from Test_Client import TestClient
+from Test_Address import TestAddress
 from EncryptionTester import TestEncryption
 
 if __name__ == '__main__':
