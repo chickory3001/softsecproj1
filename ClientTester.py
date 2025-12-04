@@ -10,13 +10,15 @@ Test each method with at least one unit test.
 import unittest
 from Client import Client
 from Address import Address
+from FirstName import FirstName
+from LastName import LastName
 
 # Class to test the client class 
 class TestClient(unittest.TestCase):
     
     # Constants
-    FIRSTNAME = 'timmy'
-    LASTNAME = 'smith'
+    FIRSTNAME = FirstName('timmy')
+    LASTNAME = LastName('smith')
     PHONE= "9123456789"
     ADDRESS = Address('304 timmy Drive','Glen alLen','vA')
     INITIALTYPE = 'c'
@@ -55,22 +57,10 @@ class TestClient(unittest.TestCase):
         # Test first name assert 
         with self.assertRaises(AssertionError):
             client = Client(12312321,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
-        with self.assertRaises(AssertionError):
-            client = Client('whatever\n',TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
-        with self.assertRaises(AssertionError):
-            client = Client('',TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
-        with self.assertRaises(AssertionError):
-            client = Client('a'*26,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
         
         # Test last name assert 
         with self.assertRaises(AssertionError):
             client = Client(TestClient.FIRSTNAME,12312321,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
-        with self.assertRaises(AssertionError):
-            client = Client(TestClient.FIRSTNAME,'whatever\n',TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
-        with self.assertRaises(AssertionError):
-            client = Client(TestClient.FIRSTNAME,'',TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
-        with self.assertRaises(AssertionError):
-            client = Client(TestClient.FIRSTNAME,'a'*41,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
         
         # Test phone number assert 
         with self.assertRaises(AssertionError):
