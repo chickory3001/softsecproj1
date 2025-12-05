@@ -10,7 +10,6 @@ Test each method with at least one unit test.
 import unittest
 from AES_CBC import *
 
-
 # Define TestEncryption class by extending the unittest.TestCase class
 # Tests the encryption module 
 class TestEncryption(unittest.TestCase):
@@ -24,52 +23,52 @@ class TestEncryption(unittest.TestCase):
         if TestEncryption.DEBUG:
             print("\nTesting encrypt and decrypt aes cbc methods ")
 
-            # runs a plaintext through encryption and decryption
-            ciphertext = encrypt_AES_CBC(TestEncryption.PLAINTEXT,TestEncryption.KEY,TestEncryption.IV)
-            decrypted = decrypt_AES_CBC(ciphertext,TestEncryption.KEY,TestEncryption.IV)
+        # runs a plaintext through encryption and decryption
+        ciphertext = encrypt_AES_CBC(TestEncryption.PLAINTEXT,TestEncryption.KEY,TestEncryption.IV)
+        decrypted = decrypt_AES_CBC(ciphertext,TestEncryption.KEY,TestEncryption.IV)
 
-            #checks if the plaintexts are the same before and after 
-            self.assertEqual(decrypted,TestEncryption.PLAINTEXT)
+        #checks if the plaintexts are the same before and after 
+        self.assertEqual(decrypted,TestEncryption.PLAINTEXT)
     
     #tests encrypt asserts 
     def test_encrypt_asserts(self):
         if TestEncryption.DEBUG:
             print("\nTesting encrypt asserts ")
-            # test data assert 
-            with self.assertRaises(AssertionError):
-                encrypt_AES_CBC(112312321,TestEncryption.KEY,TestEncryption.IV)
-            
-            #test key asserts 
-            with self.assertRaises(AssertionError):
-                encrypt_AES_CBC(TestEncryption.PLAINTEXT,1234123412341234,TestEncryption.IV)
-            with self.assertRaises(AssertionError):
-                encrypt_AES_CBC(TestEncryption.PLAINTEXT,b'123'.KEY,TestEncryption.IV)
-            
-            #test iv asserts
-            with self.assertRaises(AssertionError):
-                encrypt_AES_CBC(TestEncryption.PLAINTEXT,TestEncryption.KEY,1234123412341234)
-            with self.assertRaises(AssertionError):
-                encrypt_AES_CBC(TestEncryption.PLAINTEXT,TestEncryption.KEY,b'123')
+        # test data assert 
+        with self.assertRaises(AssertionError):
+            encrypt_AES_CBC(112312321,TestEncryption.KEY,TestEncryption.IV)
+        
+        #test key asserts 
+        with self.assertRaises(AssertionError):
+            encrypt_AES_CBC(TestEncryption.PLAINTEXT,1234123412341234,TestEncryption.IV)
+        with self.assertRaises(AssertionError):
+            encrypt_AES_CBC(TestEncryption.PLAINTEXT,b'123',TestEncryption.IV)
+        
+        #test iv asserts
+        with self.assertRaises(AssertionError):
+            encrypt_AES_CBC(TestEncryption.PLAINTEXT,TestEncryption.KEY,1234123412341234)
+        with self.assertRaises(AssertionError):
+            encrypt_AES_CBC(TestEncryption.PLAINTEXT,TestEncryption.KEY,b'123')
     
     #tests decrypt asserts 
     def test_decrypt_asserts(self):
         if TestEncryption.DEBUG:
             print("\nTesting decrypt asserts ")
-            # test ciphertext assert 
-            with self.assertRaises(AssertionError):
-                decrypt_AES_CBC(112312321,TestEncryption.KEY,TestEncryption.IV)
-            
-            #test key asserts 
-            with self.assertRaises(AssertionError):
-                decrypt_AES_CBC(TestEncryption.PLAINTEXT,1234123412341234,TestEncryption.IV)
-            with self.assertRaises(AssertionError):
-                decrypt_AES_CBC(TestEncryption.PLAINTEXT,b'123'.KEY,TestEncryption.IV)
-            
-            #test iv asserts
-            with self.assertRaises(AssertionError):
-                decrypt_AES_CBC(TestEncryption.PLAINTEXT,TestEncryption.KEY,1234123412341234)
-            with self.assertRaises(AssertionError):
-                decrypt_AES_CBC(TestEncryption.PLAINTEXT,TestEncryption.KEY,b'123')
+        # test ciphertext assert 
+        with self.assertRaises(AssertionError):
+            decrypt_AES_CBC(112312321,TestEncryption.KEY,TestEncryption.IV)
+        
+        #test key asserts 
+        with self.assertRaises(AssertionError):
+            decrypt_AES_CBC(TestEncryption.PLAINTEXT,1234123412341234,TestEncryption.IV)
+        with self.assertRaises(AssertionError):
+            decrypt_AES_CBC(TestEncryption.PLAINTEXT,b'123',TestEncryption.IV)
+        
+        #test iv asserts
+        with self.assertRaises(AssertionError):
+            decrypt_AES_CBC(TestEncryption.PLAINTEXT,TestEncryption.KEY,1234123412341234)
+        with self.assertRaises(AssertionError):
+            decrypt_AES_CBC(TestEncryption.PLAINTEXT,TestEncryption.KEY,b'123')
 
 if __name__ == "__main__":
     unittest.main()

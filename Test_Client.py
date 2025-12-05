@@ -163,5 +163,27 @@ class TestClient(unittest.TestCase):
         self.assertEqual(result, False)
         self.assertEqual(len(self.client1._accounts),2)
 
+    #test getters 
+    def test_getters(self):
+        self.assertEqual(self.client1._first._name,self.client1.getFirstName())
+        self.assertEqual(self.client1._last._name,self.client1.getLastName())
+        self.assertEqual(self.client1._phone,self.client1.getPhoneNum())
+        self.assertEqual(self.client1._address,self.client1.getAddress())
+        self.assertEqual(self.client1._clientNumber,self.client1.getClientNumber())
+    
+    # test setters 
+    def test_setters(self):
+        newfirst = 'Joseph'
+        self.client1._setFirstName(newfirst)
+        self.assertEqual(self.client1._first,newfirst)
+
+        newlast = 'Smith'
+        self.client1._setLastName(newlast)
+        self.assertEqual(self.client1._last,newlast)
+    
+    # test print, to be manually verified 
+    def test_print(self):
+        self.client1.printClient()
+
 if __name__ == "__main__":
     unittest.main()

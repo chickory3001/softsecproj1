@@ -21,8 +21,8 @@ class SavingsAccount(BankAccount):
     
     def __init__(self, number: int) -> 'SavingsAccount':
         super().__init__('s',number)
-        _ENCRYPTIONKEY = urandom(16)
-        _ENCRYPTIONIV = urandom(16)
+        self._ENCRYPTIONKEY = urandom(32)
+        self._ENCRYPTIONIV = urandom(16)
     
     # Withdraws money from the account via creating a withdraw transaction
     # @param amount: amount to withdraw 
@@ -35,15 +35,10 @@ class SavingsAccount(BankAccount):
             print("Transaction denied")
             if self._timesOverdrawn >= 3:
                 print("Too many overdrafts, raise balance to 100$ to withdraw")
-            
             return False
 
         # If the balanace is correct, check if it has overdraw fees
         elif self.getBalance() > 0.0:
-            if self._timesOverdrawn == 3:
-                print("Too many overdraft fees have occurred, transacation denied")
-                return False
-
             # Transaction is approved
             withdrawalTransaction = Transaction(len(self._transactions)+1, "withdrawal", -amount)
             self._transactions.append(withdrawalTransaction)
@@ -53,7 +48,7 @@ class SavingsAccount(BankAccount):
                 print("Overdraft charge has been added to account")
                 penaltyTransaction = Transaction(len(self._transactions)+1, "penalty", -SavingsAccount.OVERDRAFTFEE[self._timesOverdrawn])
                 self._transactions.append(penaltyTransaction)
-                self._timesOverdrawn = self._timesOverdrawn + 1 
+                self._incrementOverdraft()
             
             return True 
         else:
@@ -87,7 +82,7 @@ class SavingsAccount(BankAccount):
             string += str(transaction)
         
         # Encrypt the string
-        encrypted_text = encrypt_AES_CBC(string, SavingsAccount.ENCRYPTIONKEY, SavingsAccount.ENCRYPTIONIV)  
+        encrypted_text = encrypt_AES_CBC(string, self._ENCRYPTIONKEY, self._ENCRYPTIONIV)  
         
         # Write raw bytes to text file 
         with open("savings.txt", "wb") as f:
@@ -101,10 +96,10 @@ class SavingsAccount(BankAccount):
             filedata = f.read()
         
         # Decrypt the encrypted text
-        decrypted_text = decrypt_AES_CBC(filedata, SavingsAccount.ENCRYPTIONKEY, SavingsAccount.ENCRYPTIONIV)  
+        decrypted_text = decrypt_AES_CBC(filedata, self._ENCRYPTIONKEY, self._ENCRYPTIONIV)  
         
         return decrypted_text
     
     # Prints the transaction data from file 
     def _readTransactions(self):
-        print(self.getTransactionData())
+        print(self._getTransactionData())

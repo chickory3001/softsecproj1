@@ -7,7 +7,6 @@ import datetime
 #  A class to represent the data elements and methods required to implement a back account transaction.
 class Transaction :
    
-   DEBUG = False # A class constant that turns debugging printing on and off
    _typeSet = {"deposit", "withdrawal", "interest", "transfer", "penalty"}
    
    # Constructs a transaction.
@@ -21,9 +20,6 @@ class Transaction :
       assert isinstance(tNumber, int)
       assert tType in Transaction._typeSet
       
-      if Transaction.DEBUG:
-         print ("Creating a new transaction")
-         
       # Set the transaction number 
       self._tNumber = tNumber
       

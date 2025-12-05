@@ -112,6 +112,18 @@ class TestTransaction(unittest.TestCase):
         
         if TestTransaction.DEBUG:
             print("\nTesting the sum special method %d" % sumTest) 
+    
+    # test getters: 
+    def test_getters(self):
+        self.assertEqual(self.transaction1._date,self.transaction1.getDate())
+        self.assertEqual(self.transaction1._tNumber,self.transaction1.getTNumber())
+        self.assertEqual(self.transaction1._tType,self.transaction1.getTType())
+    
+    # test prints, to be manually verified 
+    def test_prints(self):
+        self.transaction1.printTransaction()
+        print(str(self.transaction1))
+        print(repr(self.transaction1))
 
 if __name__ == '__main__':
     unittest.main()

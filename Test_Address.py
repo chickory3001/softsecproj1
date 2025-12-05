@@ -114,6 +114,11 @@ class TestAddress(unittest.TestCase):
         
         with self.assertRaises(AssertionError):
             self.assertEqual(addr2, "addr2")
+    
+    # tests str
+    def test_str(self):
+        correctstr = f'{TestAddress.STREET}\n{TestAddress.CITY}, {self.STATE}'
+        self.assertEqual(str(self.address1),correctstr)
 
 if __name__ == "__main__":
     unittest.main()

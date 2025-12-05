@@ -11,6 +11,6 @@ from Name import Name
 
 class LastName(Name):
 
-  def __init__(self, name: str) -> 'lastName':
+  def __init__(self, name: str) -> 'LastName':
+    super().__init__(name)
     assert len(name) <= 45
-    super().__init__('s',number)

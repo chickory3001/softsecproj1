@@ -15,7 +15,7 @@ class TestLastName(unittest.TestCase):
 
   validLast1 = "Davidson"
   validLast2 = "Skyler"
-  invalidLast = "Davidsonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
+  invalidLast = "d" * 46
   
   DEBUG = True
 

@@ -20,8 +20,8 @@ class CheckingAccount(BankAccount):
     
     def __init__(self, number: int) -> 'CheckingAccount':
         super().__init__('c',number)
-        _ENCRYPTIONKEY = urandom(16)
-        _ENCRYPTIONIV = urandom(16)
+        self._ENCRYPTIONKEY = urandom(32)
+        self._ENCRYPTIONIV = urandom(16)
 
     # Withdraws money from the account via creating a withdraw transaction
     # @param amount: amount to withdraw 
@@ -36,9 +36,6 @@ class CheckingAccount(BankAccount):
             withdrawalTransaction = Transaction(len(self._transactions)+BankAccount.STARTING_TRANSACTION_NUMBER, "withdrawal", -amount)
             self._transactions.append(withdrawalTransaction)
             return True 
-        else:
-            print("Transaction Denied")
-            return False
     
     # Encrypts and writes transactions to savings.txt
     def _writeTransactions(self):
@@ -47,7 +44,7 @@ class CheckingAccount(BankAccount):
             string += str(transaction)
         
         # Encrypt the string
-        encrypted_text = encrypt_AES_CBC(string, CheckingAccount.ENCRYPTIONKEY, CheckingAccount.ENCRYPTIONIV)  
+        encrypted_text = encrypt_AES_CBC(string, self._ENCRYPTIONKEY, self._ENCRYPTIONIV)  
         
         # Write raw bytes to text file 
         with open("checking.txt", "wb") as f:
@@ -61,9 +58,9 @@ class CheckingAccount(BankAccount):
             filedata = f.read()
         
         # Decrypt the encrypted text
-        decrypted_text = decrypt_AES_CBC(filedata, CheckingAccount.ENCRYPTIONKEY, CheckingAccount.ENCRYPTIONIV)  
+        decrypted_text = decrypt_AES_CBC(filedata, self._ENCRYPTIONKEY, self._ENCRYPTIONIV)  
         return decrypted_text
     
     # Prints the transaction data from file 
     def _readTransactions(self):
-        print(self.getTransactionData())
+        print(self._getTransactionData())

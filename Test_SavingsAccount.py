@@ -214,7 +214,7 @@ class TestSavingsAccount(unittest.TestCase):
         self.assertEqual(self.account1.getBalance(), deposit - overdraftwithdrawal - SavingsAccount.OVERDRAFTFEE[2])
         
         # Ensure withdrawals after 3rd overdraft are denied 
-        self.account1.deposit(abs(self.account1.getBalance()) + deposit) # set balance back to deposit 
+        self.account1.deposit(abs(self.account1.getBalance()) + 2) # set balance back to positive 
         print("Expect Transaction Denied: ")
         self.assertFalse(self.account1.withdraw(1))
         
@@ -304,9 +304,13 @@ class TestSavingsAccount(unittest.TestCase):
         for transaction in self.account1._transactions:
             transactions += str(transaction)
         
-        self.account1.writeTransactions()
-        result = self.account1.getTransactionData()
+        self.account1._writeTransactions()
+        result = self.account1._getTransactionData()
         self.assertEqual(transactions,result)
+
+    # test read transactions, to be manually verified 
+        print(self.account1._readTransactions())
+
 
 if __name__ == "__main__":
     unittest.main()

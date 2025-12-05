@@ -92,7 +92,10 @@ class BankAccount(ABC):
     # Withdraws money from the account via creating a withdraw transaction
     # To be implemented by the subclasses checking account and savings account
     @abstractmethod
-    def withdraw(self, amount: float) -> bool:
+    def withdraw(self, amount: float) -> bool: # pragma: no cover 
+        # coverage will inevitably miss this since this it is abstract, 
+        # so the comment above tells coverage to ignore it
+        # just so i can see 100% 
         pass
     
     # Withdraws money from the other account and deposits it into self

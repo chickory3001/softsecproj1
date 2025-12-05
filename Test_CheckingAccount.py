@@ -260,13 +260,24 @@ class TestCheckingAccount(unittest.TestCase):
             transactions += str(transaction)
         
         # Encrypt and write to file 
-        self.account1.writeTransactions()
+        self.account1._writeTransactions()
 
         # Decrypt and read from file 
-        result = self.account1.getTransactionData()
+        result = self.account1._getTransactionData()
 
         # Compare the data before and after 
         self.assertEqual(transactions,result)
+
+        # test read transactions, to be manually verified 
+        print(self.account1._readTransactions())
+    
+    # tests prints, to be manually verified 
+    def test_prints(self):
+        self.account1.deposit(100)
+        self.account1.printAccount()
+        self.account1.printTransactions()
+        print(repr(self.account1))
+    
 
 if __name__ == "__main__":
     unittest.main()

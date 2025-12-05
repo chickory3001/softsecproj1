@@ -12,7 +12,7 @@ from Name import Name
 class FirstName(Name):
 
   def __init__(self, name: str) -> 'FirstName':
-    assert len(name) <= 45
     super().__init__(name)
+    assert len(name) <= 25
 
 
