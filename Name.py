@@ -12,9 +12,9 @@ class Name:
   # @param first: the first name as a string
   # @require first is a str of length 1-25 with no special characters
   def __init__(self, name: str) -> 'Name':
-    assert isinstance(name, str)
-    assert name.isprintable()
-    assert 1 <= len(name)
+    assert isinstance(name, str), 'invalid name'
+    assert name.isprintable(), 'invalid name'
+    assert 1 <= len(name), 'invalid name'
 
     self._name = name
 
