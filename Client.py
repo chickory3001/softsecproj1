@@ -31,12 +31,13 @@ class Client:
     # @require last is a str of length 1-40 with no special characters
     # @require phone is all digits, length of 10, doesn't start with 0, 1, or 2
     # @require address is an address object 
-    def __init__(self, first: FirstName, last: LastName, phone: str, address: Address, initialAccountType: str) -> 'Client':
+    def __init__(self, first: FirstName, last: LastName, phone: str, address: Address, initialAccountType: str, password: Password) -> 'Client':
         assert isinstance(first, FirstName), 'invalid first name'
         assert isinstance(last, LastName), 'invalid last name'
         assert isinstance(phone, str) and phone.isdecimal() and len(phone) == 10 and not phone[0] in ["0", "1", "2"], "invalid phone number"
         assert isinstance(address, Address), "invalid address"
         assert isinstance(initialAccountType, str) and initialAccountType.lower() in ["c", "s"], "invalid account type"
+        assert isinstance(password, Password), 'password must be type Password'
         
         self._first = first
         self._last = last
@@ -45,6 +46,7 @@ class Client:
         self._accounts = []
         self._clientNumber = Client._nextClientNumber
         self._nextAccountNumber = 1000
+        self._password = password
         
         # Increment the next client number 
         Client._nextClientNumber += 1
