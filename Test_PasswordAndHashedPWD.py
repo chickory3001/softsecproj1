@@ -39,7 +39,7 @@ class passwordTester(unittest.TestCase):
       with self.subTest(password=password):
         result = self.password.passwordChecker(password)
         self.assertFalse(result)
-  
+
   #test constructor 
   def test_constructors(self):
     self.assertEqual(Password("randyBoBandy84").getPassword(), "randyBoBandy84")
@@ -53,6 +53,13 @@ class passwordTester(unittest.TestCase):
         with self.assertRaises(AssertionError):
           Password(password)
   
+  def test_hashedpwd_asserts(self):
+    with self.assertRaises(AssertionError):
+      HashedPWD(self.password,'jfkds;lafjdksal;')
+    with self.assertRaises(AssertionError):
+      HashedPWD('jkl;fdsa')
+    with self.assertRaises(AssertionError):
+      HashedPWD(self.password,pepper=12313)
   #Testing changing of passwords from both valid and invalid
   #@Require that the passwords are correctly entered
   #@Ensure the passwords do return true if valid and false if not
