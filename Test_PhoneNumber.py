@@ -1,4 +1,4 @@
-# TestPhoneNumber.py
+# Test_PhoneNumber.py
 #
 # Created by: J. Bodde, C. Burrell, H. Hickory, R. Pelzel, C. Triplett
 # 
@@ -23,6 +23,7 @@ class TestPhoneNumber(unittest.TestCase):
   INV_HYPH_0 = "912345-6789"
   INV_HYPH_1 = "912-3-45-6789"
   INV_HYPH_2 = "912-3-5-6789"
+  ALPHANUM = "912-346-578a"
   DEBUG = True
 
   def setUp(self):
@@ -63,6 +64,10 @@ class TestPhoneNumber(unittest.TestCase):
       inv = PhoneNumber(TestPhoneNumber.INV_HYPH_1)
     with self.assertRaises(AssertionError):
       inv = PhoneNumber(TestPhoneNumber.INV_HYPH_2)
+      
+    # Test invalid character.
+    with self.assertRaises(AssertionError):
+      inv = PhoneNumber(TestPhoneNumber.ALPHANUM)
 
 if __name__ == "__main__":
   unittest.main()
