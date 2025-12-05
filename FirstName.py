@@ -13,6 +13,6 @@ class FirstName(Name):
 
   def __init__(self, name: str) -> 'FirstName':
     super().__init__(name)
-    assert len(name) <= 25
+    assert len(name) <= 25, 'invalid first name'
 
 
