@@ -29,7 +29,6 @@ class passwordTester(unittest.TestCase):
       with self.subTest(password=password):
         result = self.passwordObj.passwordChecker(password)
         self.assertTrue(result)
-      # print(f" {password}: {"FAIL (correct)" if not result else "PASS (should NOT be valid!)"}")
   
   #Testing invalid passwords form list
   #@Require that the passwords are correctly entered
@@ -41,9 +40,13 @@ class passwordTester(unittest.TestCase):
       with self.subTest(password=password):
         result = self.passwordObj.passwordChecker(password)
         self.assertFalse(result)
-        # print(f"  {password}: {'FAIL (correct)' if not result else 'PASS (should NOT be valid!)'}")
 
+  #test constructor 
+  def test_constructor(self):
+    self.assertEqual(Password("randyBoBandy84")._password, "randyBoBandy84")
   
+  #test constructor asserts:
+  def test_constructor_asserts
   
   
   #Testing changing of passwords from both valid and invalid

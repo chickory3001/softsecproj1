@@ -9,7 +9,7 @@ Creates a password and checks to see if the password is valid, also resets when 
 class Password:
   invalidPasswordChar = {"/", "\\", "<", ">", "|"}
 
-  def __init__(self, password):
+  def __init__(self, password: str):
     assert self.passwordChecker(password), "Invalid password"
     self._password = password    #Creates the password object
 
