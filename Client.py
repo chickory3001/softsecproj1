@@ -14,6 +14,7 @@ from SavingsAccount import SavingsAccount
 from FirstName import FirstName
 from LastName import LastName
 from Password import Password
+from ClientHash import ClientHash
 
 # Class to represent a client of a bank 
 class Client:
