@@ -83,8 +83,8 @@ class Client:
 
     # getHash returns the client's hash
     # @return: the client's hash as a HashedPWD object
-    def getAddress(self) -> HashedPWD:
-        return self._hash
+    def getHashedPWD(self) -> HashedPWD:
+        return self._hashedpwd
     
     # Print all of the client details, including the accounts and their transactions 
     def printClient(self):
@@ -191,7 +191,7 @@ class Client:
         print("Password changed successfully")
         return True
 
-if __name__ == "__main__":
-    client = Client(FirstName('timmy'), LastName('smith'), PhoneNumber('9123456789'), Address('323 timmy drive', 'glen allen', 'VA'),'c',Password('randyBoBandy84'))
-    client._accounts[0].deposit(100)
-    client.printClient()
+# if __name__ == "__main__":
+#     client = Client(FirstName('timmy'), LastName('smith'), PhoneNumber('9123456789'), Address('323 timmy drive', 'glen allen', 'VA'),'c',Password('randyBoBandy84'))
+#     client._accounts[0].deposit(100)
+#     client.printClient()

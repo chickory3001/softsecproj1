@@ -14,6 +14,7 @@ from FirstName import FirstName
 from LastName import LastName
 from Password import Password
 from HashedPWD import HashedPWD
+from PhoneNumber import PhoneNumber
 
 # Class to test the client class 
 class TestClient(unittest.TestCase):
@@ -21,7 +22,7 @@ class TestClient(unittest.TestCase):
     # Constants
     FIRSTNAME = FirstName('timmy')
     LASTNAME = LastName('smith')
-    PHONE= "9123456789"
+    PHONE= PhoneNumber("9123456789")
     ADDRESS = Address('304 timmy Drive','Glen alLen','vA')
     INITIALTYPE = 'c'
     CLIENTNUMBER = 100
@@ -178,16 +179,17 @@ class TestClient(unittest.TestCase):
         self.assertEqual(self.client1._phone,self.client1.getPhoneNum())
         self.assertEqual(self.client1._address,self.client1.getAddress())
         self.assertEqual(self.client1._clientNumber,self.client1.getClientNumber())
+        self.assertEqual(self.client1._hashedpwd,self.client1.getHashedPWD())
     
     # test setters 
     def test_setters(self):
         newfirst = 'Joseph'
         self.client1._setFirstName(newfirst)
-        self.assertEqual(self.client1._first,newfirst)
+        self.assertEqual(self.client1._first,FirstName('Joseph'))
 
         newlast = 'Smith'
         self.client1._setLastName(newlast)
-        self.assertEqual(self.client1._last,newlast)
+        self.assertEqual(self.client1._last,LastName('Smith'))
     
     # test print, to be manually verified 
     def test_print(self):
