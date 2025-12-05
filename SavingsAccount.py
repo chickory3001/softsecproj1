@@ -58,6 +58,8 @@ class SavingsAccount(BankAccount):
     # Deposits money into the account via creating a deposit transaction
     # @param amount: amount to deposit 
     # @require amount > 0 
+    # deposit is redefined here to implement special logic with the overdraw counter, checkingaccount doesn't 
+    # implement it 
     def deposit(self,amount:float):
         assert (isinstance(amount, float) or isinstance(amount, int)) and amount > 0.0, 'invalid deposit amount'
         
