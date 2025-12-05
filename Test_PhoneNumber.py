@@ -4,8 +4,7 @@
 # 
 # CSEC323 - Project 3
 # 
-# Import the unittest module and the FirstName class.
-# Test each method of both FirstName and Name to get full branch coverage.
+# Import the unittest module and the PhoneNumber class.
 # Note: When using coverage report, it will show the DEBUG statements as failing.
 
 import unittest
