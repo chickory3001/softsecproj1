@@ -30,5 +30,3 @@ class Password:
       if len(userPassword) < 8 or len(userPassword) > 16:
         return False
     return True
-    
-

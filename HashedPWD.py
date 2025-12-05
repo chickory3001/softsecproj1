@@ -36,7 +36,7 @@ class HashedPWD():
     # @require: 8 <= len(password) <=  16
     # @require: password does not contain "/", "\\", "<", ">", "|"
     
-    def _createSecureHash(self, password):
+    def _createSecureHash(self, password) -> bytes:
         assert isinstance(password, str), "Invalid type"
         
         hash = hashlib.pbkdf2_hmac(
@@ -46,6 +46,11 @@ class HashedPWD():
             self._iterations
         )  
         return hash
+    
+    # getter for hash 
+    # @return hash as bytes
+    def getHash(self):
+        return self._hashPWD
     
     # Private method to check a password against the stored hash
     # @parameter: password - the string passed in containing the password to check

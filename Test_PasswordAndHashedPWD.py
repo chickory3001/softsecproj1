@@ -12,12 +12,11 @@ from HashedPWD import HashedPWD
 #Created a list of passwords to test, valid tests and invalid test
 class passwordTester(unittest.TestCase):
   validPasswords = ["randyBoBandy84", "Alpha2025", "CodingKing88", "SecurePass12", "NightWolf77"]
-  invalidPasswords = ["linesAmIRight?||||", "Bad/Pass1", "Wrong\\Key9", "Too<Short"] 
+  invalidPasswords = ["linesAmIRight?||||", "Bad/Pass1", "Wrong\\Key9", "Too<Short",'toolongggggggggggggggggg',b'wrongtype'] 
   
 
   def setUp(self):
-    self.passwordObj = Password("randyBoBandy84")  #creating a password object to test
-  
+    self.password = Password("randyBoBandy84")  #creating a password object to test
   
   #Testing valid passwords from list
   #@Require that the passwords are correctly entered
@@ -27,7 +26,7 @@ class passwordTester(unittest.TestCase):
     for password in passwordTester.validPasswords:
       # creates different test for each value, so if multiple fail it will show 
       with self.subTest(password=password):
-        result = self.passwordObj.passwordChecker(password)
+        result = self.password.passwordChecker(password)
         self.assertTrue(result)
   
   #Testing invalid passwords form list
@@ -38,16 +37,21 @@ class passwordTester(unittest.TestCase):
     for password in self.invalidPasswords:
       # creates different test for each value, so if multiple fail it will show 
       with self.subTest(password=password):
-        result = self.passwordObj.passwordChecker(password)
+        result = self.password.passwordChecker(password)
         self.assertFalse(result)
-
+  
   #test constructor 
-  def test_constructor(self):
-    self.assertEqual(Password("randyBoBandy84")._password, "randyBoBandy84")
+  def test_constructors(self):
+    self.assertEqual(Password("randyBoBandy84").getPassword(), "randyBoBandy84")
+    self.assertEqual(HashedPWD(Password("randyBoBandy84")).getHash(), HashedPWD(Password("randyBoBandy84"))._hashPWD)
   
   #test constructor asserts:
-  def test_constructor_asserts
-  
+  def test_constructor_asserts(self):
+    for password in self.invalidPasswords:
+      # creates different test for each value, so if multiple fail it will show 
+      with self.subTest(password=password):
+        with self.assertRaises(AssertionError):
+          Password(password)
   
   #Testing changing of passwords from both valid and invalid
   #@Require that the passwords are correctly entered
@@ -59,8 +63,8 @@ class passwordTester(unittest.TestCase):
   #   oldPass = self._validPassword[0]
   #   newPass = "ValidNewPass67"
 
-  #   self.passwordObj._password = oldPass     #Making password object to store previous passwords 
-  #   changeResult = self.passwordObj.changePassword(oldPass, newPass)
+  #   self.password._password = oldPass     #Making password object to store previous passwords 
+  #   changeResult = self.password.changePassword(oldPass, newPass)
   #   print(f" Changing VALID -> VALID: {oldPass} -> {newPass}: {'SUCCESS' if changeResult else 'FAIL'}")
 
     
@@ -68,8 +72,8 @@ class passwordTester(unittest.TestCase):
   #   oldInvalid = self._invalidPassword[0]
   #   newInvalid = "invalidNewPass|||67"
 
-  #   self.passwordObj._password = oldInvalid    #Making password object to store previous passwords 
-  #   changeResult = self.passwordObj.changePassword(oldInvalid, newInvalid)
+  #   self.password._password = oldInvalid    #Making password object to store previous passwords 
+  #   changeResult = self.password.changePassword(oldInvalid, newInvalid)
   #   print(f" Changing INVALID -> INVALID: {oldInvalid} -> {newInvalid}: {SUCCESS (should NOT happen!}' if changeResult else 'FAIL (correct)'}")
 
 
