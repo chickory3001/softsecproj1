@@ -28,7 +28,7 @@ class Client:
     # @param phone: the phone number of the client
     # @param address: the address of the client 
     # @require first is a str of length 1-25 with no special characters
-    # @require last is a str of length 1-40 with no special characters
+    # @require last is a str of length 1-45 with no special characters
     # @require phone is all digits, length of 10, doesn't start with 0, 1, or 2
     # @require address is an address object 
     def __init__(self, first: FirstName, last: LastName, phone: str, address: Address, initialAccountType: str, password: Password) -> 'Client':
@@ -99,14 +99,14 @@ class Client:
     # @require first is a str of length 1-25 with no special characters
     def _setFirstName(self,first:str):
         assert 1 <= len(first) <= 25 and first.isprintable() and isinstance(first, str), 'invalid first name'
-        self._first = first
+        self._first = FirstName(first)
     
     # Updates the last name of the client
     # @param last: new last name string 
-    # @require last is a str of length 1-40 with no special characters
+    # @require last is a str of length 1-45 with no special characters
     def _setLastName(self,last:'str'):
-        assert 1 <= len(last) <= 40 and last.isprintable() and isinstance(last, str), 'invalid last name'
-        self._last = last
+        assert 1 <= len(last) <= 45 and last.isprintable() and isinstance(last, str), 'invalid last name'
+        self._last = LastName(last)
     
     # Creates a new account and adds it to the client's list of accounts
     # @param type: the type of the new account, as a string 
@@ -151,40 +151,7 @@ class Client:
         # Return False if the account doesn't exist
         return False
     
-    #Changes the password the user wants to enter
-    #@Require Password is already associated with an account
-    #@Ensure Password is being changed
-    def changePassword(self):
-        oldPass = input("Enter your previous password")  #Check previous password
-        if oldPass != self._password:
-            print("Incorrect Previous Password:")
-            return False
 
-        #Creation of new password and confirm password
-        newPass = input("Enter your new password")
-        confirmPass = input("Enter your new password to confirm")
-        
-        #If the passwords don't match try again
-        while newPass != confirmPass:
-            print("Passwords do not match, try again:")
-            newPass = input("Enter your new password")
-            confirmPass = input("Enter your new password to confirm")
-        
-        #Checks new password to see if it is valid, if not prompt the user to try again
-        while not Password.passwordChecker(newPass):
-            print("Password invalid try again:")
-            newPass = input("Enter your new password")
-            confirmPass = input("Enter your new password to confirm")
-
-            while newPass != confirmPass:
-                print("Passwords do not match try again:")
-                newPass = input("Enter your new password")
-                confirmPass = input("Enter your new password to confirm")
-
-
-        self._password = newPass
-        print("Password changed successfully")
-        return True
 
 # if __name__ == "__main__":
 #     client = Client('timmy', 'smith', '9123456789', Address('323 timmy drive', 'glen allen', 'VA'),'c')
