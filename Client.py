@@ -15,6 +15,7 @@ from FirstName import FirstName
 from LastName import LastName
 from Password import Password
 from HashedPWD import HashedPWD
+from PhoneNumber import PhoneNumber
 
 # Class to represent a client of a bank 
 class Client:
@@ -31,10 +32,10 @@ class Client:
     # @require last is a str of length 1-45 with no special characters
     # @require phone is all digits, length of 10, doesn't start with 0, 1, or 2
     # @require address is an address object 
-    def __init__(self, first: FirstName, last: LastName, phone: str, address: Address, initialAccountType: str, password: Password) -> 'Client':
+    def __init__(self, first: FirstName, last: LastName, phone: PhoneNumber, address: Address, initialAccountType: str, password: Password) -> 'Client':
         assert isinstance(first, FirstName), 'invalid first name'
         assert isinstance(last, LastName), 'invalid last name'
-        assert isinstance(phone, str) and phone.isdecimal() and len(phone) == 10 and not phone[0] in ["0", "1", "2"], "invalid phone number"
+        assert isinstance(phone, PhoneNumber), 'invalid phone number'
         assert isinstance(address, Address), "invalid address"
         assert isinstance(initialAccountType, str) and initialAccountType.lower() in ["c", "s"], "invalid account type"
         assert isinstance(password, Password), 'password must be type Password'
@@ -190,8 +191,7 @@ class Client:
         print("Password changed successfully")
         return True
 
-
 if __name__ == "__main__":
-    client = Client('timmy', 'smith', '9123456789', Address('323 timmy drive', 'glen allen', 'VA'),'c',Password('randyBoBandy84'))
+    client = Client(FirstName('timmy'), LastName('smith'), PhoneNumber('9123456789'), Address('323 timmy drive', 'glen allen', 'VA'),'c',Password('randyBoBandy84'))
     client._accounts[0].deposit(100)
     client.printClient()
