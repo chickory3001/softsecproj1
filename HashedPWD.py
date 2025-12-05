@@ -11,9 +11,6 @@ from Password import Password
 
 # Example Client class to demonstrate storing the required attributes to has passwords
 class HashedPWD():
-
-    # Define the Class Constants    
-    PEPPER = "SECRET_KEY"
     
     # Client constructor
     # @parameter: password - the string passed in containing the password
@@ -22,12 +19,13 @@ class HashedPWD():
     def __init__(self, password):
         assert isinstance(password, Password), "Invalid type"
 
-        self._salt = os.urandom(16)  
+        self._salt = os.urandom(16) 
+        self._pepper =  os.urandom(16) 
         self._iterations = 100_000
         self._hash_algo = 'sha256'
         self._hashPWD = self._createSecureHash(password.getPassword())
-     
-     # return a string representation of the object   
+    
+    # return a string representation of the object   
     def __repr__(self):
         return ("\nIterations: %d, salt: %s, Algorithm: %s" % (self._iterations, self._salt, self._hash_algo))
 
@@ -41,7 +39,7 @@ class HashedPWD():
         
         hash = hashlib.pbkdf2_hmac(
             self._hash_algo,
-            password.encode('utf-8') + Client.PEPPER.encode('utf-8'),  
+            password.encode('utf-8') + self._pepper.encode('utf-8'),  
             self._salt,
             self._iterations
         )  
@@ -58,8 +56,15 @@ class HashedPWD():
         assert isinstance(password, Password), "Invalid type"
 
         # Compute the hash from password entered   
-        passwordHash = _createSecureHash(password.getPassword())
-         
+        passwordHash = self._createSecureHash(password.getPassword())
+        
         # Compare the computed hash and the stored hash and return the result
-        return (passswordHash == self._hashPWD)
+        return passwordHash == self._hashPWD
+    
+    # Tests equality between two hashedpwds
+    # @ensure self is being compared to another hashedpwd
+    # @return: True if equal, else False
+    def __eq__(self,other):
+        assert isinstance(other, HashedPWD)
+        return self._hashPWD == other._hashPWD
 

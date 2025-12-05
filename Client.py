@@ -46,7 +46,7 @@ class Client:
         self._accounts = []
         self._clientNumber = Client._nextClientNumber
         self._nextAccountNumber = 1000
-        self._hash = HashedPWD(password)
+        self._hashedpwd = HashedPWD(password)
         
         # Increment the next client number 
         Client._nextClientNumber += 1

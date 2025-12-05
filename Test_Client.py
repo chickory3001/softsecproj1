@@ -12,6 +12,8 @@ from Client import Client
 from Address import Address
 from FirstName import FirstName
 from LastName import LastName
+from Password import Password
+from HashedPWD import HashedPWD
 
 # Class to test the client class 
 class TestClient(unittest.TestCase):
@@ -23,11 +25,12 @@ class TestClient(unittest.TestCase):
     ADDRESS = Address('304 timmy Drive','Glen alLen','vA')
     INITIALTYPE = 'c'
     CLIENTNUMBER = 100
+    PASSWORD = Password('randyBoBandy84')
     DEBUG = True
 
     # The setup method creates a client
     def setUp(self):
-        self.client1 = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
+        self.client1 = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE,TestClient.PASSWORD)
     
     # Teardown resets the first client number 
     def tearDown(self):
@@ -44,9 +47,10 @@ class TestClient(unittest.TestCase):
         self.assertEqual(self.client1._address, TestClient.ADDRESS)
         self.assertEqual(self.client1._clientNumber, TestClient.CLIENTNUMBER)
         self.assertEqual(self.client1._accounts[0]._type, TestClient.INITIALTYPE)
+        self.assertEqual(self.client1._hashedpwd, HashedPWD(TestClient.PASSWORD))
         self.assertEqual(len(self.client1._accounts), 1)
 
-        client2 = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, 's')
+        client2 = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, 's', TestClient.PASSWORD)
         self.assertEqual(client2._accounts[0]._type, 's')
 
     # Testing assertions in the constructor 
@@ -56,31 +60,35 @@ class TestClient(unittest.TestCase):
         
         # Test first name assert 
         with self.assertRaises(AssertionError):
-            client = Client(12312321,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
+            client = Client(12312321,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE, TestClient.PASSWORD)
         
         # Test last name assert 
         with self.assertRaises(AssertionError):
-            client = Client(TestClient.FIRSTNAME,12312321,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE)
+            client = Client(TestClient.FIRSTNAME,12312321,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE, TestClient.PASSWORD)
         
         # Test phone number assert 
         with self.assertRaises(AssertionError):
-            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,9123456789,TestClient.ADDRESS, TestClient.INITIALTYPE)
+            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,9123456789,TestClient.ADDRESS, TestClient.INITIALTYPE, TestClient.PASSWORD)
         with self.assertRaises(AssertionError):
-            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,'a'*10,TestClient.ADDRESS, TestClient.INITIALTYPE)
+            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,'a'*10,TestClient.ADDRESS, TestClient.INITIALTYPE, TestClient.PASSWORD)
         with self.assertRaises(AssertionError):
-            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,'a'*11,TestClient.ADDRESS, TestClient.INITIALTYPE)
+            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,'a'*11,TestClient.ADDRESS, TestClient.INITIALTYPE, TestClient.PASSWORD)
         with self.assertRaises(AssertionError):
-            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,'0123456789',TestClient.ADDRESS, TestClient.INITIALTYPE)
+            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,'0123456789',TestClient.ADDRESS, TestClient.INITIALTYPE, TestClient.PASSWORD)
         
         # Test address assert 
         with self.assertRaises(AssertionError):
-            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,'ssssssss', TestClient.INITIALTYPE)
+            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,'ssssssss', TestClient.INITIALTYPE, TestClient.PASSWORD)
         
         # Test inital account type assert 
         with self.assertRaises(AssertionError):
-            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, 123131)
+            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, 123131, TestClient.PASSWORD)
         with self.assertRaises(AssertionError):
-            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, 'a')
+            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, 'a', TestClient.PASSWORD)
+        
+        # test password type assert 
+        with self.assertRaises(AssertionError):
+            client = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, TestClient.INITIALTYPE, 1)
 
     # Testing opening an account               
     def test_open_account(self):
