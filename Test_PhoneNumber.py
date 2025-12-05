@@ -1,4 +1,4 @@
-# FirstNameTester.py
+# TestPhoneNumber.py
 #
 # Created by: J. Bodde, C. Burrell, H. Hickory, R. Pelzel, C. Triplett
 # 
@@ -15,6 +15,14 @@ class TestPhoneNumber(unittest.TestCase):
 
   VALIDPHONE = '9123456789'
   ALSO_VALID = "912-345-6789"
+  INVALID_TYPE: int = 912_345_6789
+  INVALID_LEN = "91234567899"
+  INV_0 = "0123456789"
+  INV_1 = "1123456789"
+  INV_2 = "2123456789"
+  INV_HYPH_0 = "912345-6789"
+  INV_HYPH_1 = "912-3-45-6789"
+  INV_HYPH_2 = "912-3-5-6789"
   DEBUG = True
 
   def setUp(self):
@@ -29,9 +37,32 @@ class TestPhoneNumber(unittest.TestCase):
     self.assertEqual(self.phone2.getPhoneNum(), TestPhoneNumber.VALIDPHONE)
   
   def test_constructor_asserts(self):
-    pass
-  
-  
+    if self.DEBUG:
+      print("\nTesting the constructor asserts")
+    
+    # Test invalid type.
+    with self.assertRaises(AssertionError):
+      inv = PhoneNumber(TestPhoneNumber.INVALID_TYPE)
+    
+    # Test invalid length.
+    with self.assertRaises(AssertionError):
+      inv = PhoneNumber(TestPhoneNumber.INVALID_LEN)
+    
+    # Test invalid beginning number.
+    with self.assertRaises(AssertionError):
+      inv = PhoneNumber(TestPhoneNumber.INV_0)
+    with self.assertRaises(AssertionError):
+      inv = PhoneNumber(TestPhoneNumber.INV_1)
+    with self.assertRaises(AssertionError):
+      inv = PhoneNumber(TestPhoneNumber.INV_2)
+    
+    # Test invalid hyphen use.
+    with self.assertRaises(AssertionError):
+      inv = PhoneNumber(TestPhoneNumber.INV_HYPH_0)
+    with self.assertRaises(AssertionError):
+      inv = PhoneNumber(TestPhoneNumber.INV_HYPH_1)
+    with self.assertRaises(AssertionError):
+      inv = PhoneNumber(TestPhoneNumber.INV_HYPH_2)
 
 if __name__ == "__main__":
   unittest.main()
