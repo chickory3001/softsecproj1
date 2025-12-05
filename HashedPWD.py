@@ -16,10 +16,10 @@ class HashedPWD():
     # @parameter: password - the string passed in containing the password
     # @require: 8 <= len(password) <=  16
     # @require: password does not contain "/", "\", "<", ">", "|"    
-    def __init__(self, password: Password, salt: bytes = os.urandom(16), pepper: bytes = os.urandom(16)):
+    def __init__(self, password: Password, salt: bytes = os.urandom(16), pepper: str = os.urandom(16).hex()):
         assert isinstance(password, Password), "Invalid password type"
         assert isinstance(salt, bytes), "Invalid salt type"
-        assert isinstance(pepper, bytes), "Invalid pepper type"
+        assert isinstance(pepper, str), "Invalid pepper type"
 
         self._salt = salt
         self._pepper = pepper
