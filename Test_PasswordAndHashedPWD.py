@@ -27,7 +27,7 @@ class passwordTester(unittest.TestCase):
     for password in passwordTester.validPasswords:
       # creates different test for each value, so if multiple fail it will show 
       with self.subTest(password=password):
-        result = self.password.passwordChecker(password)
+        result = Password.passwordChecker(password)
         self.assertTrue(result)
   
   #Testing invalid passwords form list
@@ -38,7 +38,7 @@ class passwordTester(unittest.TestCase):
     for password in self.invalidPasswords:
       # creates different test for each value, so if multiple fail it will show 
       with self.subTest(password=password):
-        result = self.password.passwordChecker(password)
+        result = Password.passwordChecker(password)
         self.assertFalse(result)
 
   #test constructor 
@@ -54,6 +54,7 @@ class passwordTester(unittest.TestCase):
         with self.assertRaises(AssertionError):
           Password(password)
   
+  # test assertions
   def test_hashedpwd_asserts(self):
     with self.assertRaises(AssertionError):
       HashedPWD(self.password,'jfkds;lafjdksal;')
@@ -69,31 +70,10 @@ class passwordTester(unittest.TestCase):
     with self.assertRaises(AssertionError):
       self.hashedpwd == 123
   
-  #Testing changing of passwords from both valid and invalid
-  #@Require that the passwords are correctly entered
-  #@Ensure the passwords do return true if valid and false if not
-  # def testChangingPassword(self):
-  #   print("Testing password changes")
-    
-  #   #Testing valid password change
-  #   oldPass = self._validPassword[0]
-  #   newPass = "ValidNewPass67"
+  #test repr, to be manually verified
+  def test_repr(self):
+    print(repr(self.hashedpwd))
 
-  #   self.password._password = oldPass     #Making password object to store previous passwords 
-  #   changeResult = self.password.changePassword(oldPass, newPass)
-  #   print(f" Changing VALID -> VALID: {oldPass} -> {newPass}: {'SUCCESS' if changeResult else 'FAIL'}")
-
-    
-  #   #Testing invalid password change
-  #   oldInvalid = self._invalidPassword[0]
-  #   newInvalid = "invalidNewPass|||67"
-
-  #   self.password._password = oldInvalid    #Making password object to store previous passwords 
-  #   changeResult = self.password.changePassword(oldInvalid, newInvalid)
-  #   print(f" Changing INVALID -> INVALID: {oldInvalid} -> {newInvalid}: {SUCCESS (should NOT happen!}' if changeResult else 'FAIL (correct)'}")
-
-
-    
 
 if __name__ == "__main__":
   unittest.main()
