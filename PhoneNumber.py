@@ -11,11 +11,10 @@ class PhoneNumber:
     
     def __init__(self, phoneNum: str):
         assert isinstance(phoneNum, str), "phone number must be a string"
+        assert not phoneNum[0] in ["0", "1", "2"], "phone number can't begin with 0, 1, or 2"
         
         if phoneNum.isdecimal():
             assert len(phoneNum) == 10, "phone number length must be 10"
-            assert not phoneNum[0] in ["0", "1", "2"], "phone number can't begin with 0, 1, or 2"
-
         
         # Allow for PhoneNumber class to read phone numbers with hyphens.
         else:
