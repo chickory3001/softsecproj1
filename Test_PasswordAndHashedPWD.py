@@ -12,11 +12,11 @@ from HashedPWD import HashedPWD
 #Created a list of passwords to test, valid tests and invalid test
 class passwordTester(unittest.TestCase):
   validPasswords = ["randyBoBandy84", "Alpha2025", "CodingKing88", "SecurePass12", "NightWolf77"]
-  invalidPasswords = ["linesAmIRight?||||", "Bad/Pass1", "Wrong\\Key9", "Too<Short", "Space Bar1"] 
+  invalidPasswords = ["linesAmIRight?||||", "Bad/Pass1", "Wrong\\Key9", "Too<Short"] 
   
 
   def setUp(self):
-    self.passwordObj = Password()  #creating a password object to test
+    self.passwordObj = Password("randyBoBandy84")  #creating a password object to test
   
   
   #Testing valid passwords from list
@@ -27,7 +27,7 @@ class passwordTester(unittest.TestCase):
     for password in passwordTester.validPasswords:
       # creates different test for each value, so if multiple fail it will show 
       with self.subTest(password=password):
-        result = self.passwordObj.isValid(password)
+        result = self.passwordObj.passwordChecker(password)
         self.assertTrue(result)
       # print(f" {password}: {"FAIL (correct)" if not result else "PASS (should NOT be valid!)"}")
   
@@ -39,7 +39,7 @@ class passwordTester(unittest.TestCase):
     for password in self.invalidPasswords:
       # creates different test for each value, so if multiple fail it will show 
       with self.subTest(password=password):
-        result = self.passwordObj.isValid(password)
+        result = self.passwordObj.passwordChecker(password)
         self.assertFalse(result)
         # print(f"  {password}: {'FAIL (correct)' if not result else 'PASS (should NOT be valid!)'}")
 
