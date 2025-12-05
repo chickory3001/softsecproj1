@@ -157,7 +157,8 @@ class Client:
     def changePassword(self):
         try:
             oldPass = input("Enter your previous password")  #Check previous password
-            if HashedPWD(Password(oldPass)) != self._hashedpwd:
+            # they must hash to the same hash, uses the the old salt and pepper 
+            if HashedPWD(Password(oldPass), self._hashedpwd._salt, self._hashedpwd._pepper) != self._hashedpwd:
                 print("Incorrect Previous Password:")
                 return False
         except Exception as e:
@@ -185,8 +186,7 @@ class Client:
                 newPass = input("Enter your new password")
                 confirmPass = input("Enter your new password to confirm")
 
-
-        self._password = newPass
+        self._hashedpwd = HashedPWD(Password(newPass))
         print("Password changed successfully")
         return True
 
