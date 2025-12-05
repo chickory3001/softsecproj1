@@ -30,6 +30,13 @@ class PhoneNumber:
         
     
     #getter for phonenum
-    #returns 
-    def getPhoneNum(self):
+    #returns phone number as string 
+    def getPhoneNum(self) -> str:
         return self._phoneNum
+    
+    # equality method 
+    # @ensure other is a phonenumber 
+    # returns true if the two phoe number strings are equal, false if not 
+    def __eq__(self,other: 'PhoneNumber') -> bool:
+        assert isinstance(other, PhoneNumber), "Invalid comparison"
+        return self._phoneNum == other._phoneNum
