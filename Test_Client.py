@@ -193,6 +193,10 @@ class TestClient(unittest.TestCase):
         newlast = 'Smith'
         self.client1._setLastName(newlast)
         self.assertEqual(self.client1._last,LastName('Smith'))
+
+        newaddress = Address( 'streeeet','cityyyyyy','va')
+        self.client1._setAddress(newaddress)
+        self.assertEqual(self.client1._address,newaddress)
     
     # test print, to be manually verified 
     def test_print(self):

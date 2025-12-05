@@ -52,7 +52,7 @@ class Address:
     # @return self._state: the state name as a string
     def getState(self) -> str:
         return self._state
- 
+    
     
     ### SPECIAL METHODS ###
     

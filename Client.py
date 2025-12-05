@@ -105,9 +105,16 @@ class Client:
     # Updates the last name of the client
     # @param last: new last name string 
     # @require last is a str of length 1-45 with no special characters
-    def _setLastName(self,last:'str'):
+    def _setLastName(self,last:str):
         assert 1 <= len(last) <= 45 and last.isprintable() and isinstance(last, str), 'invalid last name'
         self._last = LastName(last)
+    
+    # Updates the address of the client 
+    # @param address, new address obj
+    # @require address is an address obj
+    def _setAddress(self,address:Address):
+        assert isinstance(address, Address), 'invalid last name'
+        self._address = address
     
     # Creates a new account and adds it to the client's list of accounts
     # @param type: the type of the new account, as a string 
