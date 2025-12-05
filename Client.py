@@ -113,8 +113,15 @@ class Client:
     # @param address, new address obj
     # @require address is an address obj
     def _setAddress(self,address:Address):
-        assert isinstance(address, Address), 'invalid last name'
+        assert isinstance(address, Address), 'invalid address'
         self._address = address
+
+    # Updates the phoneNum of the client 
+    # @param phoneNum, new phoneNum obj
+    # @require phoneNum is an phoneNum obj
+    def _setPhoneNumber(self,phoneNum:str):
+        assert isinstance(phoneNum, str), 'invalid phone number'
+        self._phone = PhoneNumber(phoneNum)
     
     # Creates a new account and adds it to the client's list of accounts
     # @param type: the type of the new account, as a string 

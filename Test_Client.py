@@ -188,11 +188,15 @@ class TestClient(unittest.TestCase):
     def test_setters(self):
         newfirst = 'Joseph'
         self.client1._setFirstName(newfirst)
-        self.assertEqual(self.client1._first,FirstName('Joseph'))
+        self.assertEqual(self.client1._first,FirstName(newfirst))
 
         newlast = 'Smith'
         self.client1._setLastName(newlast)
-        self.assertEqual(self.client1._last,LastName('Smith'))
+        self.assertEqual(self.client1._last,LastName(newlast))
+
+        newphone = '8049392838'
+        self.client1._setPhoneNumber(newphone)
+        self.assertEqual(self.client1._phone,PhoneNumber(newphone))
 
         newaddress = Address( 'streeeet','cityyyyyy','va')
         self.client1._setAddress(newaddress)
