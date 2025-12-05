@@ -9,31 +9,22 @@
 # Note: When using coverage report, it will show the DEBUG statements as failing.
 
 import unittest
-from FirstName import FirstName
+from PhoneNumber import PhoneNumber
 
-class TestFirstName(unittest.TestCase):
+class TestPhoneNumber(unittest.TestCase):
 
-  validFirst1 = "David"
-  validFirst2 = "Skyler"
-  invalidName1 = 5
-  invalidName2 = "David\n"
-  invalidName3 = ""
-  invalidFirst = "Davidddddddddddddddddddddd"
-
+  VALIDPHONE = '9123456789'
   DEBUG = True
 
-
   def setUp(self):
-    self.FirstName1 = FirstName(self.validFirst1)
-    self.FirstName2 = FirstName(self.validFirst2)
+    self.phonenum = PhoneNumber(TestPhoneNumber.VALIDPHONE)
 
   def test_constructor(self):
     if self.DEBUG:
       print("\nTesting the constructor")
     
-    self.assertEqual(self.FirstName1._name, TestFirstName.validFirst1)
-    self.assertEqual(self.FirstName2._name, TestFirstName.validFirst2)
-    
+    self.assertEqual(self.phonenum.getPhoneNum(), TestPhoneNumber.VALIDPHONE)
+  
   def test_constructor_asserts(self):
     if self.DEBUG:
       print("\nTesting the constructor asserts")
@@ -51,7 +42,7 @@ class TestFirstName(unittest.TestCase):
     if self.DEBUG:
       print("\nTesting the getter method")
 
-    self.assertEqual(self.FirstName1.getName(), TestFirstName.validFirst1)
+    self.assertEqual(self.FirstName1.getName(), TestPhoneNumber.validFirst1)
 
     
   def test_eq(self):

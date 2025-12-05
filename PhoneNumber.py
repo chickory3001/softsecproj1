@@ -18,16 +18,15 @@ class PhoneNumber:
 
         
         # Allow for PhoneNumber class to read phone numbers with hyphens.
-        else:
-            splitNum = phoneNum.split("-")
-            assert len(splitNum) == 3, "improper use of hyphens"
-            phoneNum = "".join(splitNum)
+        # else:
+        #     splitNum = phoneNum.split("-")
+        #     assert len(splitNum) == 3, "improper use of hyphens"
+        #     phoneNum = "".join(splitNum)
             
-            assert len(phoneNum) == 10, "phone number length must be 10"
-            assert phoneNum.isdecimal(), "phone number must be numbers"
-            
-        self._phoneNum = phoneNum
+        #     assert len(phoneNum) == 10, "phone number length must be 10"
+        #     assert phoneNum.isdecimal(), "phone number must be numbers"
         
+        self._phoneNum = phoneNum
     
     #getter for phonenum
     #returns phone number as string 
