@@ -12,7 +12,7 @@ from HashedPWD import HashedPWD
 #Created a list of passwords to test, valid tests and invalid test
 class passwordTester(unittest.TestCase):
   validPasswords = ["randyBoBandy84", "Alpha2025", "CodingKing88", "SecurePass12", "NightWolf77"]
-  invalidPasswords = ["linesAmIRight?||||", "Bad/Pass1", "Wrong\\Key9", "Too<Short",'toolongggggggggggggggggg',b'wrongtype'] 
+  invalidPasswords = ["lines||||||", "Bad/Pass1", '>>>>>>>>>>', "Wrong\\Key9", 'space bar', "2Short",'<<<<<<<<<<','toolongggggggggggggggggg',b'wrongtype'] 
   
 
   def setUp(self):

@@ -15,6 +15,7 @@ from LastName import LastName
 from Password import Password
 from HashedPWD import HashedPWD
 from PhoneNumber import PhoneNumber
+from unittest.mock import patch 
 
 # Class to test the client class 
 class TestClient(unittest.TestCase):
@@ -27,6 +28,8 @@ class TestClient(unittest.TestCase):
     INITIALTYPE = 'c'
     CLIENTNUMBER = 100
     PASSWORD = Password('randyBoBandy84')
+    PASSWORDSTRING = 'randyBoBandy84'
+    NEWPASSSTRING = 'CodingKing88'
     DEBUG = True
 
     # The setup method creates a client
@@ -194,6 +197,17 @@ class TestClient(unittest.TestCase):
     # test print, to be manually verified 
     def test_print(self):
         self.client1.printClient()
+    
+    # test change password 
+    def test_change_password(self):
+        # test doing everything correctly
+        # use unittest.mock's patch to feed data into the input() calls, simulates the user typing it
+        fakeinputs = [TestClient.PASSWORDSTRING,TestClient.NEWPASSSTRING,TestClient.NEWPASSSTRING]
+        with patch("builtins.input", side_effect=fakeinputs):
+            self.assertTrue(self.client1)
+
+
+
 
 if __name__ == "__main__":
     unittest.main()
