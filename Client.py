@@ -13,6 +13,7 @@ from CheckingAccount import CheckingAccount
 from SavingsAccount import SavingsAccount
 from FirstName import FirstName
 from LastName import LastName
+from Password import Password
 
 # Class to represent a client of a bank 
 class Client:
