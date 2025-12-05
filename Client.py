@@ -16,6 +16,7 @@ from LastName import LastName
 from Password import Password
 from HashedPWD import HashedPWD
 from PhoneNumber import PhoneNumber
+from unittest.mock import patch 
 
 # Class to represent a client of a bank 
 class Client:
