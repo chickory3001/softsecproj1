@@ -7,29 +7,25 @@
 # import the required libraries
 import os
 import hashlib
+from Password import Password
 
 # Example Client class to demonstrate storing the required attributes to has passwords
 class HashedPWD():
 
     # Define the Class Constants    
     PEPPER = "SECRET_KEY"
-    PASS_MIN_LEN = 8
-    PASS_MAX_LEN = 16
-    INVALID_Char = {"/", "\\", "<", ">", "|", ""}  # Use a set, not a list
     
     # Client constructor
     # @parameter: password - the string passed in containing the password
     # @require: 8 <= len(password) <=  16
     # @require: password does not contain "/", "\", "<", ">", "|"    
     def __init__(self, password):
-        assert isinstance(password, str), "Invalid type"
-        assert Client.PASS_MIN_LEN <= len(password) <=  Client.PASS_MAX_LEN, "Invalid length" 
-        assert _checkSyntax(password)
+        assert isinstance(password, Password), "Invalid type"
 
         self._salt = os.urandom(16)  
         self._iterations = 100_000
         self._hash_algo = 'sha256'
-        self._hashPWD = self._createSecureHash(password)
+        self._hashPWD = self._createSecureHash(password.getPassword())
      
      # return a string representation of the object   
     def __repr__(self):
@@ -42,8 +38,6 @@ class HashedPWD():
     
     def _createSecureHash(self, password):
         assert isinstance(password, str), "Invalid type"
-        assert Client.PASS_MIN_LEN <= len(password) <=  Client.PASS_MAX_LEN, "Invalid length" 
-        assert _checkSyntax(password)
         
         hash = hashlib.pbkdf2_hmac(
             self._hash_algo,
@@ -61,25 +55,11 @@ class HashedPWD():
     
     def _checkPassword(self, password):
         #Assertions to check password type, length, and syntax
-        assert isinstance(password, str), "Invalid type"
-        assert Client.PASS_MIN_LEN <= len(password) <=  Client.PASS_MAX_LEN, "Invalid length" 
-        assert _checkSyntax(password)
+        assert isinstance(password, Password), "Invalid type"
 
         # Compute the hash from password entered   
-        passwordHash = _createSecureHash(password)
+        passwordHash = _createSecureHash(password.getPassword())
          
         # Compare the computed hash and the stored hash and return the result
         return (passswordHash == self._hashPWD)
 
-    # helper function to check the password for prohibitied characters 
-    # @parameter: password - the string passed in containing the password
-    # @require: 8 <= len(password) <=  16
-    
-    def _checkSyntax (password):
-        assert isinstance(password, str), "Invalid type"
-        assert Client.PASS_MIN_LEN <= len(password) <=  Client.PASS_MAX_LEN, "Invalid length" 
-        
-        result = True
-        for element in password:
-            result = result and element not in Client.INVALID_Char
-        return result
