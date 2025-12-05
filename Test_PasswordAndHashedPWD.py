@@ -65,9 +65,10 @@ class passwordTester(unittest.TestCase):
     with self.assertRaises(AssertionError):
       self.hashedpwd._createSecureHash(123)
     with self.assertRaises(AssertionError):
-      HashedPWD(self.password,pepper=12313)
+      self.hashedpwd._checkPassword(123)
     with self.assertRaises(AssertionError):
-      HashedPWD(self.password,pepper=12313)
+      self.hashedpwd == 123
+  
   #Testing changing of passwords from both valid and invalid
   #@Require that the passwords are correctly entered
   #@Ensure the passwords do return true if valid and false if not

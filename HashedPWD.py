@@ -57,7 +57,7 @@ class HashedPWD():
     # @require: 8 <= len(password) <=  16
     # @require: password does not contain "/", "\\", "<", ">", "|"    
     
-    def _checkPassword(self, password):
+    def _checkPassword(self, password: Password) -> bool:
         #Assertions to check password type, length, and syntax
         assert isinstance(password, Password), "Invalid type"
 
@@ -70,7 +70,7 @@ class HashedPWD():
     # Tests equality between two hashedpwds
     # @ensure self is being compared to another hashedpwd
     # @return: True if equal, else False
-    def __eq__(self,other):
+    def __eq__(self,other: 'HashedPWD') -> bool:
         assert isinstance(other, HashedPWD)
         return self._hashPWD == other._hashPWD
 
