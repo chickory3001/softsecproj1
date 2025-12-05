@@ -23,7 +23,7 @@ class Password:
   def passwordChecker(self, userPassword):
     if not isinstance(userPassword,str):
       return False
-    for character in Password.invalidPassswordChar:
+    for character in Password.invalidPasswordChar:
       if character in userPassword:
         return False
 

@@ -191,7 +191,7 @@ class Client:
         return True
 
 
-# if __name__ == "__main__":
-#     client = Client('timmy', 'smith', '9123456789', Address('323 timmy drive', 'glen allen', 'VA'),'c')
-#     client._accounts[0].deposit(100)
-#     client.printClient()
+if __name__ == "__main__":
+    client = Client('timmy', 'smith', '9123456789', Address('323 timmy drive', 'glen allen', 'VA'),'c',Password('randyBoBandy84'))
+    client._accounts[0].deposit(100)
+    client.printClient()
