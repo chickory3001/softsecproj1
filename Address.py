@@ -62,7 +62,13 @@ class Address:
     def __eq__(self, other: 'Address') -> bool:
         assert isinstance(other, Address), "invalid comparison"
         return self._street == other._street and self._city == other._city and self._state == other._state
-        
+    
+    # test comparison between two addresses starting with street, then city, then state, 
+    # earlier in the alphabet is considered less 
+    def __lt__(self,other: 'Address') -> bool:
+        assert isinstance(other,Address), 'invalid comparison'
+        return self._street + self._city + self._state < other._street + other._city + other._state
+    
     # Returns a string containing the formatted address.
     # @return: The formatted string of the address
     def __str__(self) -> str:
