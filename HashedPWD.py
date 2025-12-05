@@ -16,11 +16,13 @@ class HashedPWD():
     # @parameter: password - the string passed in containing the password
     # @require: 8 <= len(password) <=  16
     # @require: password does not contain "/", "\", "<", ">", "|"    
-    def __init__(self, password):
-        assert isinstance(password, Password), "Invalid type"
+    def __init__(self, password: Password, salt: bytes = os.urandom(16), pepper: bytes = os.urandom(16)):
+        assert isinstance(password, Password), "Invalid password type"
+        assert isinstance(salt, bytes), "Invalid salt type"
+        assert isinstance(pepper, bytes), "Invalid pepper type"
 
-        self._salt = os.urandom(16) 
-        self._pepper =  os.urandom(16) 
+        self._salt = salt
+        self._pepper = pepper
         self._iterations = 100_000
         self._hash_algo = 'sha256'
         self._hashPWD = self._createSecureHash(password.getPassword())
