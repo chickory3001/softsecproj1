@@ -15,6 +15,7 @@ class BankAccount(ABC):
     INTEREST_RATE = 0.075
     ACCOUNT_TYPES = ['c','s']    # Checking and Savings
     STARTING_TRANSACTION_NUMBER = 100
+    NEXTUNIQUEIDENTIFIER = 1
     
     # Constructs a bank account object
     # @param type the type of account
@@ -27,7 +28,8 @@ class BankAccount(ABC):
         self._transactions = []
         self._timesOverdrawn = 0
         self._type = type
-    
+        self._id = BankAccount.NEXTUNIQUEIDENTIFIER
+        BankAccount.NEXTUNIQUEIDENTIFIER += 1
     
     ### QUERIES ###
     
@@ -45,6 +47,11 @@ class BankAccount(ABC):
     # @return: the account's account type as a string
     def getType(self) -> 'str':
         return self._type
+    
+    # getId returns the account's id number 
+    # @return: the account's account type as a string
+    def getId(self) -> 'str':
+        return self._id
     
     # getTransactions returns the account's transactions list 
     # @return: the account's transaction list
@@ -156,7 +163,7 @@ class BankAccount(ABC):
     # Returns a string containing the account instance variables.
     # @return: The formatted, human readable string of the account 
     def __str__(self) -> str:
-        string = (f'Account Type: {self._type}\nAccount Number: {self._accountNumber}\nBalance: {self.getBalance()}')
+        string = (f'Account Type: {self._type}\nAccount Number: {self._accountNumber}\nBalance: {self.getBalance()}\n Times Overdrawn: {self.getTimesOverdrawn()}\n Id: {self.getId()}')
         
         # Iterate over list of transactions, puts newline before to ensure there's no trailing newline char
         for x in self._transactions:
@@ -179,32 +186,32 @@ class BankAccount(ABC):
         string = string.replace('=',':')
         return string
     
-    # Checks to see if two accounts have the same account number
+    # Checks to see if two accounts have the same account id
     # @param other: the account obj being compared to 
-    # @return true if the account numbers are the same, false if not 
+    # @return true if the account ids are the same, false if not 
     def __eq__(self,other:'BankAccount') -> bool:
-        return self._accountNumber == other._accountNumber
+        return self._id == other._id
     
-    # Checks if this account's account number is less than the other
+    # Checks if this account's account id is less than the other
     # @param other: the account obj being compared to
-    # @return true if this account's account number is less than other, false if otherwise
+    # @return true if this account's account id is less than other, false if otherwise
     def __lt__(self,other:'BankAccount') -> bool:
-        return self._accountNumber < other._accountNumber
+        return self._id < other._id
     
-    # Checks if this account's account number is greater than the other
+    # Checks if this account's account id is greater than the other
     # @param other: the account obj being compared to
-    # @return true if this account's account number is greater than other, false if otherwise
+    # @return true if this account's account id is greater than other, false if otherwise
     def __gt__(self,other:'BankAccount') -> bool:
-        return self._accountNumber > other._accountNumber
+        return self._id > other._id
     
-    # Checks if this account's account number is less than or equal to the other
+    # Checks if this account's account id is less than or equal to the other
     # @param other: the account obj being compared to
-    # @return true if this account's account number is less than or equal to other, false if otherwise
+    # @return true if this account's account id is less than or equal to other, false if otherwise
     def __le__(self,other:'BankAccount') -> bool:
-        return self._accountNumber <= other._accountNumber
+        return self._id <= other._id
     
-    # Checks if this account's account number is greater than or equal to the other
+    # Checks if this account's account id is greater than or equal to the other
     # @param other: the account obj being compared to
-    # @return true if this account's account number is greater than or equal to other, false if otherwise
+    # @return true if this account's account id is greater than or equal to other, false if otherwise
     def __ge__(self,other:'BankAccount') -> bool:
-        return self._accountNumber >= other._accountNumber
+        return self._id >= other._id

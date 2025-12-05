@@ -19,6 +19,8 @@ class TestCheckingAccount(unittest.TestCase):
     # Class constants.
     ACCOUNT1NUMBER = 1000
     ACCOUNT2NUMBER = 1001
+    ACCOUNT1ID = 1
+    ACCOUNT2ID = 2
     DEPOSIT1 = 100.0
     DEPOSIT2 = 150.0
     INVALIDWITHDRAWAL =  101.0
@@ -30,6 +32,10 @@ class TestCheckingAccount(unittest.TestCase):
         self.account1 = CheckingAccount(1000)
         self.account2 = CheckingAccount(1001)
     
+    def tearDown(self):
+        # reset bank id counter  
+        BankAccount.NEXTUNIQUEIDENTIFIER = 1
+    
     # The test_constructor method tests the constructor.
     def test_constructor(self):
         if TestCheckingAccount.DEBUG:
@@ -38,6 +44,8 @@ class TestCheckingAccount(unittest.TestCase):
         
         self.assertEqual(self.account1.getAccountNumber(), TestCheckingAccount.ACCOUNT1NUMBER)
         self.assertEqual(self.account2.getAccountNumber(), TestCheckingAccount.ACCOUNT2NUMBER)
+        self.assertEqual(self.account1.getId(), TestCheckingAccount.ACCOUNT1ID)
+        self.assertEqual(self.account2.getId(), TestCheckingAccount.ACCOUNT2ID)
         self.assertEqual(self.account1.getType(),'c')
         self.assertEqual(self.account2.getType(),'c')
         self.assertEqual(self.account1.getTransactions(),[])
