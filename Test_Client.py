@@ -227,5 +227,16 @@ class TestClient(unittest.TestCase):
         self.assertTrue(self.client1._hashedpwd._checkPassword(Password(TestClient.NEWPASSSTRING)))
         self.setUp()
 
+        # test entering existing password correctly, then entering the same invalid password, 
+        # then entering different valid passwords, then entering the same valid password 
+        fakeinputs = [TestClient.PASSWORDSTRING,'<>|','<>|',TestClient.NEWPASSSTRING,'jkl;fdsajf',TestClient.NEWPASSSTRING,TestClient.NEWPASSSTRING]
+        with patch("builtins.input", side_effect=fakeinputs):
+            self.assertTrue(self.client1.changePassword())
+        
+        self.assertTrue(self.client1._hashedpwd._checkPassword(Password(TestClient.NEWPASSSTRING)))
+        self.setUp()
+
+
+
 if __name__ == "__main__":
     unittest.main()
