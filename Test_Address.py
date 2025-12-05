@@ -23,6 +23,9 @@ class TestAddress(unittest.TestCase):
     CITY = "Glen Allen"
     STATE = "VA"
     
+    LESSERADDRESS = Address('304 A drive','glen allen','va')
+    GREATERADDRESS = Address('304 Z drive','glen allen','va')
+
     DEBUG = True
     
     # setUp creates an address
@@ -114,6 +117,44 @@ class TestAddress(unittest.TestCase):
         
         with self.assertRaises(AssertionError):
             self.assertEqual(addr2, "addr2")
+    
+    # Test the __lt__ special method.
+    def test_lt(self):
+        if TestAddress.DEBUG:
+            print("\nTesting the less than special method")
+            
+        # Assert
+        self.assertTrue(TestAddress.LESSERADDRESS < TestAddress.GREATERADDRESS)
+        self.assertFalse(TestAddress.GREATERADDRESS < TestAddress.LESSERADDRESS)
+    
+    # Test the __gt__ special method.
+    def test_gt(self):
+        if TestAddress.DEBUG:
+            print("\nTesting the greater than special method")
+            
+        # Assert
+        self.assertTrue(TestAddress.GREATERADDRESS > TestAddress.LESSERADDRESS)
+        self.assertFalse(TestAddress.LESSERADDRESS > TestAddress.GREATERADDRESS)
+    
+    # Test the __le__ special method.
+    def test_le(self):
+        if TestAddress.DEBUG:
+            print("\nTesting the less than or equal to special method")
+            
+        # Assert
+        self.assertTrue(TestAddress.LESSERADDRESS <= TestAddress.LESSERADDRESS)
+        self.assertTrue(TestAddress.LESSERADDRESS <= TestAddress.GREATERADDRESS)
+        self.assertFalse(TestAddress.GREATERADDRESS <= TestAddress.LESSERADDRESS)
+    
+    # Test the __ge__ special method.
+    def test_ge(self):
+        if TestAddress.DEBUG:
+            print("\nTesting the greater than or equal to special method")
+            
+        # Assert
+        self.assertTrue(TestAddress.GREATERADDRESS >= TestAddress.LESSERADDRESS)
+        self.assertTrue(TestAddress.GREATERADDRESS >= TestAddress.GREATERADDRESS)
+        self.assertFalse(TestAddress.LESSERADDRESS >= TestAddress.GREATERADDRESS)
     
     # tests str
     def test_str(self):
