@@ -10,41 +10,47 @@ import unittest
 
 #Created a list of passwords to test, valid tests and invalid test
 class passwordTester(unittest.TestCase):
-  validPassword = ["randyBoBandy84", "Alpha2025", "CodingKing88", "SecurePass12", "NightWolf77"]
-  invalidPassword = ["linesAmIRight?||||", "Bad/Pass1", "Wrong\\Key9", "Too<Short", "Space Bar1"] 
+  validPasswords = ["randyBoBandy84", "Alpha2025", "CodingKing88", "SecurePass12", "NightWolf77"]
+  invalidPasswords = ["linesAmIRight?||||", "Bad/Pass1", "Wrong\\Key9", "Too<Short", "Space Bar1"] 
   
 
   def setUp(self):
-    passwordObj = Password()  #creating a password object to test
+    self.passwordObj = Password()  #creating a password object to test
   
   
-  # #Testing valid passwords from list
-  # #@Require that the passwords are correctly entered
-  # #@Ensure the passwords do return true 
-  # def testValidPass(self):
-  #   print("Testing valid passwords:")
-  #   for passwords in self.validPasswords:
-  #     result = self.passwordObj.isValid(passwords)
-  #     print(f" {passwords}: {"FAIL (correct)" if not result else "PASS (should NOT be valid!)"}")
+  #Testing valid passwords from list
+  #@Require that the passwords are correctly entered
+  #@Ensure the passwords do return true 
+  def testValidPass(self):
+    print("Testing valid passwords:")
+    for password in passwordTester.validPasswords:
+      # creates different test for each value, so if multiple fail it will show 
+      with self.subTest(password=password):
+        result = self.passwordObj.isValid(password)
+        self.assertTrue(result)
+      # print(f" {password}: {"FAIL (correct)" if not result else "PASS (should NOT be valid!)"}")
   
   
   
-  
-  # #Testing invalid passwords form list
-  # #@Require that the passwords are correctly entered
-  # #@Ensure the passwords do return false
-  # def testInvalidPass(self):
-  #   print("Testing invalid passwords:")
-  #   for passwords in self.invalidPasswords:
-  #     result = self.passwordObj.isValid(passwords)
-  #     print(f"  {passwords}: {'FAIL (correct)' if not result else 'PASS (should NOT be valid!)'}")
+
+  #Testing invalid passwords form list
+  #@Require that the passwords are correctly entered
+  #@Ensure the passwords do return false
+  def testInvalidPass(self):
+    print("Testing invalid passwords:")
+    for password in self.invalidPasswords:
+      # creates different test for each value, so if multiple fail it will show 
+      with self.subTest(password=password):
+        result = self.passwordObj.isValid(password)
+        self.assertFalse(result)
+        # print(f"  {password}: {'FAIL (correct)' if not result else 'PASS (should NOT be valid!)'}")
 
   
   
   
-  # #Testing changing of passwords from both valid and invalid
-  # #@Require that the passwords are correctly entered
-  # #@Ensure the passwords do return true if valid and false if not
+  #Testing changing of passwords from both valid and invalid
+  #@Require that the passwords are correctly entered
+  #@Ensure the passwords do return true if valid and false if not
   # def testChangingPassword(self):
   #   print("Testing password changes")
     
