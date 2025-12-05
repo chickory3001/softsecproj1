@@ -8,12 +8,12 @@ Creates a password and checks to see if the password is valid, also resets when 
 from ClientHash import Client
 
 
-#Creates the password object
+
 class Password:
   invalidPasswordChar = ["/", "\\", "<", ">", "|", "_"]
 
   def __init__(self):
-    self._password = ""
+    self._password = ""    #Creates the password object
   
   #Sets password, goes throught a while loop to check if the password is valid within the parameters
   #@Require Password being set is valid
