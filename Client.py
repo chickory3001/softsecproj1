@@ -28,7 +28,7 @@ class Client:
     # @param phone: the phone number of the client
     # @param address: the address of the client 
     # @require first is a str of length 1-25 with no special characters
-    # @require last is a str of length 1-40 with no special characters
+    # @require last is a str of length 1-45 with no special characters
     # @require phone is all digits, length of 10, doesn't start with 0, 1, or 2
     # @require address is an address object 
     def __init__(self, first: FirstName, last: LastName, phone: str, address: Address, initialAccountType: str, password: Password) -> 'Client':
@@ -99,14 +99,14 @@ class Client:
     # @require first is a str of length 1-25 with no special characters
     def _setFirstName(self,first:str):
         assert 1 <= len(first) <= 25 and first.isprintable() and isinstance(first, str), 'invalid first name'
-        self._first = first
+        self._first = FirstName(first)
     
     # Updates the last name of the client
     # @param last: new last name string 
-    # @require last is a str of length 1-40 with no special characters
+    # @require last is a str of length 1-45 with no special characters
     def _setLastName(self,last:'str'):
-        assert 1 <= len(last) <= 40 and last.isprintable() and isinstance(last, str), 'invalid last name'
-        self._last = last
+        assert 1 <= len(last) <= 45 and last.isprintable() and isinstance(last, str), 'invalid last name'
+        self._last = LastName(last)
     
     # Creates a new account and adds it to the client's list of accounts
     # @param type: the type of the new account, as a string 
