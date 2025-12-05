@@ -88,7 +88,7 @@ class Client:
     
     # Print all of the client details, including the accounts and their transactions 
     def printClient(self):
-        print(f'First Name: {self._first}\nLast Name: {self._last}\nPhone Number: {self._phone}\nAddress: {str(self._address)}\nClient Number: {self._clientNumber}\n')
+        print(f'First Name: {self._first.getName()}\nLast Name: {self._last.getName()}\nPhone Number: {self._phone.getPhoneNum()}\nAddress: {str(self._address)}\nClient Number: {self._clientNumber}\n')
         for account in self._accounts:
             print(account)
     

@@ -29,3 +29,5 @@ class PhoneNumber:
         self._phoneNum = phoneNum
         
     
+    def getPhoneNum(self):
+        return self._phoneNum

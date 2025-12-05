@@ -206,7 +206,7 @@ class TestClient(unittest.TestCase):
         with patch("builtins.input", side_effect=fakeinputs):
             self.assertTrue(self.client1.changePassword())
         
-        # check it updated correctly
+        # check it updated 
         self.assertTrue(self.client1._hashedpwd._checkPassword(Password(TestClient.NEWPASSSTRING)))
         # reset client to old password so we can change it again 
         self.setUp()
@@ -234,6 +234,25 @@ class TestClient(unittest.TestCase):
             self.assertTrue(self.client1.changePassword())
         
         self.assertTrue(self.client1._hashedpwd._checkPassword(Password(TestClient.NEWPASSSTRING)))
+        self.setUp()
+        
+        # test entering existing password incorrectly
+        fakeinputs = ['jkl;fdsaj']
+        with patch("builtins.input", side_effect=fakeinputs):
+            self.assertFalse(self.client1.changePassword())
+        
+        # check it stayed the same
+        self.assertTrue(self.client1._hashedpwd._checkPassword(TestClient.PASSWORD))
+        self.setUp()
+        
+        # test entering existing password that throws an assertion error exception when declared as
+        # a password object, should be caught and return false
+        fakeinputs = ['<<<>>||']
+        with patch("builtins.input", side_effect=fakeinputs):
+            self.assertFalse(self.client1.changePassword())
+        
+        #check it stayed the same 
+        self.assertTrue(self.client1._hashedpwd._checkPassword(TestClient.PASSWORD))
         self.setUp()
 
 
