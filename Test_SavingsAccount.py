@@ -23,7 +23,7 @@ class TestSavingsAccount(unittest.TestCase):
     DEPOSIT2 = 150.0
     INVALIDWITHDRAWAL =  101.0
     VALIDWITHDRAWAL = 100.0
-    DEBUG = False
+    DEBUG = True
     
     # The setup method creates two checking accounts. 
     def setUp(self):

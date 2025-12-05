@@ -16,7 +16,7 @@ class TestEncryption(unittest.TestCase):
     KEY = b'MySuperSecretKey2222222222222222'
     IV = b'MySuperSecretIV0'  
     PLAINTEXT = "This is my secret text\n   ffffflewfeauifeuwaihfieawo\n feuiowja\n"  
-    DEBUG = False
+    DEBUG = True
 
     #tests encrypt and decrypt methods 
     def test_encryption(self):

@@ -17,7 +17,7 @@ class TestTransaction(unittest.TestCase):
     WITHDRAWL = 500  # Expected Withdrawl amount
     FIRST = 100      # Expected first transaction number
     TYPE = "deposit" # Expected Deposit transaction type
-    DEBUG = False
+    DEBUG = True
     
     # The setup method creates three transactions
     def setUp(self):
