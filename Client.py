@@ -14,7 +14,7 @@ from SavingsAccount import SavingsAccount
 from FirstName import FirstName
 from LastName import LastName
 from Password import Password
-from ClientHash import Client
+from HashedPWD import HashedPWD
 
 # Class to represent a client of a bank 
 class Client:
@@ -46,7 +46,7 @@ class Client:
         self._accounts = []
         self._clientNumber = Client._nextClientNumber
         self._nextAccountNumber = 1000
-        self._password = password
+        self._hash = HashedPWD(password)
         
         # Increment the next client number 
         Client._nextClientNumber += 1
@@ -79,6 +79,11 @@ class Client:
     # @return: the client's address as an Address object
     def getAddress(self) -> Address:
         return self._address
+
+    # getHash returns the client's hash
+    # @return: the client's hash as a HashedPWD object
+    def getAddress(self) -> HashedPWD:
+        return self._hash
     
     # Print all of the client details, including the accounts and their transactions 
     def printClient(self):
