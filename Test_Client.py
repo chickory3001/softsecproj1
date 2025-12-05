@@ -200,11 +200,20 @@ class TestClient(unittest.TestCase):
     
     # test change password 
     def test_change_password(self):
-        # test doing everything correctly
+        # test entering existing password and new pw correctly
         # use unittest.mock's patch to feed data into the input() calls, simulates the user typing it
         fakeinputs = [TestClient.PASSWORDSTRING,TestClient.NEWPASSSTRING,TestClient.NEWPASSSTRING]
         with patch("builtins.input", side_effect=fakeinputs):
-            self.assertTrue(self.client1)
+            self.assertTrue(self.client1.changePassword())
+        
+        # check it updated correctly
+        self.assertTrue(self.client1._hashedpwd._checkPassword(TestClient.NEWPASSSTRING))
+        
+        # test entering existing password correctly, then entering different new passwords, then entering the same new passwords
+        fakeinputs = [TestClient.PASSWORDSTRING,TestClient.NEWPASSSTRING,'asdfjkl;jf',TestClient.NEWPASSSTRING,TestClient.NEWPASSSTRING]
+        with patch("builtins.input", side_effect=fakeinputs):
+            self.assertTrue(self.client1.changePassword())
+        
 
 
 
