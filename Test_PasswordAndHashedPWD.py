@@ -17,6 +17,7 @@ class passwordTester(unittest.TestCase):
 
   def setUp(self):
     self.password = Password("randyBoBandy84")  #creating a password object to test
+    self.hashedpwd = HashedPWD(self.password)
   
   #Testing valid passwords from list
   #@Require that the passwords are correctly entered
@@ -58,6 +59,13 @@ class passwordTester(unittest.TestCase):
       HashedPWD(self.password,'jfkds;lafjdksal;')
     with self.assertRaises(AssertionError):
       HashedPWD('jkl;fdsa')
+    with self.assertRaises(AssertionError):
+      HashedPWD(self.password,pepper=12313)
+    
+    with self.assertRaises(AssertionError):
+      self.hashedpwd._createSecureHash(123)
+    with self.assertRaises(AssertionError):
+      HashedPWD(self.password,pepper=12313)
     with self.assertRaises(AssertionError):
       HashedPWD(self.password,pepper=12313)
   #Testing changing of passwords from both valid and invalid
