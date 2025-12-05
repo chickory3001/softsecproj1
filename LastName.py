@@ -13,4 +13,4 @@ class LastName(Name):
 
   def __init__(self, name: str) -> 'LastName':
     super().__init__(name)
-    assert len(name) <= 45
+    assert len(name) <= 45, 'invalid last name'
