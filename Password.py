@@ -9,8 +9,9 @@ Creates a password and checks to see if the password is valid, also resets when 
 class Password:
   invalidPasswordChar = ["/", "\\", "<", ">", "|", "_"]
 
-  def __init__(self):
-    self._password = ""    #Creates the password object
+  def __init__(self, password):
+    assert passwordChecker(password), "Invalid password"
+    self._password = password    #Creates the password object
   
   #Sets password, goes throught a while loop to check if the password is valid within the parameters
   #@Require Password being set is valid
@@ -18,11 +19,9 @@ class Password:
   def passwordChecker(self, userPassword):
     for character in Password.invalidPassswordChar:
       if character in userPassword:
-        print("Invalid character:", character)
         return False
 
       if len(userPassword) < 8 or len(userPassword) > 16:
-        print("Password length must be between 8 - 16 characters:")
         return False
     return True
     
