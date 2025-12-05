@@ -208,12 +208,18 @@ class TestClient(unittest.TestCase):
         
         # check it updated correctly
         self.assertTrue(self.client1._hashedpwd._checkPassword(TestClient.NEWPASSSTRING))
-        
+        # reset client to old password so we can change it again 
+        self.setUp()
+
         # test entering existing password correctly, then entering different new passwords, then entering the same new passwords
         fakeinputs = [TestClient.PASSWORDSTRING,TestClient.NEWPASSSTRING,'asdfjkl;jf',TestClient.NEWPASSSTRING,TestClient.NEWPASSSTRING]
         with patch("builtins.input", side_effect=fakeinputs):
             self.assertTrue(self.client1.changePassword())
         
+        self.assertTrue(self.client1._hashedpwd._checkPassword(TestClient.NEWPASSSTRING))
+        self.setUp()
+        
+
 
 
 
