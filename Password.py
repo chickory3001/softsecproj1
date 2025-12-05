@@ -10,7 +10,6 @@ class Password:
   invalidPasswordChar = ["/", "\\", "<", ">", "|", "_"]
 
   def __init__(self, password):
-    assert isinstance(password, str), "Invalid type"
     assert self.passwordChecker(password), "Invalid password"
     self._password = password    #Creates the password object
 
@@ -22,6 +21,8 @@ class Password:
   #@Require Password being set is valid
   #@Ensure Password is saved to the client's account
   def passwordChecker(self, userPassword):
+    if not isinstance(userPassword,str):
+      return False
     for character in Password.invalidPassswordChar:
       if character in userPassword:
         return False
