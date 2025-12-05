@@ -7,6 +7,7 @@ Import the password and client class
 from Password import Password
 from Client import Client
 import unittest
+from HashedPWD import HashedPWD
 
 #Created a list of passwords to test, valid tests and invalid test
 class passwordTester(unittest.TestCase):
@@ -30,9 +31,6 @@ class passwordTester(unittest.TestCase):
         self.assertTrue(result)
       # print(f" {password}: {"FAIL (correct)" if not result else "PASS (should NOT be valid!)"}")
   
-  
-  
-
   #Testing invalid passwords form list
   #@Require that the passwords are correctly entered
   #@Ensure the passwords do return false
