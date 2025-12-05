@@ -8,6 +8,7 @@
 
 from transaction import Transaction
 from abc import ABC, abstractmethod
+from AES_CBC import * 
 
 # A class to represent a secure bank account 
 class BankAccount(ABC):
@@ -114,7 +115,42 @@ class BankAccount(ABC):
         # If it's unsuccessful, don't deposit
         return False
     
+    # Encrypts and writes transactions to respective txt file 
+    def _writeTransactions(self):
+        string = ''
+        for transaction in self._transactions:
+            string += str(transaction)
+        
+        # Encrypt the string
+        encrypted_text = encrypt_AES_CBC(string, self._ENCRYPTIONKEY, self._ENCRYPTIONIV)  
+        
+        # Write raw bytes to text file 
+        if self._type == 'c':
+            with open("checking.txt", "wb") as f:
+                f.write(encrypted_text)
+        elif self._type == 's':
+            with open("savings.txt", "wb") as f:
+                f.write(encrypted_text)
     
+    # Reads the transaction data from the file, decrypts it, and returns it 
+    def _getTransactionData(self) -> str:
+        
+            # Read raw bytes back
+        if self._type == 'c':
+            with open("checking.txt", "rb") as f:
+                filedata = f.read()
+        elif self._type == 's':
+            with open("savings.txt", "rb") as f:
+                filedata = f.read()
+        
+        # Decrypt the encrypted text
+        decrypted_text = decrypt_AES_CBC(filedata, self._ENCRYPTIONKEY, self._ENCRYPTIONIV)  
+        return decrypted_text
+    
+    # Prints the transaction data from file 
+    def _readTransactions(self):
+        print(self._getTransactionData())
+
     ### SPECIAL METHODS ###
     
     # Returns a string containing the account instance variables.

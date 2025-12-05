@@ -73,33 +73,3 @@ class SavingsAccount(BankAccount):
         if prevBalance < 10000 and currentBalance >= 10000:
             self._timesOverdrawn = 0
             print("Overdraft fees have been reset")
-
-    
-    # Encrypts and writes transactions to savings.txt
-    def _writeTransactions(self):
-        string = ''
-        for transaction in self._transactions:
-            string += str(transaction)
-        
-        # Encrypt the string
-        encrypted_text = encrypt_AES_CBC(string, self._ENCRYPTIONKEY, self._ENCRYPTIONIV)  
-        
-        # Write raw bytes to text file 
-        with open("savings.txt", "wb") as f:
-            f.write(encrypted_text)
-    
-    # Reads the transaction data from the file, decrypts it, and returns it 
-    def _getTransactionData(self) -> str:
-            
-            # Read raw bytes back
-        with open("savings.txt", "rb") as f:
-            filedata = f.read()
-        
-        # Decrypt the encrypted text
-        decrypted_text = decrypt_AES_CBC(filedata, self._ENCRYPTIONKEY, self._ENCRYPTIONIV)  
-        
-        return decrypted_text
-    
-    # Prints the transaction data from file 
-    def _readTransactions(self):
-        print(self._getTransactionData())
