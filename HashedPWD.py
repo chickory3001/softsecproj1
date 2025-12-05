@@ -43,7 +43,6 @@ class HashedPWD():
             self._salt,
             self._iterations
         )  
-
         return hash
     
     # Private method to check a password against the stored hash

@@ -21,7 +21,7 @@ class Client:
     
     # Client numbers start at 100 
     _nextClientNumber = 100
-
+    
     # Creates a client object 
     # @param first: the first name as a string
     # @param last: the last name as a string 
@@ -150,6 +150,41 @@ class Client:
         
         # Return False if the account doesn't exist
         return False
+    
+    #Changes the password the user wants to enter
+    #@Require Password is already associated with an account
+    #@Ensure Password is being changed
+    def changePassword(self):
+        oldPass = input("Enter your previous password")  #Check previous password
+        if oldPass != self._password:
+            print("Incorrect Previous Password:")
+            return False
+
+        #Creation of new password and confirm password
+        newPass = input("Enter your new password")
+        confirmPass = input("Enter your new password to confirm")
+        
+        #If the passwords don't match try again
+        while newPass != confirmPass:
+            print("Passwords do not match, try again:")
+            newPass = input("Enter your new password")
+            confirmPass = input("Enter your new password to confirm")
+        
+        #Checks new password to see if it is valid, if not prompt the user to try again
+        while not Password.passwordChecker(newPass):
+            print("Password invalid try again:")
+            newPass = input("Enter your new password")
+            confirmPass = input("Enter your new password to confirm")
+
+            while newPass != confirmPass:
+                print("Passwords do not match try again:")
+                newPass = input("Enter your new password")
+                confirmPass = input("Enter your new password to confirm")
+
+
+        self._password = newPass
+        print("Password changed successfully")
+        return True
 
 # if __name__ == "__main__":
 #     client = Client('timmy', 'smith', '9123456789', Address('323 timmy drive', 'glen allen', 'VA'),'c')
