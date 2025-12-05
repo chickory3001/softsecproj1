@@ -156,10 +156,14 @@ class Client:
     #@Require Password is already associated with an account
     #@Ensure Password is being changed
     def changePassword(self):
-        oldPass = input("Enter your previous password")  #Check previous password
-        # they must hash to the same hash, uses the the old salt and pepper 
-        if not self._hashedpwd._checkPassword(oldPass):
-            print("Incorrect Previous Password:")
+        try:
+            oldPass = input("Enter your previous password")  #Check previous password
+            # they must hash to the same hash, uses the the old salt and pepper 
+            if not self._hashedpwd._checkPassword(Password(oldPass)):
+                print("Incorrect Previous Password:")
+                return False
+        except Exception as e:
+            print(f'Incorrect password, {e}')
             return False
 
         #Creation of new password and confirm password
