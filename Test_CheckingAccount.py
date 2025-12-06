@@ -152,13 +152,15 @@ class TestCheckingAccount(unittest.TestCase):
             print("\nTesting the deposit and getBalance methods")
         
         self.account1.deposit(TestCheckingAccount.DEPOSIT1)
-        self.assertEqual(self.account1._transactions[0]._tNumber, 100)
         self.account2.deposit(TestCheckingAccount.DEPOSIT2)
-        self.assertEqual(self.account1._transactions[1]._tNumber, 101)
         
         # Assert (NO OTHER DEPOSITS HAVE BEEN MADE SO BALANCE SHOULD EQUAL THE CONSTANT)
         self.assertEqual(self.account1.getBalance(), TestCheckingAccount.DEPOSIT1)
         self.assertEqual(self.account2.getBalance(), TestCheckingAccount.DEPOSIT2)
+
+        self.assertEqual(self.account1._transactions[0]._tNumber, 100)
+        self.account1.deposit(TestCheckingAccount.DEPOSIT1)
+        self.assertEqual(self.account1._transactions[1]._tNumber, 101)
     
     # The test_withdraw method tests the withdraw method.
     def test_withdraw(self):

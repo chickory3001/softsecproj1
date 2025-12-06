@@ -268,7 +268,7 @@ class TestClient(unittest.TestCase):
         # test client numbering
         self.assertEqual(self.client1._clientNumber, 100)
         self.client2 = Client(TestClient.FIRSTNAME,TestClient.LASTNAME,TestClient.PHONE,TestClient.ADDRESS, 's', TestClient.PASSWORD)
-        self.assertEqual(self.client1._clientNumber, 101)
+        self.assertEqual(self.client2._clientNumber, 101)
 
         # test account numbering 
         self.assertEqual(self.client1._accounts[0]._accountNumber, 1000)
